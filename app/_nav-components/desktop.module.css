@@ -1,0 +1,24 @@
+.header {
+    grid-column: outer-layer-start / 3;
+    grid-row: 1 / 2;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header__logo {
+    max-width: 100%;
+    height: auto;
+}
+
+.nav {
+    grid-column: 3 / 5;
+    grid-row: 1 / 2;
+
+    background: linear-gradient(to right, white 0%, hsl(313, 100%, 78%) 100%);
+    display:         flex;
+    justify-content: left;
+    align-items:     center;
+    padding: 40px;
+}
