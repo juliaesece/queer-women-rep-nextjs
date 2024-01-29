@@ -1,4 +1,6 @@
 import { FC } from "react";
+import st from "./card.module.css"
+import Link from "next/link";
 
 type person = {
     name: string
@@ -9,7 +11,7 @@ type couple = {
     person2: person | string;
     origin: string;
     image: string;
-    id: string;
+    _id: string;
 }
 
 interface Props {
@@ -19,13 +21,17 @@ interface Props {
 const Card: FC<Props> = ({ couple }) => {
   const imgBackground = {
     backgroundImage: "url('" + couple.image + "')"
-  };
+  }; 
+
+  const link = "/info/" + couple._id
   return (
-      <div className="card" style={imgBackground} key={couple.origin}>
-        <div className="card--content">
-          <h3>{couple.person1.name? couple.person1.name : couple.person1} and {couple.person2.name? couple.person2.name : couple.person2}</h3>
-          <p className="origin">{couple.origin}</p>
+      <div style={imgBackground} className={st.card}>
+        <Link href={link}>
+        <div className={st.card__content}>
+          <h3 className={st.card__title}>{couple.person1.name? couple.person1.name : couple.person1} and {couple.person2.name? couple.person2.name : couple.person2}</h3>
+          <p className={st.card__subtitle}>{couple.origin}</p>
         </div>
+        </Link>
       </div>
   )
 }

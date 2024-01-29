@@ -28,15 +28,15 @@ export default function navConductor() {
     const links : {to: string, label: string }[]= [
         {
             to: "/",
-            label: "Show all"
+            label: "Global"
         },
         {
             to: "/tv-shows",
-            label: "Show TV Shows"
+            label: "TV Shows"
         },
         {
             to: "/movies",
-            label: "Show Movies"
+            label: "Movies"
         }
     ]
 

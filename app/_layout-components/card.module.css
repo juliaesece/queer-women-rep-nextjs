@@ -1,0 +1,35 @@
+.card {
+    border: 1px solid white;
+    border-color: hsl(0, 0%, 77%);
+    border-radius: 5px;
+    background-color: white;
+    height: 270px;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.95;
+}
+
+
+.card:hover {
+    opacity: 1;
+}
+
+.card__content {
+    position: relative;
+    top: 60%;
+    left: 30px;
+    max-width: 200px;
+    background-color: rgb(255, 255, 255, 0.5);
+    width: fit-content;
+    border-radius: 2px;
+    padding: 3px;
+}
+
+.card__content:hover {
+    background-color: rgb(228, 160, 136);
+    cursor: pointer;
+}
+
+.card__title {
+    font-weight: bold;
+}
