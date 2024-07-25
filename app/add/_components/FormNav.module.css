@@ -1,0 +1,25 @@
+.main {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  padding: 5px;
+  max-width: 300px;
+  height: 50vh;
+  word-wrap: normal;
+  overflow-wrap: break-word;
+  display: flex;
+  justify-content: center; /*Center all content vertically*/
+  align-items:flex-end; /*Justify to the right*/
+  flex-direction: column;
+  font-size: 2rem;
+  color: rgba(0,0,0,0.5);
+  row-gap: 0.5rem;
+  font-weight: 500;
+}
+
+.main>div:hover {
+  color: rgba(0,0,0,1)
+}
+
+.active {
+  color: rgba(0,0,0,1)
+}

@@ -41,6 +41,11 @@
     animation-duration: 0.6s;
 }
 
+.modal_content {
+    width: 50%;
+    margin: auto;
+}
+
 @keyframes zoom {
     from {
         transform: scale(0.1)

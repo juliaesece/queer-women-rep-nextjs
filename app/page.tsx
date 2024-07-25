@@ -1,8 +1,7 @@
-import Image from "next/image";
 import styles from "./page.module.css";
-
 import Card from "./_layout-components/Card";
-import Link from "next/link";
+import Aside from "./_layout-components/Aside";
+import PaginationConductor from "./_nav-components/PaginationConductor";
 
 type person = {
   name: string
@@ -22,26 +21,27 @@ async function getData() {
   });
 
   if (response.ok) {
-    console.log('Data saved successfully!');
     return response.json();
   } else {
     console.log('Something went wrong!');
   }
 };
 
-
 export default async function Home() {
   const couples: couple[] = await getData()
 
   return (
-    <main className={styles.main}>
-      {
-        couples.map( (couple) =>
-        <Card couple={couple} key={couple.origin}/>
-        )
-      }
-      <Link href="/1">Next page</Link>
-    </main>
+    <>
+      <Aside />
+      <main className={styles.main}>
+        {
+          couples.map((couple) =>
+            <Card couple={couple} key={couple.origin} />
+          )
+        }
+        <PaginationConductor />
+      </main>
+    </>
 
   );
 }

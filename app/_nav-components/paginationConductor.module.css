@@ -1,0 +1,4 @@
+.pagination {
+    grid-column: 3 / 5;
+    grid-row: 3 / 4;
+}

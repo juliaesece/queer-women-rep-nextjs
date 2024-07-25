@@ -1,7 +1,6 @@
 
 import Card from "../_layout-components/Card";
 import styles from "@/app/page.module.css"
-import Link from "next/link";
 
 type person = {
     name: string
@@ -13,29 +12,26 @@ type couple = {
     origin: string;
     image: string;
     _id: string;
+    originType: string;
 }
 
-async function getData(page: string) {
-    const url = "http://localhost:3000/api/couples/?p=" + page;
-    console.log("url", url)
+async function getData(supercategory: string) {
+    const url = "http://localhost:3000/api/couples/?supercategory=" + supercategory;
     const response = await fetch(url, {
         method: 'GET'
     });
 
     if (response.ok) {
-        console.log('Data saved successfully!');
         return response.json();
     } else {
         console.log('Something went wrong!');
     }
 };
 
-export default async function Home({ params }: { params: { page: string } }) {
-    const page = params.page
-    const couples: couple[] = await getData(page)
-    console.log("hola params")
+export default async function Home({ params }: { params: { supercategory: string } }) {
 
-    console.log("params", params)
+    const supercategory = params.supercategory
+    const couples: couple[] = await getData(supercategory)
 
     return (
         <main className={styles.main}>
@@ -44,7 +40,6 @@ export default async function Home({ params }: { params: { page: string } }) {
                     <Card couple={couple} key={couple.origin} />
                 )
             }
-            <Link href="/">Previous page</Link>
         </main>
     );
 }
