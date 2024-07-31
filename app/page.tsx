@@ -2,6 +2,7 @@ import styles from "./page.module.css";
 import Card from "./_layout-components/Card";
 import Aside from "./_layout-components/Aside";
 import PaginationConductor from "./_nav-components/PaginationConductor";
+import { getCouples } from "./utils/getCouples";
 
 type person = {
   name: string
@@ -16,20 +17,26 @@ type couple = {
 }
 
 async function getData() {
-  const response = await fetch('http://localhost:3000/api/couples', {
-    method: 'GET'
-  });
+  try {
+    const couples = await getCouples("home", 0)
 
-  if (response.ok) {
-    return response.json();
-  } else {
-    console.log('Something went wrong!');
+    if (!couples.error) {
+      return couples
+    } else {
+      console.log('Something went wrong! on getcouples');
+      return []
+    }
+  }
+  catch (e) {
+    console.log("Error on fetch", e)
+    return []
   }
 };
 
-export default async function Home() {
-  const couples: couple[] = await getData()
+export default async function Home({ searchParams }) {
+  console.log("searchParams", searchParams)
 
+  const couples: couple[] = await getData()
   return (
     <>
       <Aside />
@@ -39,8 +46,8 @@ export default async function Home() {
             <Card couple={couple} key={couple.origin} />
           )
         }
-        <PaginationConductor />
       </main>
+      <PaginationConductor supercategory="home" page={1} current="home" totalPages={3} />
     </>
 
   );

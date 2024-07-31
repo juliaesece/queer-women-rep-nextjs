@@ -1,6 +1,7 @@
 
 import Card from "../_layout-components/Card";
 import styles from "@/app/page.module.css"
+import PaginationConductor from "../_nav-components/PaginationConductor";
 
 type person = {
     name: string
@@ -34,12 +35,15 @@ export default async function Home({ params }: { params: { supercategory: string
     const couples: couple[] = await getData(supercategory)
 
     return (
-        <main className={styles.main}>
-            {
-                couples.map((couple) =>
-                    <Card couple={couple} key={couple.origin} />
-                )
-            }
-        </main>
+        <>
+            <main className={styles.main}>
+                {
+                    couples.map((couple) =>
+                        <Card couple={couple} key={couple.origin} />
+                    )
+                }
+            </main>
+            <PaginationConductor supercategory={supercategory} page={1} current={supercategory} totalPages={3} />
+        </>
     );
 }

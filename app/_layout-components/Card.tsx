@@ -28,7 +28,7 @@ const Card: FC<Props> = ({ couple }) => {
       <div style={imgBackground} className={st.card}>
         <Link href={link}>
         <div className={st.card__content}>
-          <h3 className={st.card__title}>{couple.person1.name? couple.person1.name : couple.person1} and {couple.person2.name? couple.person2.name : couple.person2}</h3>
+          <h3 className={st.card__title}>{typeof couple.person1 === "string" ? couple.person1: couple.person1.name} and {typeof couple.person2 === "string" ? couple.person2: couple.person2.name}</h3>
           <p className={st.card__subtitle}>{couple.origin}</p>
         </div>
         </Link>

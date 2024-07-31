@@ -4,7 +4,7 @@ import { useState, useLayoutEffect } from "react";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 
-export default function navConductor() {
+export default function NavConductor() {
     const [isMobile, setIsMobile] = useState(true)
     const breakpoint = 620;
   

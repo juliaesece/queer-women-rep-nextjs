@@ -1,14 +1,15 @@
 import Link from "next/link";
 import st from "./modal.module.css"
+import Image from "next/image";
+import { getCoupleById } from "@/app/utils/getCoupleById";
+
 
 async function getData(mongoId: string) {
-    const response = await fetch('http://localhost:3000/api/couples/' + mongoId, {
-        method: 'GET'
-    });
+    const coupleInfo = await getCoupleById(mongoId)
 
-    if (response.ok) {
+    if (!coupleInfo.error) {
         console.log('[Modal] Data fetched successfully!');
-        return response.json();
+        return coupleInfo;
     } else {
         console.log('[Modal] Something went wrong!');
     }
@@ -19,7 +20,7 @@ export default async function DetailedCard({ mongoId }: { mongoId: string }) {
 
     return (
         <div className={st.modal}>
-            <img className={st.modal_image} src={couple.image} alt={couple.altImg} />
+            {/* <Image className={st.modal_image} src={couple.image} alt={couple.altImg} width={1000} height={1000}/> */}
             <div className={st.modal_content}>
                 <h3>{couple.person1.name} and {couple.person2.name}</h3>
                 <p>{couple.originType} — {couple.origin}</p>
@@ -38,9 +39,9 @@ export default async function DetailedCard({ mongoId }: { mongoId: string }) {
                     <span>(downVotes total)</span>
                 </span>
                 <p> <em>Watched by user? </em>
-                    "Yes. No."
+                    {"Yes. No."}
                     <button className="detailedButton" >
-                        "I didn't watch it tho : Wait. I did watch it!"
+                        {"I didn't watch it tho : Wait. I did watch it!"}
                     </button></p>
                 <p>Watched by <em>watchedCount</em> users.</p>
                 <p> <em>Desription</em>: {couple.description}</p>

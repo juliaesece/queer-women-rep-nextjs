@@ -5,22 +5,17 @@ import { useRouter } from 'next/navigation'
 import styles from "./paginationConductor.module.css";
 import { usePathname } from 'next/navigation'
 
-export default function PaginationConductor() {
+export default function PaginationConductor({ supercategory, page, current, totalPages }) {
     const router = useRouter()
-    const pathname = usePathname()
-    console.log("_____________")
-    console.log("pathname", pathname)
-    const supercategory = pathname.split("/")[1]
-    console.log("supercategory", supercategory)
 
-    let newUrl = ""
-    if (pathname.includes("/page/")) newUrl = ""
-    else newUrl = `${supercategory ?? "home"}/page/`
-    console.log("pushing", newUrl)
+
+    let newURL = ""
+    if (!current.includes("page")) newURL = supercategory + "/page/"
+
 
     return (
         <div className={styles.pagination}>
-            <Pagination count={7} onChange={(e, value) => router.push(newUrl + value)} />
-        </div>  
+            <Pagination defaultPage={Number(page)} count={totalPages} onChange={(e, value) => {router.push(newURL + String(value))}} />
+        </div>
     );
 }
