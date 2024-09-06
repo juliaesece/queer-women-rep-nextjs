@@ -2,6 +2,7 @@
 import Card from "@/app/_layout-components/Card";
 import styles from "@/app/page.module.css"
 import PaginationConductor from "@/app/_nav-components/PaginationConductor";
+import { getCouples } from "@/app/utils/getCouples";
 
 type person = {
     name: string
@@ -15,29 +16,17 @@ type couple = {
     _id: string;
 }
 
-async function getData(supercategory: string, page: string) {
-    const url = "http://localhost:3000/api/couples/?supercategory=" + supercategory + "&p=" + page;
-    const response = await fetch(url, {
-        method: 'GET'
-    });
-
-    if (response.ok) {
-        return response.json();
-    } else {
-        console.log('Something went wrong!');
-    }
-};
 
 export default async function Home({ params }: { params: { supercategory: string, page: string } }) {
     const page = params.page
     const supercategory = params.supercategory
-    const couples: couple[] = await getData(supercategory, page)
+    const couples: couple[] = await getCouples(supercategory, Number(page))
 
     return (
         <>
             <main className={styles.main}>
                 {
-                    couples.map((couple) =>
+                    couples && couples.map((couple) =>
                         <Card couple={couple} key={couple.origin} />
                     )
                 }

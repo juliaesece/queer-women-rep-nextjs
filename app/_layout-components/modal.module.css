@@ -87,3 +87,12 @@
     cursor: pointer;
 
 }
+
+.spoiler {
+    background-color: white;
+}
+
+.spoiler:hover {
+    background-color: transparent;
+    color: white;
+}

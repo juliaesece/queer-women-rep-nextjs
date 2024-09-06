@@ -3,20 +3,8 @@ import st from "./modal.module.css"
 import Image from "next/image";
 import { getCoupleById } from "@/app/utils/getCoupleById";
 
-
-async function getData(mongoId: string) {
-    const coupleInfo = await getCoupleById(mongoId)
-
-    if (!coupleInfo.error) {
-        console.log('[Modal] Data fetched successfully!');
-        return coupleInfo;
-    } else {
-        console.log('[Modal] Something went wrong!');
-    }
-};
-
 export default async function DetailedCard({ mongoId }: { mongoId: string }) {
-    let couple = await getData(mongoId);
+    let couple = await getCoupleById(mongoId);
 
     return (
         <div className={st.modal}>
@@ -51,12 +39,12 @@ export default async function DetailedCard({ mongoId }: { mongoId: string }) {
                 <p><em>Romantic connection from 1 to 5</em>: {couple.romanticConnection}</p>
                 <p><em>Chemistry from 1 to 5</em>: {couple.chemistry}</p><br />
                 <p><em>Enter spoilerland (hover to reveal spoilers)</em></p>
-                <p><em>Is coming out a thing</em>: <span className="spoiler">{couple.concerns.comingOut ? "Yes" : "No"}</span></p>
-                <p><em>Is there cheating on a third party</em>: <span className="spoiler">{couple.concerns.cheating ? "Yes" : "No"}</span></p>
-                <p><em>How much homophobia from 1 to 5</em>: <span className="spoiler">{couple.concerns.homophobia}</span></p>
-                <p><em>Is there death</em>: <span className="spoiler">{couple.concerns.death ? "Yes" : "No"}</span></p>
+                <p><em>Is coming out a thing</em>: <span className={st.spoiler}>{couple.concerns.comingOut ? "Yes" : "No"}</span></p>
+                <p><em>Is there cheating on a third party</em>: <span className={st.spoiler}>{couple.concerns.cheating ? "Yes" : "No"}</span></p>
+                <p><em>How much homophobia from 1 to 5</em>: <span className={st.spoiler}>{couple.concerns.homophobia}</span></p>
+                <p><em>Is there death</em>: <span className={st.spoiler}>{couple.concerns.death ? "Yes" : "No"}</span></p>
 
-                <p><em>Ending</em>: <span className="spoiler">{couple.ending}</span></p>
+                <p><em>Ending</em>: <span className={st.spoiler}>{couple.ending}</span></p>
                 <br />
                 <Link href="/">
                     <button className="detailedButton">Quit</button>
