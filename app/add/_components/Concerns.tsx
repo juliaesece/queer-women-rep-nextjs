@@ -1,6 +1,6 @@
 import styles from "./Form.module.css";
 import { useAddContext } from "../AddContext";
-import { Couple } from "../types";
+import { Couple } from "../../utils/types";
 
 type Option = {
     value: string;

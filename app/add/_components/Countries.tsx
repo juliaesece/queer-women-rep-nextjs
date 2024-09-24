@@ -16,7 +16,7 @@ export default function Countries({ name, number, handleChange }: { name: string
             <label className={styles.label} htmlFor={name}> {question} </label>
             <select name={name} onChange={handleChange} value={couple.people[number][name]}>
                 <option value="default">----</option>
-                <option value="undefined">Doesn't apply (fantasy, etc.)</option>
+                <option value="undefined">Doesn&apos;t apply (fantasy, etc.)</option>
                 <option value="Afganistan">Afghanistan</option>
                 <option value="Albania">Albania</option>
                 <option value="Algeria">Algeria</option>

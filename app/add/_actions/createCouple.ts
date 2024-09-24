@@ -1,7 +1,7 @@
 "use server";
 
 import clientPromise from "@/app/lib/mongo";
-import { Couple } from '../types';
+import { Couple } from '../../utils/types';
 
 export async function createCouple(newCouple: Couple) {
 

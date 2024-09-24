@@ -35,7 +35,7 @@ export default function Story() {
                     checked={couple.isThereQueerCreators}
                     className={styles.checkbox}
                 />
-                <label className={styles.checkboxLabel} htmlFor="isThereQueerCreators">There is a queer woman or non-binary person among the directors or writers (leave unchecked if there isn't)</label>
+                <label className={styles.checkboxLabel} htmlFor="isThereQueerCreators">There is a queer woman or non-binary person among the directors or writers (leave unchecked if there isn&apos;t)</label>
 
             </div>
             <h2>An image</h2>

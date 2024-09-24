@@ -69,7 +69,7 @@ export default function Relationship() {
                     checked={couple.coupleDescriptionIsSpoiler}
                     className={styles.checkbox}
                 />
-                <label className={styles.checkboxLabel} htmlFor="coupleDescriptionIsSpoiler">This a spoiler for the TV Show/Movie (leave unchecked if it isn't)</label>
+                <label className={styles.checkboxLabel} htmlFor="coupleDescriptionIsSpoiler">This a spoiler for the TV Show/Movie (leave unchecked if it isn&apos;t)</label>
             </div>
 
 

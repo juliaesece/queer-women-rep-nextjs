@@ -1,5 +1,5 @@
 import { createContext, useState, useContext } from 'react';
-import {Person, Couple, outOfFive, outOfFour } from './types'
+import {Person, Couple, outOfFive, outOfFour } from '../utils/types'
 
 type AddContextType = {
     couple: Couple,

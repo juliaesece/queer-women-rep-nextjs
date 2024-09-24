@@ -34,7 +34,7 @@ export default function Add() {
                 }
                 {currentSection == 2 &&
                     <>
-                        <h1>The story they're in</h1>
+                        <h1>The story they&apos;re in</h1>
                         <Story />
                     </>
                 }

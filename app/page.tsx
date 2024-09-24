@@ -9,11 +9,13 @@ type person = {
 }
 
 type couple = {
-  person1: person | string;
-  person2: person | string;
+  person1: person;
+  person2: person;
+  people: person;
   origin: string;
   image: string;
   _id: string;
+  altImg: string;
 }
 
 async function getData() {

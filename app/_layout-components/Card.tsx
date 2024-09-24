@@ -1,7 +1,7 @@
 import { FC } from "react";
 import st from "./card.module.css"
 import Link from "next/link";
-import { Couple } from "../add/types";
+import { Couple } from "../utils/types";
 import Image from "next/image";
 
 type person = {
