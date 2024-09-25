@@ -3,6 +3,7 @@ import Card from "../_layout-components/Card";
 import styles from "@/app/page.module.css"
 import PaginationConductor from "../_nav-components/PaginationConductor";
 import { getCouples } from "../utils/getCouples";
+import Modal from "@/app/_layout-components/Modal"
 
 type person = {
     name: string
@@ -18,10 +19,11 @@ type couple = {
     altImg: string;
 }
 
-export default async function Home({ params }: { params: { supercategory: string } }) {
+export default async function Home({ searchParams, params }: { searchParams, params: { supercategory: string } }) {
 
     const supercategory = params.supercategory
     const couples: couple[] = await getCouples(supercategory, 0)
+    const infoId = searchParams.info
 
     return (
         <>
@@ -33,6 +35,7 @@ export default async function Home({ params }: { params: { supercategory: string
                 }
             </main>
             <PaginationConductor supercategory={supercategory} page={1} current={supercategory} totalPages={3} />
+            {infoId && <Modal mongoId={infoId} />}
         </>
     );
 }

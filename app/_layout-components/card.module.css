@@ -2,13 +2,11 @@
     border: 1px solid white;
     border-color: hsl(0, 0%, 77%);
     border-radius: 5px;
-    background-color: white;
     height: 270px;
     background-position: center;
     background-size: cover;
-    opacity: 0.95;
+    opacity: 0.9;
 }
-
 
 .card:hover {
     opacity: 1;
@@ -17,6 +15,7 @@
 .card__link {
     display: block;
     height: 100%;
+
 }
 
 .card__content {
@@ -47,4 +46,5 @@
     height: 100%;
     object-fit: cover;
     z-index: -1;
+    opacity: inherit;
 }
