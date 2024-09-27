@@ -1,27 +1,44 @@
 .modal {
     display: block;
     position: fixed;
-    color: white;
     z-index: 1;
-    padding-top: 0px;
-    padding-bottom: 100px;
+    padding: 0;
     left: 0;
     top: 0;
     width: 100vw;
     height: 100vh;
     overflow-y: scroll;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.9);
-    font-size: 0.9em;
+    font-size: 1rem;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+.modal_content {
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    color: black;
+    z-index: 3;
+    position: relative;
+    /* background: rgb(0, 0, 0);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 100%); */
+    /* From https://css.glass */
+    background: #d461a6;
+    border-radius: 14px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 .gradient_container {
-    position: absolute;
-    width: 100vw;
-    top: 0;
-    left: 0;
-    background: transparent;
-    /* background: radial-gradient(circle, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 75%, rgba(0, 0, 0, 0.9) 79%, rgba(0, 0, 0, 0.9) 100%); */
+    z-index: 10;
+    width: 1000px;
+    height: 100%;
+    display: block;
+    z-index: 2;
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, #d461a6 5%, rgba(0,0,0,0) 25%); 
 }
 
 .modal_image {
@@ -32,23 +49,8 @@
     object-fit: cover;
     position: relative;
     z-index: -1;
-}
-
-.gradient_container::after {
-    content: "-";
-    position: absolute;
-    top: 0;
-    z-index: 10;
-    width: 1000px;
-    left: 50%;
-    margin-left: -500px;
-    height: 100%;
-    display: block;
-    z-index: 2;
-    color: black;
-    -webkit-box-shadow: inset 0px 0px 80px 30px rgba(0, 0, 0, 1);
-    -moz-box-shadow: inset 0px 0px 80px 30px rgba(0, 0, 0, 1);
-    box-shadow: inset 0px 0px 80px 30px rgba(0, 0, 0, 1);
+    border-radius: 14px 14px 0 0;
+    clip-path: path("M 0,0 0,300 c 0,0 15,10 30,0 c 0,0 242,-200 485,0 c 0,0 242,200 485,0 l 0,-300 z");
 }
 
 .modal_content,
@@ -57,24 +59,37 @@
     animation-duration: 0.6s;
 }
 
-.modal_content {
-    display: block;
-    width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20rem;
-    z-index: 3;
+.modal_title {
     position: relative;
-    /* background: rgb(0, 0, 0);
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 100%); */
-    /* From https://css.glass */
-    background: rgba(255, 255, 255, 0.2);
-    /* border-radius: 16px; */
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    /* border: 1px solid rgba(255, 255, 255, 0.3); */
-    padding: 2rem;
+    margin-top: -4rem;
+    margin-bottom: 2rem;
+    color: white;
+    grid-area: title;
+}
+
+.modal_textContent {
+    padding: 1rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: min-content min-content min-content;
+    gap: 0.4rem;
+    grid-template-areas:
+    "title        title"
+    "description ratings"
+    "spoilerland spoilerland";
+
+}
+
+.modal_description {
+    grid-area: description;
+}
+
+.modal_ratings {
+    grid-area: ratings;
+}
+
+.modal_spoilerland {
+    grid-area: spoilerland;
 }
 
 @keyframes zoom {
