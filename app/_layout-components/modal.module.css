@@ -15,20 +15,14 @@
 
 .modal_content {
     width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 2rem;
-    color: black;
+    margin: auto;
+    margin-top: 5rem;
+    color: white;
     z-index: 3;
     position: relative;
-    /* background: rgb(0, 0, 0);
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 100%); */
-    /* From https://css.glass */
     background: #d461a6;
     border-radius: 14px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
 }
 
 .gradient_container {
@@ -37,8 +31,6 @@
     height: 100%;
     display: block;
     z-index: 2;
-    background: rgb(0,0,0);
-    background: linear-gradient(0deg, #d461a6 5%, rgba(0,0,0,0) 25%); 
 }
 
 .modal_image {
@@ -50,21 +42,13 @@
     position: relative;
     z-index: -1;
     border-radius: 14px 14px 0 0;
-    clip-path: path("M 0,0 0,300 c 0,0 15,10 30,0 c 0,0 242,-200 485,0 c 0,0 242,200 485,0 l 0,-300 z");
+    clip-path: path("M 0,0 0,300 c 0,0 42,-150 500,0 c 0,0 440,150 500,0 l 0,-300 z");
 }
 
 .modal_content,
 .modal_image {
     animation-name: zoom;
     animation-duration: 0.6s;
-}
-
-.modal_title {
-    position: relative;
-    margin-top: -4rem;
-    margin-bottom: 2rem;
-    color: white;
-    grid-area: title;
 }
 
 .modal_textContent {
@@ -80,12 +64,23 @@
 
 }
 
+.modal_title {
+    position: relative;
+    margin-top: -8rem;
+    margin-bottom: 2rem;
+    color: white;
+    grid-area: title;
+}
+
+
 .modal_description {
     grid-area: description;
 }
 
 .modal_ratings {
     grid-area: ratings;
+    border: solid 1px white;
+    border-radius: 10px;
 }
 
 .modal_spoilerland {

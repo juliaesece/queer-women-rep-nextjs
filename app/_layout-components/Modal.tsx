@@ -3,6 +3,7 @@ import st from "./modal.module.css"
 import Image from "next/image";
 import { getCoupleById } from "@/app/utils/getCoupleById";
 import { Rating } from "@mui/material";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 export default async function DetailedCard({ mongoId }: { mongoId: string }) {
 
@@ -40,6 +41,7 @@ export default async function DetailedCard({ mongoId }: { mongoId: string }) {
                             <span>(downVotes total)</span>
                         </span>
                         <p> <em>Watched by user? </em>
+                        <VisibilityIcon />
                             {"Yes. No."}
                             <button className="detailedButton" >
                                 {"I didn't watch it tho : Wait. I did watch it!"}
@@ -49,7 +51,9 @@ export default async function DetailedCard({ mongoId }: { mongoId: string }) {
                         <p><em>Chemistry from 1 to 5</em>: {couple.chemistry}</p><br />
                     </div>
                     <div className={st.modal_description}>
-                        <p> <em>Description</em>: {couple.description}</p>
+                        <p><em>Description</em></p>
+                        <p>{couple.description}</p>
+
                         <p><em>State of the story</em>: {couple.status}</p>
                         <p><em>Screen time</em>: {couple.screenTime}</p>
                         <p><em>Story importance</em>: {couple.storyImportance}</p>
