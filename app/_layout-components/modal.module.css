@@ -11,12 +11,15 @@
     font-size: 1rem;
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
+    font-family: "Gill", sans-serif;
+    line-height: 1.4;
 }
 
 .modal_content {
     width: 1000px;
+    height: fit-content;
     margin: auto;
-    margin-top: 5rem;
+    margin-top: 2rem;
     color: white;
     z-index: 3;
     position: relative;
@@ -25,12 +28,18 @@
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
-.gradient_container {
-    z-index: 10;
-    width: 1000px;
-    height: 100%;
-    display: block;
-    z-index: 2;
+.modal_closeButton {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    color: red;
+    background-color: rgba(5, 5, 5, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 100%;
+}
+
+.modal_closeButton > button {
+    color: white;
 }
 
 .modal_image {
@@ -45,56 +54,61 @@
     clip-path: path("M 0,0 0,300 c 0,0 42,-150 500,0 c 0,0 440,150 500,0 l 0,-300 z");
 }
 
-.modal_content,
-.modal_image {
+.modal_content {
     animation-name: zoom;
     animation-duration: 0.6s;
 }
 
 .modal_textContent {
-    padding: 1rem 2rem;
+    position: relative;
+    margin-top: -9rem;
+    padding: 2rem;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr max-content;
     grid-template-rows: min-content min-content min-content;
     gap: 0.4rem;
     grid-template-areas:
-    "title        title"
-    "description ratings"
-    "spoilerland spoilerland";
+        "title        title"
+        "description ratings"
+        "spoilerland spoilerland";
 
 }
 
 .modal_title {
-    position: relative;
-    margin-top: -8rem;
-    margin-bottom: 2rem;
-    color: white;
     grid-area: title;
+    margin-bottom: 2rem;
 }
+
 
 
 .modal_description {
     grid-area: description;
 }
 
+.modal_watchedRatings {
+    display: flex;
+}
+
+
 .modal_ratings {
     grid-area: ratings;
-    border: solid 1px white;
+    border: solid 3px #cc3f0caa;
     border-radius: 10px;
+    padding: 1.5rem 3rem;
+    margin-right: 1rem;
+    background-color: whitesmoke;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #333;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    align-items: center;
+    font-size: 1.1rem;
 }
 
 .modal_spoilerland {
     grid-area: spoilerland;
-}
-
-@keyframes zoom {
-    from {
-        transform: scale(0.1)
-    }
-
-    to {
-        transform: scale(1)
-    }
 }
 
 .modal h2 {
@@ -106,38 +120,16 @@
 }
 
 .modal em {
-    /* text-decoration: underline; */
     font-style: normal;
-    font-weight: 400;
+    font-weight: bold;
 }
 
-.modal p {
-    font-weight: 300;
-}
+@keyframes zoom {
+    from {
+        transform: scale(0.1)
+    }
 
-.modal button {
-    color: white;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 2px;
-    height: 1.8em;
-    padding-left: 1em;
-    padding-right: 1em;
-}
-
-.modal button:hover {
-    color: white;
-    background-color: rgba(255, 255, 255, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    cursor: pointer;
-
-}
-
-.spoiler {
-    background-color: white;
-}
-
-.spoiler:hover {
-    background-color: transparent;
-    color: white;
+    to {
+        transform: scale(1)
+    }
 }

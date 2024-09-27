@@ -3,7 +3,6 @@
 import Pagination from '@mui/material/Pagination';
 import { useRouter } from 'next/navigation'
 import styles from "./paginationConductor.module.css";
-import { usePathname } from 'next/navigation'
 
 export default function PaginationConductor({ supercategory, page, current, totalPages }) {
     const router = useRouter()

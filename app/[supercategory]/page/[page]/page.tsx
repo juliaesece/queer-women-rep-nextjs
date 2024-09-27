@@ -36,7 +36,7 @@ export default async function Home({searchParams, params }: {searchParams, param
                 }
             </main>
             <PaginationConductor supercategory={supercategory} page={page} current={supercategory + "/page/"+ page} totalPages={3}  />
-            {infoId && <Modal mongoId={infoId} />}
+            {infoId && <Modal mongoId={infoId} from={`/${supercategory}/page/${page}`}/>}
 
         </>
 
