@@ -126,7 +126,7 @@ export default async function DetailedCard({ mongoId, from }: { mongoId: string,
 
                         <details>
                             <summary>
-                                Does this {couple.originType} focus a lot on a coming out storyline?
+                                Does this story focus a lot on a coming out storyline?
                             </summary>
                             {couple.concerns.comingOut ? "Yes" : "No"}
                         </details>

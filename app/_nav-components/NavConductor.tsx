@@ -1,29 +1,11 @@
 "use client"
 
-import { useState, useLayoutEffect } from "react";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
+import { useMediaQuery } from "react-responsive";
 
 export default function NavConductor() {
-    const [isMobile, setIsMobile] = useState(true)
-    const breakpoint = 620;
-  
-    // mobile responsiveness
-    const handleResize = () => {
-      if (window.innerWidth >= breakpoint) {
-        setIsMobile(false)
-      } else {
-        setIsMobile(true)
-      }
-    }
-  
-    useLayoutEffect(() => {
-      handleResize();
-      window.addEventListener('resize', handleResize)
-      return () => {
-        window.removeEventListener('resize', handleResize)
-      }
-    }, [])
+    let isMobile = useMediaQuery({ maxWidth: 620 });
 
     const links : {to: string, label: string }[]= [
         {

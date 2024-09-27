@@ -65,3 +65,11 @@
 .aside__list_items_disabled {
     text-decoration: line-through;
 }
+
+@media (max-width: 620px) {
+    .aside {
+        position: fixed;
+        z-index: 3;
+        bottom: 5px;
+    }
+}
