@@ -5,6 +5,7 @@ import Image from "next/image";
 import styles from "./desktop.module.css"
 import Link from "next/link";
 import logo from "@/public/queer-women-rep.png"
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
 type link = {
     to: string;
@@ -12,15 +13,13 @@ type link = {
 }
 
 interface Props {
-    links: link[]
+    links: link[],
 }
 
 const DesktopNav: FC<Props> = ({ links }) => {
 
     const desktopLinks = [
-        ...links,
-        {to: "/add",
-        label: "Add"}
+        ...links
     ]
 
     return (
@@ -31,11 +30,9 @@ const DesktopNav: FC<Props> = ({ links }) => {
                 </Link>
             </header>
             <nav className={styles.nav}>
-                <ul>
                     {desktopLinks.map((link: link) => (
                         <Link key={link.label} href={link.to}> <span className="link--underlined"> {link.label} </span> </Link>))
                     }
-                </ul>
             </nav>
         </>
     );

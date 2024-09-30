@@ -1,57 +1,31 @@
-"use client";
-
 import styles from "./page.module.css";
-import Person from "./_components/Person";
-import Concerns from "./_components/Concerns";
-import Relationship from "./_components/Relationship";
-import Story from "./_components/Story";
-import { useAddContext } from "./AddContext";
-import { createCouple } from "./_actions/createCouple";
+import Conductor from "./_components/Conductor";
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "@/app/utils/authOptions"
+import FormNav from "./_components/FormNav";
+import simpleStyles from "@/app/(auth)/signin/page.module.css"
 
-export default function Add() {
-    const { couple, currentSection } = useAddContext();
-
-    const createNewCouple = async (event) => {
-        event.preventDefault()
-        console.log(couple)
-        await createCouple(couple);
-    }
+export default async function Add() {
+    const session = await getServerSession(authOptions)
 
     return (
-        <main className={styles.main}>
-            <form className={styles.form} >
-                {currentSection == 0 &&
+        <>
+            {session ?
+                <main className={styles.main}>
                     <>
-                        <h1>The couple</h1>
-                        <Person number={0} />
+                        <FormNav />
+                        <Conductor />
                     </>
-                }
-                {currentSection == 1 &&
-                    <>
-                        <h1>The couple</h1>
-                        <Person number={1} />
-                    </>
-                }
-                {currentSection == 2 &&
-                    <>
-                        <h1>The story they&apos;re in</h1>
-                        <Story />
-                    </>
-                }
-                {currentSection == 3 &&
-                    <>
-                        <h1>Their relationship</h1>
-                        <Relationship />
-                    </>
-                }
-                {currentSection == 4 &&
-                    <>
-                        <h1>General concerns and information</h1>
-                        <Concerns />
-                        <button type="submit" onClick={createNewCouple}>Save</button>
-                    </>
-                }
-            </form>
-        </main>
+                </main>
+                :
+                <main className={simpleStyles.main}>
+                    <div className={simpleStyles.container}>
+                        <p>
+                            You must be logged in to contribute to the database
+                        </p>
+                    </div>
+                </main>
+            }
+        </>
     );
 }

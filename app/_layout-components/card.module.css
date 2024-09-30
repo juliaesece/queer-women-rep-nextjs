@@ -2,12 +2,15 @@
     border: 1px solid white;
     border-color: hsl(0, 0%, 77%);
     border-radius: 5px;
-    height: 270px;
+    height: 100%;
     background-position: center;
     background-size: cover;
     opacity: 0.9;
     font-size: 1.1rem;
     color: #333;
+    aspect-ratio: 1.618;
+    max-width: 100%;
+    width: auto;
 }
 
 .card:hover {

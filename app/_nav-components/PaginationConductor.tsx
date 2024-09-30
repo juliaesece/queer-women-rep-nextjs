@@ -7,10 +7,8 @@ import styles from "./paginationConductor.module.css";
 export default function PaginationConductor({ supercategory, page, current, totalPages }) {
     const router = useRouter()
 
-
     let newURL = ""
     if (!current.includes("page")) newURL = supercategory + "/page/"
-
 
     return (
         <div className={styles.pagination}>

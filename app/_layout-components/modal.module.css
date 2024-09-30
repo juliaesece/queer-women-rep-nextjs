@@ -75,46 +75,10 @@
 
 }
 
-@media (max-width: 620px) {
-    .modal_content {
-        width: 100vw;
-        margin-top: 0;
-
-    }
-
-    .modal_closeButton {
-        position: fixed;
-    }
-
-    .modal_textContent {
-        padding: 2rem;
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 0.4rem;
-        grid-template-areas:
-            "title"
-            "ratings"
-            "description"
-            "spoilerland";
-        background: #d461a6;
-        border-radius: 50px 100px 0 0;
-    }
-
-    .modal_image {
-        width: 100vw;
-        height: 350px;
-        object-fit: cover;
-        position: relative;
-        clip-path: none;
-    }
-}
-
 .modal_title {
     grid-area: title;
     margin-bottom: 2rem;
 }
-
-
 
 .modal_description {
     grid-area: description;
@@ -123,7 +87,6 @@
 .modal_watchedRatings {
     display: flex;
 }
-
 
 .modal_ratings {
     grid-area: ratings;
@@ -167,5 +130,40 @@
 
     to {
         transform: scale(1)
+    }
+}
+
+@media (max-width: 620px) {
+    .modal_content {
+        width: 100vw;
+        margin-top: 0;
+
+    }
+
+    .modal_closeButton {
+        position: fixed;
+    }
+
+    .modal_textContent {
+        padding: 2rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+        grid-template-areas:
+            "title"
+            "ratings"
+            "description"
+            "spoilerland";
+        background: #d461a6;
+        border-radius: 50px 100px 0 0;
+    }
+
+    .modal_image {
+        width: 100vw;
+        height: 350px;
+        object-fit: cover;
+        position: relative;
+        clip-path: none;
+        border-radius: 0;
     }
 }

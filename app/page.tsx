@@ -4,6 +4,7 @@ import Aside from "./_layout-components/Aside";
 import PaginationConductor from "./_nav-components/PaginationConductor";
 import { getCouples } from "./utils/getCouples";
 import Modal from "@/app/_layout-components/Modal"
+import { countCouples } from "./utils/countCouples";
 
 type person = {
   name: string
@@ -23,6 +24,8 @@ async function getData() {
   try {
     const couples = await getCouples("home", 0)
 
+    const count = await countCouples()
+
     if (!couples.error) {
       return couples
     } else {
@@ -34,9 +37,25 @@ async function getData() {
   }
 };
 
+async function getPages(supercategory) {
+  try {
+    const count = await countCouples(supercategory)
+
+    if (!count.error) {
+      return Math.ceil(count / 9)
+    } else {
+      return 3
+    }
+  }
+  catch (e) {
+    return 3
+  }
+};
+
 export default async function Home({ searchParams }) {
   const couples: couple[] = await getData()
   const infoId = searchParams.info
+  const nbPages = await getPages("home")
 
   return (
     <>
@@ -48,8 +67,8 @@ export default async function Home({ searchParams }) {
           )
         }
       </main>
-      <PaginationConductor supercategory="home" page={1} current="home" totalPages={3} />
-      {infoId && <Modal mongoId={infoId}  from="/" />}
+      <PaginationConductor supercategory="home" page={1} current="home" totalPages={nbPages} />
+      {infoId && <Modal mongoId={infoId} from="/" />}
     </>
 
   );

@@ -95,7 +95,6 @@ export default function Person({ number }) {
 
     const handleSecondNationality = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value, checked } = e.target;
-        console.log(checked)
         setCouple(
             prevCouple => ({
                 ...prevCouple,

@@ -3,3 +3,10 @@
     grid-row: 3 / 4;
     margin: auto;
 }
+
+
+@media (max-width: 620px) {
+    .pagination {
+        height: 250px;
+    }
+}

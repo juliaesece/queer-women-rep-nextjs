@@ -7,6 +7,7 @@
     align-items: center;
     background: linear-gradient(to right, white 0%, hsl(313, 100%, 78%) 100%);
     width: 100vw;
+    max-height: 65px;
 }
 
 .mobileMenu__logo {
@@ -58,4 +59,15 @@
     z-index: 2;
     font-size: 1.1rem;
     box-sizing: border-box;
+}
+
+.mobileList__loggedIn {
+    color: hsl(0, 0%, 15%);
+    transition: color 1s ease;
+    font-family: 'Inter', sans-serif;
+    z-index: 2;
+    font-size: 1.1rem;
+    margin-right: 1rem;    
+    font-weight: bold;
+    font-weight: 500;
 }

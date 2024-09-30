@@ -22,17 +22,15 @@ interface Props {
 
 const MobileNav: FC<Props> = ({ links }) => {
     const [menuVisible, setMenuVisible] = useState(false)
-    const user = null;
     const mobileLinks = [
-        ...links,
-        {to: "/add",
-        label: "Add to the database"}
+        ...links
     ]
-        
+
 
     return (
         <nav className={styles.mobileMenu}>
             <span>
+                <Link href="/">
                 <Image
                     priority
                     src={logo}
@@ -42,18 +40,21 @@ const MobileNav: FC<Props> = ({ links }) => {
                     height={50}
                     width={50}
                 />
+                </Link>
             </span>
             <span>
-                {user === null ?
-                    <Image
-                        priority
-                        src={login}
-                        alt="login"
-                        height={35}
-                        width={35}
-                        className={styles.mobileMenu__icon_underlined}
-                    /> :
-                    <p>Logged in</p>
+                {links[links.length - 1].to === "/signin" ?
+                    <Link href={links[links.length - 1].to}>
+                        <Image
+                            priority
+                            src={login}
+                            alt="login"
+                            height={35}
+                            width={35}
+                            className={styles.mobileMenu__icon_underlined}
+                        />
+                    </Link> :
+                    <p className={styles.mobileList__loggedIn}>Logged in</p>
                 }
             </span>
             <span className={styles.mobileMenu__close}>
