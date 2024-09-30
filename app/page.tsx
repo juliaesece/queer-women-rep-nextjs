@@ -24,8 +24,6 @@ async function getData() {
   try {
     const couples = await getCouples("home", 0)
 
-    const count = await countCouples()
-
     if (!couples.error) {
       return couples
     } else {
