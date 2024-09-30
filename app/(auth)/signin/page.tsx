@@ -18,7 +18,7 @@ export default async function AuthPage() {
         <main className={styles.main}>
             <div className={styles.container}>
                 <h2>Sign up or login by clicking on one of the buttons below</h2>
-                <p>If you don't have an account, clicking on the button will create one.</p>
+                <p>If you don&apos;t have an account, clicking on the button will create one.</p>
                 <div className={styles.providers_list}>
                 {Object.values(providers).map((provider) => (
                     <SignIn provider={provider} key={provider.id} />

@@ -1,7 +1,4 @@
 .card {
-    /* border: 0.5px solid white; */
-    /* border-color: hsl(0, 0%, 77%); */
-    /* border-radius: 5px; */
     background-position: center;
     background-size: cover;
     opacity: 0.9;
@@ -55,9 +52,6 @@
 
 @media (max-width: 620px) {
     .card {
-        /* border: 0.5px solid white; */
-        /* border-color: hsl(0, 0%, 77%); */
-        /* border-radius: 5px; */
         background-position: center;
         background-size: cover;
         opacity: 0.9;
