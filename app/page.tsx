@@ -61,11 +61,27 @@ export default async function Home({ searchParams }) {
     <>
       <Aside />
       <main className={styles.main}>
-        {
-          couples && couples.map((couple) =>
-            <Card couple={couple} key={couple.origin} />
-          )
-        }
+        <div>
+          {
+            couples && couples.slice(0, 3).map((couple) =>
+              <Card couple={couple} key={couple.origin} />
+            )
+          }
+        </div>
+        <div>
+          {
+            couples && couples.slice(3, 6).map((couple) =>
+              <Card couple={couple} key={couple.origin} />
+            )
+          }
+        </div>
+        <div>
+          {
+            couples && couples.slice(6, 9).map((couple) =>
+              <Card couple={couple} key={couple.origin} />
+            )
+          }
+        </div>
       </main>
       <PaginationConductor supercategory="home" page={1} current="home" totalPages={nbPages} />
       {infoId && <Modal mongoId={infoId} from="/" />}
