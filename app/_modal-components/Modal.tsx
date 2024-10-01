@@ -13,21 +13,20 @@ import ReviewsComponent from "./Reviews";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../utils/authOptions";
 
-export default async function DetailedCard({ mongoId, from }: { mongoId: string, from: string }) {    
+export default async function DetailedCard({ mongoId, from }: { mongoId: string, from: string }) {
     const couple = await getCoupleById(mongoId);
     if (couple.error) {
         throw new Error("Invalid Id")
     }
 
     let reviews = {
-        _id: 'undefined',   
+        _id: 'undefined',
         coupleId: couple._id,
         reviews: []
-      }
-
-    if (couple.reviewsId) {
-        reviews = await getReviews(couple.reviewsId)
     }
+
+    reviews = await getReviews(couple._id, couple.reviewsId)
+
 
     const session = await getServerSession(authOptions)
 
@@ -135,62 +134,62 @@ export default async function DetailedCard({ mongoId, from }: { mongoId: string,
                     </div>
 
                     <div className={st.modal_spoilerland}>
-                    <details>
-                    <summary>
-                        <em>Enter spoilerland (click here to show the themes; click on a theme to reveal spoilers)</em>
-                        </summary>
-
                         <details>
                             <summary>
-                                Does this story focus a lot on a coming out storyline?
+                                <em>Enter spoilerland (click here to show the themes; click on a theme to reveal spoilers)</em>
                             </summary>
-                            {typeof couple.concerns == "undefined" ?
-                                "Information not given" : <> {
-                                    couple.concerns.comingOut ? "Yes" : "No"
-                                }</>
-                            }
-                        </details>
 
-                        <details>
-                            <summary>
-                                Is there cheating on a third party
-                            </summary>
-                            {typeof couple.concerns == "undefined" ?
-                                "Information not given" : <> {
-                                    couple.concerns.cheating ? "Yes" : "No"
-                                }</>
-                            }
-                        </details>
+                            <details>
+                                <summary>
+                                    Does this story focus a lot on a coming out storyline?
+                                </summary>
+                                {typeof couple.concerns == "undefined" ?
+                                    "Information not given" : <> {
+                                        couple.concerns.comingOut ? "Yes" : "No"
+                                    }</>
+                                }
+                            </details>
 
-                        <details>
-                            <summary>
-                                How much homophobia does this depict? from 1 to 5
-                            </summary>
-                            {typeof couple.concerns == "undefined" ?
-                                "Information not given" : <> {couple.concerns.homophobia} (from 1 to 5)</>
-                            }
-                        </details>
+                            <details>
+                                <summary>
+                                    Is there cheating on a third party
+                                </summary>
+                                {typeof couple.concerns == "undefined" ?
+                                    "Information not given" : <> {
+                                        couple.concerns.cheating ? "Yes" : "No"
+                                    }</>
+                                }
+                            </details>
 
-                        <details>
-                            <summary>
-                                Does one of the people in the couple die?
-                            </summary>
-                            {typeof couple.concerns == "undefined" ?
-                                "Information not given" : <> {
-                                    couple.concerns.death ? "Yes" : "No"
-                                }</>
-                            }
-                        </details>
+                            <details>
+                                <summary>
+                                    How much homophobia does this depict? from 1 to 5
+                                </summary>
+                                {typeof couple.concerns == "undefined" ?
+                                    "Information not given" : <> {couple.concerns.homophobia} (from 1 to 5)</>
+                                }
+                            </details>
 
-                        <details>
-                            <summary>
-                                Is the ending happy or sad?
-                            </summary>
-                            {couple.ending}
-                        </details>
+                            <details>
+                                <summary>
+                                    Does one of the people in the couple die?
+                                </summary>
+                                {typeof couple.concerns == "undefined" ?
+                                    "Information not given" : <> {
+                                        couple.concerns.death ? "Yes" : "No"
+                                    }</>
+                                }
+                            </details>
+
+                            <details>
+                                <summary>
+                                    Is the ending happy or sad?
+                                </summary>
+                                {couple.ending}
+                            </details>
                         </details>
                     </div>
-                    <ReviewsComponent reviews={reviews} session={session}/>
+                    <ReviewsComponent reviews={reviews} session={session} />
                 </div>
             </div>
         </div >
