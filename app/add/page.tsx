@@ -12,10 +12,8 @@ export default async function Add() {
         <>
             {session ?
                 <main className={styles.main}>
-                    <>
                         <FormNav />
                         <Conductor />
-                    </>
                 </main>
                 :
                 <main className={simpleStyles.main}>

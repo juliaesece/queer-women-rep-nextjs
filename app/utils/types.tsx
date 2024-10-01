@@ -36,5 +36,19 @@ export type Couple = {
     concernsComingOut: boolean,
     concernsDeath: boolean,
     concernsCheating: boolean,
-    concernsHomophobia: outOfFive
+    concernsHomophobia: outOfFive,
+    _id: string
+}
+
+export type PersonV1 = {
+    name: string
+}
+
+export type CoupleV1 = {
+    person1: PersonV1;
+    person2: PersonV1;
+    origin: string;
+    image: string;
+    _id: string;
+    altImg: string;
 }

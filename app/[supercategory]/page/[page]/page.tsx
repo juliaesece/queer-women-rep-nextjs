@@ -1,24 +1,11 @@
 
-import Card from "@/app/_layout-components/Card";
+import GridLayout from "@/app/_layout-components/GridLayout";
 import styles from "@/app/page.module.css"
 import PaginationConductor from "@/app/_nav-components/PaginationConductor";
 import { getCouples } from "@/app/utils/getCouples";
 import Modal from "@/app/_layout-components/Modal"
 import { countCouples } from "@/app/utils/countCouples";
-
-type person = {
-    name: string
-}
-
-type couple = {
-    person1: person;
-    person2: person;
-    people: person;
-    origin: string;
-    image: string;
-    _id: string;
-    altImg: string;
-}
+import { CoupleV1 } from "@/app/utils/types";
 
 async function getPages(supercategory) {
     try {
@@ -39,23 +26,17 @@ async function getPages(supercategory) {
 export default async function Home({ searchParams, params }: { searchParams, params: { supercategory: string, page: string } }) {
     const page = params.page
     const supercategory = params.supercategory
-    const couples: couple[] = await getCouples(supercategory, Number(page))
+    const couples: CoupleV1[] = await getCouples(supercategory, Number(page))
     const infoId = searchParams.info
     const nbPages = await getPages(supercategory)
 
     return (
         <>
             <main className={styles.main}>
-                {
-                    couples && couples.map((couple) =>
-                        <Card couple={couple} key={couple.origin} />
-                    )
-                }
+                <GridLayout couples={couples} />
             </main>
             <PaginationConductor supercategory={supercategory} page={page} current={supercategory + "/page/" + page} totalPages={nbPages} />
             {infoId && <Modal mongoId={infoId} from={`/${supercategory}/page/${page}`} />}
-
         </>
-
     );
 }

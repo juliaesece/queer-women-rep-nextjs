@@ -3,6 +3,7 @@
     grid-row: 3 / 4;
     margin: auto;
     height: 35px;
+    margin-bottom: 100px;
 }
 
 @media (max-width: 620px) {

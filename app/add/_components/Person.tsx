@@ -11,7 +11,7 @@ type Option = {
 
 
 export default function Person({ number }) {
-    const { couple, setCouple } = useAddContext();
+    const { couple, setCouple, currentSection, setCurrentSection } = useAddContext();
 
     const genderOptions: Option[] = [
         { value: 'Woman', label: 'Woman' },
@@ -178,6 +178,7 @@ export default function Person({ number }) {
                                 name="ethnicity"
                                 className={styles.checkbox}
                                 value={option.value}
+                                id={option.value}
                                 onChange={handleEthnicityChange}
                                 checked={couple.people[number].ethnicity.includes(option.value)}
                             />
@@ -194,6 +195,7 @@ export default function Person({ number }) {
                     <input
                         type="checkbox"
                         name="moreThanOneCountry"
+                        id="moreThanOneCountry"
                         onChange={handleSecondNationality}
                         className={styles.checkbox}
                         checked={couple.people[number].moreThanOneCountry} />
@@ -202,6 +204,7 @@ export default function Person({ number }) {
                 {couple.people[number].moreThanOneCountry === true && <div>
                     <Countries name="secondNationality" number={number} handleChange={handleChange} /></div>}
             </fieldset>
+            <button onClick={() => setCurrentSection(currentSection + 1)}>Next</button>
         </section>
     );
 }

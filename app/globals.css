@@ -172,9 +172,12 @@ a:visited {
 
 @media only screen and (min-width: 620px) {
   body {
+    height: 100vh;
+    width: 100vw;
     display: grid;
-    grid-template-columns: 0.1fr [outer-layer-start] 0.5fr 1fr 1fr [outer-layer-end] 0.1fr;
-    grid-template-rows: 90px auto 35px;
+    grid-template-columns: minmax(0, 0.3fr) [outer-layer-start] 0.6fr 1fr 1fr [outer-layer-end] minmax(0, 0.3fr);
+    grid-template-rows: 90px auto 45px;
+    gap: 0px;
   }
 
 }

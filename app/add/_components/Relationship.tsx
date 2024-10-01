@@ -7,7 +7,7 @@ type Option = {
 }
 
 export default function Relationship() {
-    const { couple, handleChange, handleCheckbox } = useAddContext()
+    const { couple, handleChange, handleCheckbox, currentSection, setCurrentSection } = useAddContext()
 
     const screenTimeOptions: Option[] = [
         { value: '1', label: 'Less than 10 minutes' },
@@ -135,6 +135,7 @@ export default function Relationship() {
                     ))}
                 </select>
             </div>
+            <button onClick={() => setCurrentSection(currentSection + 1)}>Next</button>
         </section>
     );
 }

@@ -11,7 +11,7 @@ export default async function AuthPage() {
     if (session) {
         redirect("/my-account")
     }
-
+    
     const providers = await getProviders()
 
     return (

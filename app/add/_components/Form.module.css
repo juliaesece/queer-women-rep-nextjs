@@ -1,8 +1,9 @@
 .section {
-    width: 85%;
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.4rem;
+    gap: 0.8rem;
+    column-gap: 2rem;
 }
 
 .section>h2 {
@@ -15,7 +16,7 @@
 }
 
 .section>fieldset {
-    display:block;
+    display: block;
 }
 
 .section>div>label,
@@ -33,7 +34,8 @@
     height: 2.25rem;
     padding: 0.2rem 0.4rem;
     min-width: 92%;
-    margin: 0  0  0 0;
+    width: 100%;
+    margin: 0 0 0 0;
     background-color: white;
     border-radius: 8px;
     border: solid 1px rgba(0, 0, 0, 0.3);
@@ -41,19 +43,27 @@
     outline: none;
 }
 
-.textInput, .longTextInput {
-    height: 1.8rem;
+.textInput,
+.longTextInput {
+    height: 2.3rem;
     min-width: 90%;
     padding: 0.2rem 0.4rem;
     border-radius: 8px;
     border: solid 1px rgba(0, 0, 0, 0.3);
-    margin: 0 2rem 0 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.longTextInput {
+    height: 4rem;
+    font-family: inherit;
 }
 
 .fullWidth {
     grid-column: 1/3;
-
+    width: 100%;
 }
+
 .required::after {
     content: "*";
     color: red;
@@ -67,9 +77,51 @@
 
 .checkboxLabel {
     margin: 0.6rem 0.8rem 0.4rem 0rem;
-    display: inline-block !important;
+    display: inline !important;
 }
 
 .checkboxDiv {
     margin-top: 0.6rem;
+}
+
+.section>button {
+    background-color: #ff8fe7;
+    border: none;
+    padding: 1rem 2rem;
+    margin: auto;
+    grid-column: 1/3;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.section>button:hover {
+    background-color: #e57fcf;
+}
+
+.section>div>input[type="date"] {
+    border: solid 1px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 16px;
+    color: #333;
+    padding: 10px 15px;
+    width: 200px;
+    transition: all 0.3s ease;
+}
+
+.section>input[type="date"]:focus {
+    outline: none;
+    border-color: #2980b9;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+}
+
+
+/* Modern Number Input Styling */
+.section>div>input[type="number"] {
+    border: solid 1px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    font-size: 16px;
+    color: #333;
+    padding: 10px 15px;
 }

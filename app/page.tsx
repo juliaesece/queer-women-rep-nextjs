@@ -1,24 +1,11 @@
 import styles from "./page.module.css";
-import Card from "./_layout-components/Card";
 import Aside from "./_layout-components/Aside";
+import GridLayout from "./_layout-components/GridLayout";
 import PaginationConductor from "./_nav-components/PaginationConductor";
 import { getCouples } from "./utils/getCouples";
 import Modal from "@/app/_layout-components/Modal"
 import { countCouples } from "./utils/countCouples";
-
-type person = {
-  name: string
-}
-
-type couple = {
-  person1: person;
-  person2: person;
-  people: person;
-  origin: string;
-  image: string;
-  _id: string;
-  altImg: string;
-}
+import { CoupleV1 } from "@/app/utils/types";
 
 async function getData() {
   try {
@@ -51,7 +38,7 @@ async function getPages(supercategory) {
 };
 
 export default async function Home({ searchParams }) {
-  const couples: couple[] = await getData()
+  const couples: CoupleV1[] = await getData()
   const infoId = searchParams.info
   const nbPages = await getPages("home")
 
@@ -59,31 +46,10 @@ export default async function Home({ searchParams }) {
     <>
       <Aside />
       <main className={styles.main}>
-        <div>
-          {
-            couples && couples.slice(0, 3).map((couple) =>
-              <Card couple={couple} key={couple.origin} />
-            )
-          }
-        </div>
-        <div>
-          {
-            couples && couples.slice(3, 6).map((couple) =>
-              <Card couple={couple} key={couple.origin} />
-            )
-          }
-        </div>
-        <div>
-          {
-            couples && couples.slice(6, 9).map((couple) =>
-              <Card couple={couple} key={couple.origin} />
-            )
-          }
-        </div>
+        <GridLayout couples={couples} />
       </main>
       <PaginationConductor supercategory="home" page={1} current="home" totalPages={nbPages} />
       {infoId && <Modal mongoId={infoId} from="/" />}
     </>
-
   );
 }

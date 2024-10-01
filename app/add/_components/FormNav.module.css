@@ -1,11 +1,9 @@
 .main {
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-  padding: 5px;
-  max-width: 300px;
-  height: 50vh;
+  padding: 3rem;
+  border-radius: 10px;
   word-wrap: normal;
   overflow-wrap: break-word;
+  width: max-content;
   display: flex;
   justify-content: center; /*Center all content vertically*/
   align-items:flex-end; /*Justify to the right*/
@@ -14,6 +12,10 @@
   color: rgba(0,0,0,0.5);
   row-gap: 0.5rem;
   font-weight: 500;
+  background-color: hsl(11, 80%, 82%);
+  animation: mymove 8s infinite;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
 .main>div:hover {
@@ -22,4 +24,10 @@
 
 .active {
   color: rgba(0,0,0,1)
+}
+
+@keyframes mymove {
+  50% {
+      background-color: hsl(324, 80%, 72%);
+  }
 }

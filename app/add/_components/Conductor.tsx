@@ -21,7 +21,7 @@ export default function Conductor() {
             {currentSection == 0 &&
                 <>
                     <h1>The couple</h1>
-                    <Person number={0} />
+                    <Person number={0}/>
                 </>
             }
             {currentSection == 1 &&
@@ -46,7 +46,7 @@ export default function Conductor() {
                 <>
                     <h1>General concerns and information</h1>
                     <Concerns />
-                    <button type="submit" onClick={createNewCouple}>Save</button>
+                    <button type="submit" onClick={createNewCouple}>Submit</button>
                 </>
             }
         </form>

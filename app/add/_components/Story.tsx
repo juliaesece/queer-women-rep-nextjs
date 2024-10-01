@@ -2,7 +2,7 @@ import styles from "./Form.module.css";
 import { useAddContext } from "../AddContext";
 
 export default function Story() {
-    const { couple, setCouple, handleChange, handleCheckbox } = useAddContext()
+    const { couple, setCouple, handleChange, handleCheckbox, currentSection, setCurrentSection } = useAddContext()
 
     return (
         <section className={styles.section}>
@@ -31,6 +31,7 @@ export default function Story() {
                 <input
                     type="checkbox"
                     name="isThereQueerCreators"
+                    id="isThereQueerCreators"
                     onChange={handleCheckbox}
                     checked={couple.isThereQueerCreators}
                     className={styles.checkbox}
@@ -47,6 +48,7 @@ export default function Story() {
                 <label htmlFor="status">Image description</label>
                 <input className={styles.textInput} placeholder="Image description" name="altImg" onChange={handleChange} value={couple.altImg} />
             </div>
+            <button onClick={() => setCurrentSection(currentSection + 1)}>Next</button>
         </section>
     );
 }

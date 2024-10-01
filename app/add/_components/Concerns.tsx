@@ -1,7 +1,6 @@
 import styles from "./Form.module.css";
 import { useAddContext } from "../AddContext";
 import { Couple } from "../../utils/types";
-import { useSession } from "next-auth/react"
 
 type Option = {
     value: string;
@@ -14,9 +13,7 @@ type Concern = {
 }
 
 export default function Concerns() {
-    const { couple, setCouple, handleChange } = useAddContext()
-
-    const { data: session } = useSession()
+    const { couple, setCouple, handleChange, currentSection, setCurrentSection } = useAddContext()
 
     const booleanOptions: Option[] = [
         { value: 'true', label: 'Yes' },
