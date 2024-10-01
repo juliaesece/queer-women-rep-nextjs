@@ -178,6 +178,7 @@ a:visited {
     grid-template-columns: minmax(0, 0.3fr) [outer-layer-start] 0.6fr 1fr 1fr [outer-layer-end] minmax(0, 0.3fr);
     grid-template-rows: 90px auto 45px;
     gap: 0px;
+    column-gap: 5px;
   }
 
 }

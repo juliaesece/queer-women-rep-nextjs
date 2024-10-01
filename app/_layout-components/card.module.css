@@ -6,6 +6,7 @@
     color: #333;
     aspect-ratio: 1.618;
     width: auto;
+    position: relative;
 }
 
 .card:hover {
@@ -18,8 +19,8 @@
 }
 
 .card__content {
-    position: relative;
-    top: -40%;
+    position: absolute;
+    bottom: 20%;
     left: 30px;
     max-width: 200px;
     background-color: rgb(255, 255, 255, 0.5);

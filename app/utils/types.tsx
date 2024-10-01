@@ -37,7 +37,7 @@ export type Couple = {
     concernsDeath: boolean,
     concernsCheating: boolean,
     concernsHomophobia: outOfFive,
-    _id: string
+    _id?: string
 }
 
 export type PersonV1 = {
