@@ -3,7 +3,7 @@ import Aside from "./_layout-components/Aside";
 import GridLayout from "./_layout-components/GridLayout";
 import PaginationConductor from "./_nav-components/PaginationConductor";
 import { getCouples } from "./utils/getCouples";
-import Modal from "@/app/_layout-components/Modal"
+import Modal from "@/app/_modal-components/Modal"
 import { countCouples } from "./utils/countCouples";
 import { CoupleV1 } from "@/app/utils/types";
 

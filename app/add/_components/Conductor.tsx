@@ -7,13 +7,26 @@ import Relationship from "./Relationship";
 import Story from "./Story";
 import { useAddContext } from "../AddContext";
 import { createCouple } from "../_actions/createCouple";
+import Alert from '@mui/material/Alert';
+import { useState } from "react";
 
 export default function Conductor() {
     const { couple, currentSection } = useAddContext();
+    const [alert, setAlert] = useState("")
 
     const createNewCouple = async (event) => {
         event.preventDefault()
-        await createCouple(couple);
+        const datedCouple = {
+            ...couple,
+            dateAdded: new Date()
+        }
+        const result = await createCouple(datedCouple);
+        if (result) {
+            setAlert("success")
+        }
+        else {
+            setAlert("error")
+        }
     }
 
     return (
@@ -21,7 +34,7 @@ export default function Conductor() {
             {currentSection == 0 &&
                 <>
                     <h1>The couple</h1>
-                    <Person number={0}/>
+                    <Person number={0} />
                 </>
             }
             {currentSection == 1 &&
@@ -46,7 +59,12 @@ export default function Conductor() {
                 <>
                     <h1>General concerns and information</h1>
                     <Concerns />
-                    <button type="submit" onClick={createNewCouple}>Submit</button>
+                    {alert && <Alert severity={alert == "success" ? "success" : "error"} className={styles.alert}>
+                        {alert == "success" ?
+                            "The new couple has been added to the database successfully" :
+                            "There was an error with the database"}
+                    </Alert>}
+                    <button type="submit" onClick={createNewCouple} disabled={alert && true}>Submit</button>
                 </>
             }
         </form>

@@ -37,6 +37,7 @@ export type Couple = {
     concernsDeath: boolean,
     concernsCheating: boolean,
     concernsHomophobia: outOfFive,
+    dateAdded: Date,
     _id?: string
 }
 

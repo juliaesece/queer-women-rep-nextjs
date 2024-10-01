@@ -61,7 +61,8 @@ const AddContextProvider = ({ children }: { children: React.ReactNode }) => {
         concernsComingOut: false,
         concernsDeath: false,
         concernsCheating: false,
-        concernsHomophobia: 0 as outOfFive
+        concernsHomophobia: 0 as outOfFive,
+        dateAdded: new Date()
     });
 
 

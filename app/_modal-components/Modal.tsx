@@ -2,21 +2,34 @@ import Link from "next/link";
 import st from "./modal.module.css"
 import Image from "next/image";
 import { getCoupleById } from "@/app/utils/getCoupleById";
+import { getReviews } from "./_actions/getReviews";
 import { IconButton, Rating } from "@mui/material";
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import WhatshotOutlined from "@mui/icons-material/WhatshotOutlined";
 import CloseIcon from '@mui/icons-material/Close';
+import ReviewsComponent from "./Reviews";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../utils/authOptions";
 
-
-export default async function DetailedCard({ mongoId, from }: { mongoId: string, from: string }) {
-
-    let couple = await getCoupleById(mongoId);
+export default async function DetailedCard({ mongoId, from }: { mongoId: string, from: string }) {    
+    const couple = await getCoupleById(mongoId);
     if (couple.error) {
         throw new Error("Invalid Id")
     }
+
+    let reviews = {
+        _id: 'undefined',   
+        coupleId: couple._id,
+        reviews: []
+      }
+
+    if (couple.reviewsId) {
+        reviews = await getReviews(couple.reviewsId)
+    }
+
+    const session = await getServerSession(authOptions)
 
     return (
         <div className={st.modal}>
@@ -29,8 +42,8 @@ export default async function DetailedCard({ mongoId, from }: { mongoId: string,
                 <Image className={st.modal_image} src={couple.image} alt={couple.altImg} width={2000} height={2000} />
                 <div className={st.modal_textContent}>
                     <div className={st.modal_title}>
-                        <h2>{couple.person1.name} and {couple.person2.name}</h2>
-                        <h3>{couple.originType} — {couple.origin} ({couple.year.getFullYear()})</h3>
+                        <h2>{"person1" in couple ? couple.person1.name : couple.people[0].name} and {"person2" in couple ? couple.person2.name : couple.people[1].name}</h2>
+                        <h3>{couple.originType} — {couple.origin} ({typeof couple.year.getMonth === 'function' ? couple.year.getFullYear() : "Undefined"})</h3>
                     </div>
 
                     <div className={st.modal_ratings}>
@@ -122,34 +135,51 @@ export default async function DetailedCard({ mongoId, from }: { mongoId: string,
                     </div>
 
                     <div className={st.modal_spoilerland}>
-                        <p><em>Enter spoilerland (click to reveal spoilers)</em></p>
+                    <details>
+                    <summary>
+                        <em>Enter spoilerland (click here to show the themes; click on a theme to reveal spoilers)</em>
+                        </summary>
 
                         <details>
                             <summary>
                                 Does this story focus a lot on a coming out storyline?
                             </summary>
-                            {couple.concerns.comingOut ? "Yes" : "No"}
+                            {typeof couple.concerns == "undefined" ?
+                                "Information not given" : <> {
+                                    couple.concerns.comingOut ? "Yes" : "No"
+                                }</>
+                            }
                         </details>
 
                         <details>
                             <summary>
                                 Is there cheating on a third party
                             </summary>
-                            {couple.concerns.cheating ? "Yes" : "No"}
+                            {typeof couple.concerns == "undefined" ?
+                                "Information not given" : <> {
+                                    couple.concerns.cheating ? "Yes" : "No"
+                                }</>
+                            }
                         </details>
 
                         <details>
                             <summary>
                                 How much homophobia does this depict? from 1 to 5
                             </summary>
-                            {couple.concerns.homophobia} (from 1 to 5)
+                            {typeof couple.concerns == "undefined" ?
+                                "Information not given" : <> {couple.concerns.homophobia} (from 1 to 5)</>
+                            }
                         </details>
 
                         <details>
                             <summary>
                                 Does one of the people in the couple die?
                             </summary>
-                            {couple.concerns.death ? "Yes" : "No"}
+                            {typeof couple.concerns == "undefined" ?
+                                "Information not given" : <> {
+                                    couple.concerns.death ? "Yes" : "No"
+                                }</>
+                            }
                         </details>
 
                         <details>
@@ -158,7 +188,9 @@ export default async function DetailedCard({ mongoId, from }: { mongoId: string,
                             </summary>
                             {couple.ending}
                         </details>
+                        </details>
                     </div>
+                    <ReviewsComponent reviews={reviews} session={session}/>
                 </div>
             </div>
         </div >
