@@ -10,7 +10,7 @@ import { createCouple } from "../_actions/createCouple";
 import Alert from '@mui/material/Alert';
 import { useState } from "react";
 
-export default function Conductor() {
+export default function Conductor({session}) {
     const { couple, currentSection } = useAddContext();
     const [alert, setAlert] = useState("")
 
@@ -20,7 +20,7 @@ export default function Conductor() {
             ...couple,
             dateAdded: new Date()
         }
-        const result = await createCouple(datedCouple);
+        const result = await createCouple(datedCouple, session.user.id);
         if (result) {
             setAlert("success")
         }

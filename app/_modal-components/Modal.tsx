@@ -10,7 +10,9 @@ import WhatshotIcon from '@mui/icons-material/Whatshot';
 import WhatshotOutlined from "@mui/icons-material/WhatshotOutlined";
 import CloseIcon from '@mui/icons-material/Close';
 import ReviewsComponent from "./Reviews";
+import { rateCouple } from "./_actions/rateCouple";
 import { Session } from "next-auth";
+import RatingsWrapper from "./_components/RatingsWrapper";
 
 export default async function Modal({ mongoId, from, session }: { mongoId: string, from: string, session: Session }) {
     const couple = await getCoupleById(mongoId);
@@ -44,24 +46,8 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                     <div className={st.modal_ratings}>
                         <div>
                             <p>Global Rating</p>
-                            <Rating
-                                value={couple.globalRating}
-                                readOnly
-                                size="large"
-                                sx={{
-                                    color: "#d63900",
-                                    "& .MuiRating-icon": {
-                                        color: "#d63900",
-                                        opacity: 0.4
-                                    },
-                                    "& .MuiRating-iconFilled": {
-                                        opacity: 0.9
-                                    },
-                                    '& .MuiRating-iconHover': {
-                                        opacity: 1
-                                    }
-                                }}
-                            />
+                            <RatingsWrapper couple={couple} session={session}/>
+                        
                         </div>
                         <div>
                             <p>Romantic rating</p>
