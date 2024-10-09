@@ -1,77 +1,63 @@
-"use client"
+"use client";
 
-import styles from "./Form.module.css";
-import { useAddContext } from "../AddContext";
-import Countries from "./Countries";
+import styles from './SearchForm.module.css';
+import Countries from '../../add/_components/Countries';
 import {
     genderOptions,
     sexualOrientationOptions,
     genderIdentityOptions,
     genderExpressionOptions, lifeStageOptions, ethnicityOptions
 } from "@/app/utils/couplesOptions"
+import { useSearchContext } from '../SearchContext';
 
-export default function Person({ number }) {
-    const { couple, setCouple, currentSection, setCurrentSection } = useAddContext();
+
+export default function SearchPeople() {
+    const { searchCouple, setSearchCouple } = useSearchContext()
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
-        setCouple(
-            prevCouple => ({
-                ...prevCouple,
-                people: prevCouple.people.map((person, index) =>
-                    index === number ? { ...person, [e.target.name]: e.target.value } : person
-                )
-            })
+        setSearchCouple(
+            {
+                ...searchCouple,
+                person: { ...searchCouple.person, [e.target.name]: e.target.value }
+            }
         )
     }
+
 
     const handleEthnicityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value, checked } = e.target;
         if (checked) {
-            setCouple(prevCouple => ({
-                ...prevCouple,
-                people: prevCouple.people.map((person, index) =>
-                    index === number ? { ...person, ethnicity: [...prevCouple.people[number].ethnicity, value] } : person
-                )
-            }))
+            setSearchCouple(
+                {
+                    ...searchCouple,
+                    person: { ...searchCouple.person, ethnicity: [...searchCouple.person.ethnicity, value] }
+                }
+            )
         } else {
-            setCouple(prevCouple => ({
-                ...prevCouple,
-                people: prevCouple.people.map((person, index) =>
-                    index === number ? { ...person, ethnicity: prevCouple.people[number].ethnicity.filter(ethnicity => ethnicity !== value) } : person
-                )
-            }))
+            setSearchCouple(
+                {
+                    ...searchCouple,
+                    person: { ...searchCouple.person, ethnicity: searchCouple.person.ethnicity.filter((el) => el != value) }
+                }
+            )
         }
     };
 
     const handleSecondNationality = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value, checked } = e.target;
-        setCouple(
-            prevCouple => ({
-                ...prevCouple,
-                people: prevCouple.people.map((person, index) =>
-                    index === number ? { ...person, moreThanOneCountry: checked } : person
-                )
-            })
+        setSearchCouple(
+            {
+                ...searchCouple,
+                person: { ...searchCouple.person, moreThanOneCountry: checked }
+            }
         )
     }
 
     return (
         <section className={styles.section}>
-            <h2>Person {number + 1}</h2>
-            <div>
-                <label className={styles.required}>Name</label>
-                <input
-                    placeholder="First name"
-                    name="name"
-                    onChange={handleChange}
-                    value={couple.people[number].name}
-                    className={styles.textInput}
-                    required
-                />
-            </div>
             <div>
                 <label htmlFor="gender">Gender</label>
-                <select name="gender" onChange={handleChange} value={couple.people[number].gender}>
+                <select name="gender" onChange={handleChange} value={searchCouple.person.gender}>
                     <option value="default">-----</option>
                     {genderOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
@@ -81,7 +67,7 @@ export default function Person({ number }) {
 
             <div>
                 <label htmlFor="sexualOrientation">Sexual orientation</label>
-                <select name="sexualOrientation" onChange={handleChange} value={couple.people[number].sexualOrientation}>
+                <select name="sexualOrientation" onChange={handleChange} value={searchCouple.person.sexualOrientation}>
                     <option value="default">-----</option>
                     {sexualOrientationOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
@@ -91,7 +77,7 @@ export default function Person({ number }) {
 
             <div>
                 <label htmlFor="genderIdentity">Gender modality</label>
-                <select name="genderIdentity" onChange={handleChange} value={couple.people[number].genderIdentity}>
+                <select name="genderIdentity" onChange={handleChange} value={searchCouple.person.genderIdentity}>
                     <option value="default">-----</option>
                     {genderIdentityOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
@@ -101,7 +87,7 @@ export default function Person({ number }) {
 
             <div>
                 <label htmlFor="genderExpression">Gender expression</label>
-                <select name="genderExpression" onChange={handleChange} value={couple.people[number].genderExpression}>
+                <select name="genderExpression" onChange={handleChange} value={searchCouple.person.genderExpression}>
                     <option value="default">-----</option>
                     {genderExpressionOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
@@ -111,7 +97,7 @@ export default function Person({ number }) {
 
             <div>
                 <label htmlFor="lifeStage">Life-stage</label>
-                <select name="lifeStage" onChange={handleChange} value={couple.people[number].lifeStage}>
+                <select name="lifeStage" onChange={handleChange} value={searchCouple.person.lifeStage}>
                     <option value="default">-----</option>
                     {lifeStageOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
@@ -130,7 +116,7 @@ export default function Person({ number }) {
                                 value={option.value}
                                 id={option.value}
                                 onChange={handleEthnicityChange}
-                                checked={couple.people[number].ethnicity.includes(option.value)}
+                                checked={searchCouple.person.ethnicity?.includes(option.value)}
                             />
                             <label className={styles.checkboxLabel} htmlFor={option.value}>{option.label}</label>
                         </span>
@@ -139,7 +125,7 @@ export default function Person({ number }) {
             </fieldset>
             <fieldset>
                 <div>
-                    <Countries name="nationality" number={number} handleChange={handleChange} />
+                    {/* <Countries name="nationality" handleChange={handleChange} /> */}
                 </div>
                 <div className={styles.checkboxDiv}>
                     <input
@@ -148,13 +134,13 @@ export default function Person({ number }) {
                         id="moreThanOneCountry"
                         onChange={handleSecondNationality}
                         className={styles.checkbox}
-                        checked={couple.people[number].moreThanOneCountry} />
+                        checked={searchCouple.person.moreThanOneCountry} />
                     <label className={styles.checkboxLabel} htmlFor="moreThanOneCountry">They are from more than one country (immigrants, travelers, etc.)</label>
                 </div>
-                {couple.people[number].moreThanOneCountry === true && <div>
-                    <Countries name="secondNationality" number={number} handleChange={handleChange} /></div>}
+                {searchCouple.person.moreThanOneCountry === true && <div>
+                    {/*  <Countries name="secondNationality" handleChange={handleChange} /> */}</div>}
             </fieldset>
-            <button onClick={() => setCurrentSection(currentSection + 1)}>Next</button>
         </section>
     );
-}
+};
+

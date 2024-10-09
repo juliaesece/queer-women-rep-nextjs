@@ -1,8 +1,9 @@
 import styles from "./Form.module.css";
 import { useAddContext } from "../AddContext";
+import { originTypeOptions, statusOptions } from "@/app/utils/couplesOptions";
 
 export default function Story() {
-    const { couple, setCouple, handleChange, handleCheckbox, currentSection, setCurrentSection } = useAddContext()
+    const { couple, handleChange, handleCheckbox, currentSection, setCurrentSection } = useAddContext()
 
     return (
         <section className={styles.section}>
@@ -10,13 +11,23 @@ export default function Story() {
                 <label className={styles.required} htmlFor="originType">Origin Type</label>
                 <select name="originType" onChange={handleChange} value={couple.originType} required>
                     <option value="default">-----</option>
-                    <option value="TV Show">TV Show</option>
-                    <option value="Movie">Movie</option>
+                    {originTypeOptions.map(option => (
+                        <option key={option.value} value={option.value}>{option.label}</option>
+                    ))}
                 </select>
             </div>
             <div>
                 <label className={styles.required} htmlFor="origin">Name of the TV Show/Movie</label>
                 <input className={styles.textInput} placeholder="Title of TV Show or movie" name="origin" onChange={handleChange} value={couple.origin} />
+            </div>
+            <div>
+                <label htmlFor="status">Completed status</label>
+                <select name="status" onChange={handleChange} value={couple.status}>
+                    <option value="default">-----</option>
+                    {statusOptions.map(option => (
+                        <option key={option.value} value={option.value}>{option.label}</option>
+                    ))}
+                </select>
             </div>
             <div>
                 <label htmlFor="year">Release date</label>

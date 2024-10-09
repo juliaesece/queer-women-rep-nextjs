@@ -1,8 +1,8 @@
 .card {
     background-color: hsl(11, 80%, 82%);
-    height: 25%;
-    min-height: 25%;
-    max-height: 25%;
+    height: 20vh;
+    min-height: 20vh;
+    max-height: 20vh;
     border: solid 1px white;
     border-radius: 10px;
 }

@@ -7,7 +7,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../utils/authOptions";
 import Results from './_components/Results';
 import SearchContextProvider from './SearchContext';
-
+import { SearchCouple } from '../utils/types';
 
 export default async function AdvancedSearch({ searchParams }) {
     const infoId = searchParams.info
@@ -20,7 +20,6 @@ export default async function AdvancedSearch({ searchParams }) {
                 <Results />
                 {infoId && <Modal mongoId={infoId} from="/search" session={session} />}
             </SearchContextProvider>
-
         </main>
     );
 };

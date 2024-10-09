@@ -4,20 +4,32 @@ import clientPromise from "@/app/lib/mongo"
 
 function transformQuery(query, prefix = '') {
   const transformedQuery = {};
-  
+
   if ('people' in query) {
     transformedQuery["$or"] = [{}, {}];
   }
 
-  for (const [key, value] of Object.entries(query)) {
-    if (value === "default") continue;
+  for (let [key, value] of Object.entries(query)) {
+    // Parse strings
+    if (typeof value === 'string' && ['0', '1', '2', '3', '4', '5'].includes(value)) value = Number(value)
+
+    if (value === "default" || value === 0 || value === "0") continue; // Avoid empty filters
 
     if (key === 'people' && typeof value === 'object') {
       // Handle the 'people' object specially
       for (const [peopleKey, peopleValue] of Object.entries(value)) {
         if (peopleValue === "default") continue;
+
         const newKey1 = `people.0.${peopleKey}`;
         const newKey2 = `people.1.${peopleKey}`;
+
+        if (peopleKey === 'ethnicity') { // Handle ethnicity specially because it is an array
+          if (peopleValue.length == 0) continue
+          transformedQuery["$or"][0][newKey1] = {"$all": peopleValue};
+          transformedQuery["$or"][1][newKey2] = {"$all": peopleValue};
+          continue
+        } 
+
         transformedQuery["$or"][0][newKey1] = peopleValue;
         transformedQuery["$or"][1][newKey2] = peopleValue;
       }
@@ -49,6 +61,7 @@ export async function searchCouples(unparsedSearchCouple) {
 
   let filter = transformQuery(searchCouple)
   console.log("filter", filter)
+  console.log("stringified", JSON.stringify(filter))
 
 
   try {

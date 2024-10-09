@@ -9,20 +9,24 @@ type SearchContextType = {
     setResult: React.Dispatch<React.SetStateAction<Couple[]>>,
     handleChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLTextAreaElement>) => void,
     handleEthnicityChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    handleSecondNationality: (e: React.ChangeEvent<HTMLInputElement>) => void
+    handleSecondNationality: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    handleCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    waitingMessage: string,
+    setWaitingMessage: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const SearchContext = createContext<null | SearchContextType>(null);
 
 
 const SearchContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const [searchCouple, setSearchCouple] = useState<SearchCouple>({ person: {} });
+    const [searchCouple, setSearchCouple] = useState<SearchCouple>({ person: {ethnicity: []} });
     const [result, setResult] = useState([])
+    const [waitingMessage, setWaitingMessage] = useState("No search has been made yet.")
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         setSearchCouple({
             ...searchCouple,
-            person: { ...searchCouple.person, [e.target.name]: e.target.value }
+            [e.target.name]: e.target.value
         })
     }
 
@@ -49,6 +53,16 @@ const SearchContextProvider = ({ children }: { children: React.ReactNode }) => {
         })
     }
 
+    const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, checked } = e.target;
+        setSearchCouple(
+            prevCouple => ({
+                ...prevCouple,
+                [name]: checked
+            })
+        )
+    }
+
     const value = {
         searchCouple,
         setSearchCouple,
@@ -56,7 +70,10 @@ const SearchContextProvider = ({ children }: { children: React.ReactNode }) => {
         setResult,
         handleChange,
         handleEthnicityChange,
-        handleSecondNationality
+        handleSecondNationality,
+        handleCheckbox,
+        waitingMessage,
+        setWaitingMessage
     };
 
     return (

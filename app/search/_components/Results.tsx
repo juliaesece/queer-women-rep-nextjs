@@ -6,15 +6,18 @@ import { useSearchContext } from "../SearchContext";
 
 
 const Results: FC = () => {
-  const { result } = useSearchContext()
+  const { result, waitingMessage } = useSearchContext()
 
   return (
     <section className={st.results}>
       <h2>Results:</h2>
       {result.length == 0 ?
-        <p>There are no results</p>
+      <div className={st.waitingMessage}>
+         <p>{waitingMessage}</p>
+      </div>
+       
         :
-        result.map((couple) => <SmallCard couple={couple} />)
+        result.map((couple) => <SmallCard couple={couple} key={couple._id} />)
       }
     </section>
   )

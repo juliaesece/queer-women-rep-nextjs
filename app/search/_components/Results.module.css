@@ -1,12 +1,21 @@
 .results {
-    padding: 2rem 0;
     display: flex;
     flex-direction: column;
     height: 80vh;
     overflow: auto;
     gap: 5px;
+    width: 45%;
 }
 
 .results>h2 {
     font-size: 2rem;
+    font-weight: 500;
+}
+
+.waitingMessage {
+    margin: auto;
+    background-color: grey;
+    background-color: rgba(0,0,0, 0.2);
+    padding: 1rem;
+    border-radius: 5px;
 }

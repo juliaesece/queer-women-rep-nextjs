@@ -65,16 +65,25 @@ const AddContextProvider = ({ children }: { children: React.ReactNode }) => {
         dateAdded: new Date()
     });
 
-
     const [currentSection, setCurrentSection] = useState(0)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
-        setCouple(
-            prevCouple => ({
-                ...prevCouple,
-                [e.target.name]: e.target.value
-            })
-        )
+        if (e.target.name == "originType" && e.target.value == "Movie") {
+            setCouple(
+                prevCouple => ({
+                    ...prevCouple,
+                    [e.target.name]: e.target.value,
+                    status: "Completed"
+                })
+            )
+        } else {
+            setCouple(
+                prevCouple => ({
+                    ...prevCouple,
+                    [e.target.name]: e.target.value
+                })
+            )
+        }
     }
 
     const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {

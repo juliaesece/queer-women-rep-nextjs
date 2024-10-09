@@ -1,14 +1,14 @@
 import styles from "./Form.module.css";
-import { useAddContext } from "../AddContext";
-import { concerns, booleanOptions, homophobiaOptions } from "@/app/utils/couplesOptions";
+import { Couple } from "../../utils/types";
+import { useSearchContext } from "../SearchContext";
+import { searchConcerns, booleanOptions, homophobiaOptions } from "@/app/utils/couplesOptions";
 
-
-export default function Concerns() {
-    const { couple, setCouple, handleChange, currentSection, setCurrentSection } = useAddContext()
+export default function SearchConcerns() {
+    const { searchCouple, setSearchCouple, handleChange } = useSearchContext()
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        setCouple(prevPerson => ({
+        setSearchCouple(prevPerson => ({
             ...prevPerson,
             [name]: value === 'true'
         }));
@@ -16,7 +16,7 @@ export default function Concerns() {
 
     return (
         <section className={styles.section}>
-            {concerns.map((concern) => (
+            {searchConcerns.map((concern) => (
                 <fieldset key={concern.key} className={styles.fullWidth}>
                     <legend>{concern.question}</legend>
                     {booleanOptions.map(option => (
@@ -25,10 +25,10 @@ export default function Concerns() {
                                 type="radio"
                                 name={concern.key}
                                 value={option.value}
-                                checked={couple[concern.key] === (option.value === 'true')}
+                                id={`${concern.key}-${option.value}`}
+                                checked={searchCouple[concern.key] === (option.value === 'true')}
                                 onChange={handleRadioChange}
                                 className={styles.checkbox}
-                                id={`${concern.key}-${option.value}`}
                             />
                             <label className={styles.checkboxLabel} htmlFor={`${concern.key}-${option.value}`}>
                                 {option.label}
@@ -39,12 +39,12 @@ export default function Concerns() {
             ))}
             <div className={styles.fullWidth}>
                 <label htmlFor="concernsHomophobia">
-                    How much homophobic or sexist violence are they subjected to?
+                    How much homophobic or sexist violence they are subjected to:
                 </label>
                 <select
                     name="concernsHomophobia"
                     onChange={handleChange}
-                    value={couple.concernsHomophobia}
+                    value={searchCouple.concernsHomophobia}
                 >
                     <option value="0">-----</option>
                     {homophobiaOptions.map(option => (

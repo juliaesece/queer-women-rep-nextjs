@@ -41,19 +41,6 @@ export type Couple = {
     _id?: string
 }
 
-// export type PersonV1 = {
-//     name: string
-// }
-
-// export type CoupleV1 = {
-//     person1: PersonV1;
-//     person2: PersonV1;
-//     origin: string;
-//     image: string;
-//     _id: string;
-//     altImg: string;
-// }
-
 export type SearchPerson = {
     name?: string,
     gender?: string,

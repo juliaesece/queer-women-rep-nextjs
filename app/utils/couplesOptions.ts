@@ -1,6 +1,23 @@
+import { Couple } from "./types";
+
 type Option = {
     value: string;
     label: string;
+}
+
+type NumericOption = {
+    value: number;
+    label: string;
+}
+
+type Concern = {
+    key: keyof Pick<Couple, 'concernsComingOut' | 'concernsDeath' | 'concernsCheating'>;
+    question: string;
+}
+
+type DbConcern = {
+    key: string;
+    question: string;
 }
 
 export const genderOptions: Option[] = [
@@ -51,4 +68,79 @@ export const ethnicityOptions: Option[] = [
     { value: 'asian', label: 'Asian' },
     { value: 'latinx', label: 'Latinx' },
     { value: 'other', label: 'Other' },
+];
+
+export const screenTimeOptions: NumericOption[] = [
+    { value: 1, label: 'Less than 10 minutes' },
+    { value: 2, label: '10 to 30 minutes' },
+    { value: 3, label: '30 minutes to 1 hour' },
+    { value: 4, label: '1 hour to 1h30' },
+    { value: 5, label: 'More than 1h30' },
+];
+
+export const storyImportanceOptions: NumericOption[] = [
+    { value: 1, label: 'Primary — it is the main subject of the content' },
+    { value: 2, label: 'Secondary — it is not the main subject, but still very important' },
+    { value: 3, label: 'Tertiary — it is not important but not unimportant either' },
+    { value: 4, label: 'Extras — it is a detail in the story' },
+];
+
+export const romanticConnectionOptions: NumericOption[] = [
+    { value: 5, label: 'Like Romeo & Juliet, or rather, Julie & Juliet' },
+    { value: 4, label: 'Good' },
+    { value: 3, label: 'Meh' },
+    { value: 2, label: 'Bad' },
+    { value: 1, label: '??? How are these people together?' },
+];
+
+export const chemistryOptions: NumericOption[] = [
+    { value: 5, label: '🔥🔥' },
+    { value: 4, label: 'Very good' },
+    { value: 3, label: 'Meh' },
+    { value: 2, label: 'Not really' },
+    { value: 1, label: '❄️❄️' },
+];
+
+export const endingOptions: Option[] = [
+    { value: 'Happy', label: 'Happy' },
+    { value: 'Bittersweet', label: 'Bittersweet' },
+    { value: 'Sad', label: 'Sad' },
+    { value: 'Other', label: 'Other' },
+];
+
+export const booleanOptions: Option[] = [
+    { value: 'true', label: 'Yes' },
+    { value: 'false', label: 'No' },
+];
+
+export const concerns: Concern[] = [
+    { key: 'concernsComingOut', question: 'Is coming out a thing in this story?' },
+    { key: 'concernsDeath', question: 'Does someone of the couple die?' },
+    { key: 'concernsCheating', question: 'Is there cheating (on a third party)?' },
+];
+
+export const searchConcerns: DbConcern[] = [
+    { key: 'concerns.comingOut', question: 'Coming out is a thing in this story:' },
+    { key: 'concerns.death', question: 'Someone in the couple dies:' },
+    { key: 'concerns.cheating', question: 'There is cheating (on a third party):' },
+];
+
+export const homophobiaOptions: NumericOption[] = [
+    { value: 1, label: 'None at all' },
+    { value: 2, label: 'A little bit' },
+    { value: 3, label: 'A solid amount' },
+    { value: 4, label: 'A considerable amount' },
+    { value: 5, label: 'Just. too. much.' },
+];
+
+export const originTypeOptions: Option[] = [
+    { value: 'TV Show', label: 'TV Show' },
+    { value: 'Movie', label: 'Movie' }
+];
+
+export const statusOptions: Option[] = [
+    { value: 'Ongoing', label: 'Ongoing' },
+    { value: 'Completed', label: 'Completed' },
+    { value: 'Cancelled', label: 'Cancelled' },
+    { value: 'Uncertain', label: 'Uncertain (might continue, might get cancelled)' },
 ];

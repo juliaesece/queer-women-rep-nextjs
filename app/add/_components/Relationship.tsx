@@ -1,51 +1,9 @@
 import styles from "./Form.module.css";
 import { useAddContext } from "../AddContext";
-
-type Option = {
-    value: string;
-    label: string;
-}
+import { screenTimeOptions, storyImportanceOptions, romanticConnectionOptions, chemistryOptions, endingOptions } from "@/app/utils/couplesOptions";
 
 export default function Relationship() {
     const { couple, handleChange, handleCheckbox, currentSection, setCurrentSection } = useAddContext()
-
-    const screenTimeOptions: Option[] = [
-        { value: '1', label: 'Less than 10 minutes' },
-        { value: '2', label: '10 to 30 minutes' },
-        { value: '3', label: '30 minutes to 1 hour' },
-        { value: '4', label: '1 hour to 1h30' },
-        { value: '5', label: 'More than 1h30' },
-    ];
-
-    const storyImportanceOptions: Option[] = [
-        { value: '4', label: 'Primary — it is the main subject of the content' },
-        { value: '3', label: 'Secondary — it is not the main subject, but still very important' },
-        { value: '2', label: 'Tertiary — it is not important but not unimportant either' },
-        { value: '1', label: 'Extras — it is a detail in the story' },
-    ];
-
-    const romanticConnectionOptions: Option[] = [
-        { value: '5', label: 'Like Romeo & Juliet, or rather, Julie & Juliet' },
-        { value: '4', label: 'Good' },
-        { value: '3', label: 'Meh' },
-        { value: '2', label: 'Bad' },
-        { value: '1', label: '??? How are these people together?' },
-    ];
-
-    const chemistryOptions: Option[] = [
-        { value: '5', label: '🔥🔥' },
-        { value: '4', label: 'Very good' },
-        { value: '3', label: 'Meh' },
-        { value: '2', label: 'Not really' },
-        { value: '1', label: '❄️❄️' },
-    ];
-
-    const endingOptions: Option[] = [
-        { value: 'Happy', label: 'Happy' },
-        { value: 'Bittersweet', label: 'Bittersweet' },
-        { value: 'Sad', label: 'Sad' },
-        { value: 'Other', label: 'Other' },
-    ];
 
 
     return (
