@@ -67,6 +67,15 @@
     text-decoration: line-through;
 }
 
+.aside__list_items:hover.aside__list_items_disabled {
+    letter-spacing: normal;
+    cursor: default;
+}
+
+.aside__list_items_disabled.aside__list_items:hover::before {
+    right: 100%;
+}
+
 @media (max-width: 620px) {
     .aside {
         position: fixed;

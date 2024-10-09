@@ -9,9 +9,10 @@ import { Couple } from "@/app/utils/types";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./utils/authOptions";
 
-async function getData() {
+async function getData(extraFilter) {
   try {
-    const couples = await getCouples("home", 0)
+
+    const couples = await getCouples("home", 0, extraFilter)
 
     if (!couples.error) {
       return couples
@@ -40,7 +41,8 @@ async function getPages(supercategory) {
 };
 
 export default async function Home({ searchParams }) {
-  const couples: Couple[] = await getData()
+  const extraFilter = searchParams.filter
+  const couples: Couple[] = await getData(extraFilter)
   const infoId = searchParams.info
   const nbPages = await getPages("home")
   const session = await getServerSession(authOptions)
@@ -51,7 +53,7 @@ export default async function Home({ searchParams }) {
       <main className={styles.main}>
         <GridLayout couples={couples} />
       </main>
-      <PaginationConductor supercategory="home" page={1} current="home" totalPages={nbPages} />
+      <PaginationConductor supercategory="home" page={1} current="home" totalPages={nbPages} extraFilter={extraFilter}/>
       {infoId && <Modal mongoId={infoId} from="/" session={session} />}
     </>
   );

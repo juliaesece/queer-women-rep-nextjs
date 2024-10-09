@@ -26,7 +26,8 @@ async function getPages(supercategory) {
 
 export default async function Home({ searchParams, params }: { searchParams, params: { supercategory: string } }) {
     const supercategory = params.supercategory
-    const couples: Couple[] = await getCouples(supercategory, 0)
+    const extraFilter = searchParams.filter
+    const couples: Couple[] = await getCouples(supercategory, 0, extraFilter)
     const infoId = searchParams.info
     const nbPages = await getPages(supercategory)
     const session = await getServerSession(authOptions)
@@ -36,7 +37,7 @@ export default async function Home({ searchParams, params }: { searchParams, par
             <main className={styles.main}>
                 <GridLayout couples={couples} />
             </main>
-            <PaginationConductor supercategory={supercategory} page={1} current={supercategory} totalPages={nbPages} />
+            <PaginationConductor supercategory={supercategory} page={1} current={supercategory} totalPages={nbPages} extraFilter={extraFilter}/>
             {infoId && <Modal mongoId={infoId} from={`/${supercategory}`} session={session} />}
         </>
     );

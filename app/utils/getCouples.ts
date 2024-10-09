@@ -2,7 +2,7 @@
 
 import clientPromise from "@/app/lib/mongo"
 
-export async function getCouples (unparsedSupercategory : string, unparsedPage : number) {
+export async function getCouples(unparsedSupercategory: string, unparsedPage: number, extraFilter: string | undefined) {
 
     const supercategoryLookup: { "tv-shows": string, "movies": string } = {
         "tv-shows": "TV Show",
@@ -10,9 +10,39 @@ export async function getCouples (unparsedSupercategory : string, unparsedPage :
     }
 
     let filter = {}
+    let sort = {}
+
+    switch (extraFilter) {
+        case "recently-added":
+            sort = { "dateAdded": -1 }
+            break;
+        case "most-recent":
+            sort = { "year": -1 }
+            break;
+        case "more-diverse":
+            filter = { "$or": [
+                {"people.gender": "Non-Binary"},
+                {"people.genderIdentity": "Trans"},
+                {"people.genderIdentity": "Trans"},
+                {"people.ethnicity": "black"},
+                {"people.ethnicity": "asian"},
+                {"people.ethnicity": "indigenous"},
+                {"people.ethnicity": "latinx"},
+                {"people.genderExpression": "Butch"}
+            ] }
+            break;
+        case "happy-endings":
+            filter = { "ending": "Happy" }
+            break;
+        default:
+            break
+    }
+
+
+
     if (unparsedSupercategory != null && unparsedSupercategory != "home") {
         const supercategory: string = supercategoryLookup[unparsedSupercategory as keyof typeof supercategoryLookup]
-        filter = { originType: supercategory }
+        filter = {...filter, originType: supercategory }
     }
 
     const page: number = unparsedPage ? Number(unparsedPage) - 1 : 0
@@ -25,10 +55,11 @@ export async function getCouples (unparsedSupercategory : string, unparsedPage :
         const data = await
             collection
                 .find(filter)
+                .sort(sort)
                 .skip(page * cardsPerPage)
                 .limit(cardsPerPage)
                 .toArray();
-        return (data); 
+        return (data);
     } catch (error) {
         console.log("Server error on couples route")
         console.log(error)
