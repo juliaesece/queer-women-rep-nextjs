@@ -5,6 +5,13 @@ import { Couple } from '../../utils/types';
 
 export async function createCouple(newCouple: Couple) {
 
+    // Convert newcouple TODO!!
+    /*
+    year to date
+    screentime, story importance, global rating, romantic connection, concernshomophobia, and chemistry to numbers
+    add status!! for origin
+    */
+
     try {
         const client = await clientPromise
         const database = client.db('couples');

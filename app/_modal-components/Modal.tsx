@@ -10,10 +10,9 @@ import WhatshotIcon from '@mui/icons-material/Whatshot';
 import WhatshotOutlined from "@mui/icons-material/WhatshotOutlined";
 import CloseIcon from '@mui/icons-material/Close';
 import ReviewsComponent from "./Reviews";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../utils/authOptions";
+import { Session } from "next-auth";
 
-export default async function DetailedCard({ mongoId, from }: { mongoId: string, from: string }) {
+export default async function Modal({ mongoId, from, session }: { mongoId: string, from: string, session: Session }) {
     const couple = await getCoupleById(mongoId);
     if (couple.error) {
         throw new Error("Invalid Id")
@@ -26,9 +25,6 @@ export default async function DetailedCard({ mongoId, from }: { mongoId: string,
     }
 
     reviews = await getReviews(couple._id, couple.reviewsId)
-
-
-    const session = await getServerSession(authOptions)
 
     return (
         <div className={st.modal}>

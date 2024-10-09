@@ -1,3 +1,5 @@
+"use server"
+
 import clientPromise from "@/app/lib/mongo"
 
 export async function getCouples (unparsedSupercategory : string, unparsedPage : number) {

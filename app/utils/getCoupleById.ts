@@ -1,6 +1,7 @@
+"use server"
+
 import { ObjectId } from 'mongodb';
 import clientPromise from "@/app/lib/mongo"
-
 
 export async function getCoupleById(unparsedId: string) {
     try {

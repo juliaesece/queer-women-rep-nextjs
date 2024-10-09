@@ -41,15 +41,56 @@ export type Couple = {
     _id?: string
 }
 
-export type PersonV1 = {
-    name: string
+// export type PersonV1 = {
+//     name: string
+// }
+
+// export type CoupleV1 = {
+//     person1: PersonV1;
+//     person2: PersonV1;
+//     origin: string;
+//     image: string;
+//     _id: string;
+//     altImg: string;
+// }
+
+export type SearchPerson = {
+    name?: string,
+    gender?: string,
+    sexualOrientation?: string,
+    genderIdentity?: string,
+    genderExpression?: string,
+    ethnicity?: string[],
+    nationality?: string,
+    moreThanOneCountry?: boolean,
+    secondNationality?: string,
+    lifeStage?: string,
 }
 
-export type CoupleV1 = {
-    person1: PersonV1;
-    person2: PersonV1;
-    origin: string;
-    image: string;
-    _id: string;
-    altImg: string;
+
+export type SearchCouple = {
+    person?: SearchPerson,
+    origin?: string,
+    originType?: string,
+    year?: number,
+    status?: string,
+    description?: string,
+    isThereQueerCreators?: boolean,
+    queerDirectors?: boolean,
+    image?: string,
+    altImg?: string,
+    coupleDescription?: string,
+    coupleDescriptionIsSpoiler?: boolean,
+    screenTime?: outOfFive,
+    storyImportance?: outOfFour,
+    globalRating?: outOfFive,
+    romanticConnection?: outOfFive,
+    chemistry?: outOfFive,
+    ending?: string,
+    concernsComingOut?: boolean,
+    concernsDeath?: boolean,
+    concernsCheating?: boolean,
+    concernsHomophobia?: outOfFive,
+    dateAdded?: Date,
+    _id?: string
 }

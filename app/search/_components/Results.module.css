@@ -1,0 +1,12 @@
+.results {
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    overflow: auto;
+    gap: 5px;
+}
+
+.results>h2 {
+    font-size: 2rem;
+}

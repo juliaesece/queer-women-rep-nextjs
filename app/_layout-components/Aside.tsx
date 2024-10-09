@@ -1,5 +1,6 @@
+import Link from "next/link";
 import st from "./aside.module.css"
-
+import SearchIcon from '@mui/icons-material/Search';
 
 function Aside() {
 
@@ -15,6 +16,7 @@ function Aside() {
                 <li className={`${st.aside__list_items} ${st.aside__list_items_disabled}`}>Hidden gems?</li>
                 <li className={st.aside__list_items}>Happy endings </li>
             </ul>
+            <p><Link href="/search" className={st.advancedSearch}><SearchIcon /> Advanced search</Link></p>
         </aside>
     );
 }

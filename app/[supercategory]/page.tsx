@@ -5,7 +5,9 @@ import { getCouples } from "../utils/getCouples";
 import Modal from "@/app/_modal-components/Modal"
 import { countCouples } from "../utils/countCouples";
 import GridLayout from "../_layout-components/GridLayout";
-import { CoupleV1 } from "@/app/utils/types";
+import { Couple } from "@/app/utils/types";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../utils/authOptions";
 
 async function getPages(supercategory) {
     try {
@@ -24,9 +26,10 @@ async function getPages(supercategory) {
 
 export default async function Home({ searchParams, params }: { searchParams, params: { supercategory: string } }) {
     const supercategory = params.supercategory
-    const couples: CoupleV1[] = await getCouples(supercategory, 0)
+    const couples: Couple[] = await getCouples(supercategory, 0)
     const infoId = searchParams.info
     const nbPages = await getPages(supercategory)
+    const session = await getServerSession(authOptions)
 
     return (
         <>
@@ -34,7 +37,7 @@ export default async function Home({ searchParams, params }: { searchParams, par
                 <GridLayout couples={couples} />
             </main>
             <PaginationConductor supercategory={supercategory} page={1} current={supercategory} totalPages={nbPages} />
-            {infoId && <Modal mongoId={infoId} from={`/${supercategory}`} />}
+            {infoId && <Modal mongoId={infoId} from={`/${supercategory}`} session={session} />}
         </>
     );
 }

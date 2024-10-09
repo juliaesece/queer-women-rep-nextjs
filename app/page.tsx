@@ -5,7 +5,9 @@ import PaginationConductor from "./_nav-components/PaginationConductor";
 import { getCouples } from "./utils/getCouples";
 import Modal from "@/app/_modal-components/Modal"
 import { countCouples } from "./utils/countCouples";
-import { CoupleV1 } from "@/app/utils/types";
+import { Couple } from "@/app/utils/types";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./utils/authOptions";
 
 async function getData() {
   try {
@@ -38,9 +40,10 @@ async function getPages(supercategory) {
 };
 
 export default async function Home({ searchParams }) {
-  const couples: CoupleV1[] = await getData()
+  const couples: Couple[] = await getData()
   const infoId = searchParams.info
   const nbPages = await getPages("home")
+  const session = await getServerSession(authOptions)
 
   return (
     <>
@@ -49,7 +52,7 @@ export default async function Home({ searchParams }) {
         <GridLayout couples={couples} />
       </main>
       <PaginationConductor supercategory="home" page={1} current="home" totalPages={nbPages} />
-      {infoId && <Modal mongoId={infoId} from="/" />}
+      {infoId && <Modal mongoId={infoId} from="/" session={session} />}
     </>
   );
 }
