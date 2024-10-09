@@ -58,6 +58,12 @@ export async function getCouples(unparsedSupercategory: string, unparsedPage: nu
                 .sort(sort)
                 .skip(page * cardsPerPage)
                 .limit(cardsPerPage)
+                .project({
+                    _id: 1,
+                    people: 1,
+                    origin: 1,
+                    image: 1
+                })
                 .toArray();
         return (data);
     } catch (error) {

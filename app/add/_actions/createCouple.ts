@@ -9,14 +9,14 @@ export async function createCouple(newCouple: Couple) {
     /*
     year to date
     screentime, story importance, global rating, romantic connection, concernshomophobia, and chemistry to numbers
-    add status!! for origin
     */
 
     try {
         const client = await clientPromise
         const database = client.db('couples');
         const collection = database.collection('couples');
-        const result = await collection.insertOne(newCouple)
+        const parsedCouple = {...newCouple, year: new Date (newCouple.year)}
+        const result = await collection.insertOne(parsedCouple)
 
         if (!result.acknowledged || !result.insertedId) throw new Error("Database error when creating the new couple")
 
