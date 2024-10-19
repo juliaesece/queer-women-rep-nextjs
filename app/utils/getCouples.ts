@@ -65,7 +65,9 @@ export async function getCouples(unparsedSupercategory: string, unparsedPage: nu
                     image: 1
                 })
                 .toArray();
-        return (data);
+
+        const parsedData = data.map((el) => ({...el, _id: el._id.toString()}));
+        return parsedData;
     } catch (error) {
         console.log("Server error on couples route")
         console.log(error)

@@ -15,6 +15,7 @@ import { Session } from "next-auth";
 import RatingsWrapper from "./_components/RatingsWrapper";
 
 export default async function Modal({ mongoId, from, session }: { mongoId: string, from: string, session: Session }) {
+    console.log(mongoId)
     const couple = await getCoupleById(mongoId);
     if (couple.error) {
         throw new Error("Invalid Id")
@@ -46,14 +47,30 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                     <div className={st.modal_ratings}>
                         <div>
                             <p>Global Rating</p>
-                            <RatingsWrapper couple={couple} session={session}/>
-                        
+                            <RatingsWrapper
+                                value={couple.globalRating}
+                                icon={undefined}
+                                emptyIcon={undefined}
+                                sx={{
+                                    color: "#d63900",
+                                    "& .MuiRating-icon": {
+                                        color: "#d63900",
+                                        opacity: 0.4
+                                    },
+                                    "& .MuiRating-iconFilled": {
+                                        opacity: 0.9
+                                    },
+                                    '& .MuiRating-iconHover': {
+                                        opacity: 1
+                                    }
+                                }}
+                                couple={couple} session={session} collectionName="globalRatings" />
+
                         </div>
                         <div>
                             <p>Romantic rating</p>
-                            <Rating
+                            <RatingsWrapper
                                 value={couple.romanticConnection}
-                                size="large"
                                 icon={<Favorite fontSize="inherit" />}
                                 emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
                                 sx={{
@@ -69,13 +86,13 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                                         opacity: 1
                                     }
                                 }}
-                            />
+                                couple={couple} session={session} collectionName="romanticRatings" />
+
                         </div>
                         <div>
                             <p>Chemistry rating</p>
-                            <Rating
+                            <RatingsWrapper
                                 value={couple.chemistry}
-                                size="large"
                                 icon={<WhatshotIcon fontSize="inherit" />}
                                 emptyIcon={<WhatshotOutlined fontSize="inherit" />}
                                 sx={{
@@ -91,7 +108,7 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                                         opacity: 1
                                     }
                                 }}
-                            />
+                                couple={couple} session={session} collectionName="chemistryRatings" />
                         </div>
                     </div>
                     <div className={st.modal_description}>

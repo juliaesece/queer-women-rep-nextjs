@@ -25,22 +25,22 @@ export async function createCouple(newCouple: Couple, userId: string) {
         const reviews = database.collection('reviews');
         const reviewsResult = await
             reviews.insertOne({ "coupleId": result.insertedId, "reviews": [] })
-        if (!result.acknowledged || !result.insertedId) throw new Error("Database error when creating reviews section")
+        if (!reviewsResult.acknowledged || !reviewsResult.insertedId) throw new Error("Database error when creating reviews section")
 
 
         // Store all ratings elsewhere, and compute the average. We'll store only the average on couple, and update it on writes
         const globalResult = await database.collection('globalRatings').insertOne({
-            "coupleId": result.insertedId, "ratings": {parsedUserId: parsedCouple.globalRating}
+            "_id": result.insertedId, "ratings": {parsedUserId: parsedCouple.globalRating}
         })
         if (!globalResult.acknowledged || !globalResult.insertedId) throw new Error("Database error when creating globalRatings section")
 
         const chemistryResult = await database.collection('chemistryRatings').insertOne({
-            "coupleId": result.insertedId, "ratings": {parsedUserId: parsedCouple.chemistry}
+            "_id": result.insertedId, "ratings": {parsedUserId: parsedCouple.chemistry}
         })
         if (!chemistryResult.acknowledged || !chemistryResult.insertedId) throw new Error("Database error when creating revchemistryRatingsiews section")
 
         const romanticResult = await database.collection('romanticRatings').insertOne({
-            "coupleId": result.insertedId, "ratings": {parsedUserId: parsedCouple.romanticConnection}
+            "_id": result.insertedId, "ratings": {parsedUserId: parsedCouple.romanticConnection}
         })
         if (!romanticResult.acknowledged || !romanticResult.insertedId) throw new Error("Database error when creating romanticRatings section")
 
