@@ -10,5 +10,6 @@
     .pagination {
         height: 130px;
         margin-top: 10px;
+        grid-column: 1 / 2;
     }
 }

@@ -38,12 +38,13 @@
     height: auto;
     max-height: none;
     flex-wrap: nowrap;
-    width: 100vw;
-    max-width: 100vw;
+    width: 100svw;
+    max-width: 100svw;
     padding: 0;
     aspect-ratio: none;
     justify-content: initial;
     align-items: initial;
+    overflow-x: hidden;
     overflow: initial; 
     grid-column: 1 / 2;
   }

@@ -95,6 +95,7 @@ video {
 body {
   font-family: "Helvetica Neue", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", sans-serif;
   height: 100vh;
+  width: 100svw;
 }
 
 /* HTML5 display-role reset for older browsers */
