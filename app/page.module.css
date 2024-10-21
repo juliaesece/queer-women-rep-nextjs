@@ -45,6 +45,7 @@
     justify-content: initial;
     align-items: initial;
     overflow: initial; 
+    grid-column: 1 / 2;
   }
 
   .main>div {
