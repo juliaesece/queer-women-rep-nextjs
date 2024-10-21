@@ -4,15 +4,31 @@ import { concerns, booleanOptions, homophobiaOptions } from "@/app/utils/couples
 
 
 export default function Concerns() {
-    const { couple, setCouple, handleChange, currentSection, setCurrentSection } = useAddContext()
+    const { couple, setCouple } = useAddContext()
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        setCouple(prevPerson => ({
-            ...prevPerson,
-            [name]: value === 'true'
-        }));
+        setCouple({
+            ...couple,
+            concerns: {
+                ...couple.concerns,
+                [name]: value === 'true'
+            }
+        });
     };
+
+    const concernHandleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { name, value } = e.target;
+
+        setCouple({
+            ...couple,
+            concerns: {
+                ...couple.concerns,
+                [name]: value
+            }
+        }
+        )
+    }
 
     return (
         <section className={styles.section}>
@@ -25,7 +41,7 @@ export default function Concerns() {
                                 type="radio"
                                 name={concern.key}
                                 value={option.value}
-                                checked={couple[concern.key] === (option.value === 'true')}
+                                checked={couple.concerns[concern.key] === (option.value === 'true')}
                                 onChange={handleRadioChange}
                                 className={styles.checkbox}
                                 id={`${concern.key}-${option.value}`}
@@ -38,13 +54,13 @@ export default function Concerns() {
                 </fieldset>
             ))}
             <div className={styles.fullWidth}>
-                <label htmlFor="concernsHomophobia">
+                <label htmlFor="homophobia">
                     How much homophobic or sexist violence are they subjected to?
                 </label>
                 <select
-                    name="concernsHomophobia"
-                    onChange={handleChange}
-                    value={couple.concernsHomophobia}
+                    name="homophobia"
+                    onChange={concernHandleChange}
+                    value={couple.concerns.homophobia}
                 >
                     <option value="0">-----</option>
                     {homophobiaOptions.map(option => (

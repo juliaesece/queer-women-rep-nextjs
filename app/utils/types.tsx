@@ -14,11 +14,18 @@ export type Person = {
     lifeStage: string,
 }
 
+export type ShortCouple = {
+    _id: string,
+    people: Person[],
+    origin: string,
+    image: string
+}
+
 export type Couple = {
     people: Person[],
     origin: string,
     originType: string,
-    year: number,
+    year: any,
     status: string,
     description: string,
     isThereQueerCreators: boolean,
@@ -33,10 +40,13 @@ export type Couple = {
     romanticConnection: outOfFive,
     chemistry: outOfFive,
     ending: string,
-    concernsComingOut: boolean,
-    concernsDeath: boolean,
-    concernsCheating: boolean,
-    concernsHomophobia: outOfFive,
+    concerns: {
+        comingOut: boolean,
+        death: boolean,
+        cheating: boolean,
+        homophobia: outOfFive,
+    }
+
     dateAdded: Date,
     _id?: string
 }

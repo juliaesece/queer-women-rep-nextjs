@@ -1,7 +1,7 @@
 "use server";
 
 import { ObjectId } from 'mongodb';
-import clientPromise from "@/app/lib/mongo";
+import client from "@/app/lib/mongo";
 
 export async function rateCouple(collectionName: string, coupleId: string, userId: string, rating: number) {
 
@@ -26,7 +26,7 @@ export async function rateCouple(collectionName: string, coupleId: string, userI
         const parsedUserId = new ObjectId(userId)
         const parsedRatingsId = new ObjectId(coupleId)
 
-        const client = await clientPromise
+        
         const database = client.db('couples');
         const ratings = database.collection(collectionName)
 

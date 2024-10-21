@@ -1,6 +1,7 @@
 "use server"
 
-import clientPromise from "@/app/lib/mongo"
+import client from "@/app/lib/mongo"
+import { ShortCouple } from "./types"
 
 export async function getCouples(unparsedSupercategory: string, unparsedPage: number, extraFilter: string | undefined) {
 
@@ -38,8 +39,6 @@ export async function getCouples(unparsedSupercategory: string, unparsedPage: nu
             break
     }
 
-
-
     if (unparsedSupercategory != null && unparsedSupercategory != "home") {
         const supercategory: string = supercategoryLookup[unparsedSupercategory as keyof typeof supercategoryLookup]
         filter = {...filter, originType: supercategory }
@@ -49,7 +48,7 @@ export async function getCouples(unparsedSupercategory: string, unparsedPage: nu
     const cardsPerPage = 9
 
     try {
-        const client = await clientPromise
+        
         const database = client.db('couples');
         const collection = database.collection('couples');
         const data = await
@@ -66,11 +65,11 @@ export async function getCouples(unparsedSupercategory: string, unparsedPage: nu
                 })
                 .toArray();
 
-        const parsedData = data.map((el) => ({...el, _id: el._id.toString()}));
+        const parsedData : ShortCouple[] = data.map((el) => ({people: el.people, origin: el.origin, image: el.image, _id: el._id.toString()}));
         return parsedData;
     } catch (error) {
         console.error("[getCouples] Server error on couples route")
         console.error(error)
+        throw new Error(error)
     }
-    return ({ error: "There was an error" });
 }

@@ -11,7 +11,7 @@ type NumericOption = {
 }
 
 type Concern = {
-    key: keyof Pick<Couple, 'concernsComingOut' | 'concernsDeath' | 'concernsCheating'>;
+    key: keyof Pick<Couple['concerns'], 'comingOut' | 'death' | 'cheating'>;
     question: string;
 }
 
@@ -114,9 +114,9 @@ export const booleanOptions: Option[] = [
 ];
 
 export const concerns: Concern[] = [
-    { key: 'concernsComingOut', question: 'Is coming out a thing in this story?' },
-    { key: 'concernsDeath', question: 'Does someone of the couple die?' },
-    { key: 'concernsCheating', question: 'Is there cheating (on a third party)?' },
+    { key: 'comingOut', question: 'Is coming out a thing in this story?' },
+    { key: 'death', question: 'Does someone of the couple die?' },
+    { key: 'cheating', question: 'Is there cheating (on a third party)?' },
 ];
 
 export const searchConcerns: DbConcern[] = [

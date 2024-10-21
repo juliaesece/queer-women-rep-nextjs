@@ -16,7 +16,7 @@ export default async function AdvancedSearch({ searchParams }) {
     return (
         <main className={styles.main}>
             <SearchContextProvider>
-                <SearchForm />
+                <SearchForm session={session} />
                 <Results />
                 {infoId && <Modal mongoId={infoId} from="/search" session={session} />}
             </SearchContextProvider>

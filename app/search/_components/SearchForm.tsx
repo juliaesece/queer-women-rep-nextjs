@@ -9,10 +9,10 @@ import SearchStory from './SearchStory';
 import SearchConcerns from './SearchConcerns';
 import { useState } from 'react';
 
-export default function SearchForm() {
+export default function SearchForm({ session }) {
     const { searchCouple, setSearchCouple, setResult, setWaitingMessage } = useSearchContext()
     const [open, setOpen] = useState(0);
-
+    
     const isOpen = (id) => {
         return id === open ? true : false;
     }
@@ -20,7 +20,7 @@ export default function SearchForm() {
     const findCouples = async (e) => {
         e.preventDefault()
         setWaitingMessage("Searching...")
-        const result = await searchCouples(searchCouple)
+        const result = await searchCouples(searchCouple, session)
         setResult(result)
         if (result.length == 0) setWaitingMessage("No couples were found")
     }
@@ -56,9 +56,9 @@ export default function SearchForm() {
                 <SearchConcerns />
             </details>
             <div className={styles.buttonsContainer}>
-                <button className={styles.removeFilters} type="button" onClick={() => setSearchCouple({ person: {ethnicity: []} })}>Remove all filters</button>
+                <button className={styles.removeFilters} type="button" onClick={() => setSearchCouple({ person: { ethnicity: [] } })}>Remove all filters</button>
                 <button className={styles.submitButton} type='submit'>Search</button>
-            </div>  
+            </div>
         </form>
     );
 };

@@ -1,5 +1,5 @@
 "use server"
-import clientPromise from "@/app/lib/mongo"
+import client from "@/app/lib/mongo"
 
 export async function setDBUsername(username, email) {
 
@@ -12,7 +12,7 @@ export async function setDBUsername(username, email) {
     }
 
     try {
-        const client = await clientPromise
+        
         const database = client.db('test');
         const collection = database.collection('users');
         const uniqueCheck = await

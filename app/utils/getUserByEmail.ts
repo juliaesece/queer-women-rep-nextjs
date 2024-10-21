@@ -1,11 +1,11 @@
 "use server"
-import clientPromise from "@/app/lib/mongo"
+import client from "@/app/lib/mongo"
 
 export async function getUserByEmail(email) {
     const emailFilter = { email: { $eq: email } }
 
     try {
-        const client = await clientPromise
+        
         const database = client.db('test');
         const collection = database.collection('users');
         const data = await

@@ -5,7 +5,7 @@ import PaginationConductor from "@/app/_nav-components/PaginationConductor";
 import { getCouples } from "@/app/utils/getCouples";
 import Modal from "@/app/_modal-components/Modal"
 import { countCouples } from "@/app/utils/countCouples";
-import { Couple } from "@/app/utils/types";
+import { ShortCouple } from "@/app/utils/types";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/utils/authOptions";
 
@@ -13,7 +13,7 @@ async function getPages(supercategory) {
     try {
         const count = await countCouples(supercategory)
 
-        if (!count.error) {
+        if (count) {
             return Math.ceil(count / 9)
         } else {
             return 3
@@ -29,7 +29,7 @@ export default async function Home({ searchParams, params }: { searchParams, par
     const page = params.page
     const extraFilter = searchParams.filter
     const supercategory = params.supercategory
-    const couples: Couple[] = await getCouples(supercategory, Number(page), extraFilter)
+    const couples: ShortCouple[] = await getCouples(supercategory, Number(page), extraFilter)
     const infoId = searchParams.info
     const nbPages = await getPages(supercategory)
     const session = await getServerSession(authOptions)

@@ -1,11 +1,11 @@
 "use server";
 
 import { ObjectId } from 'mongodb';
-import clientPromise from "@/app/lib/mongo"
+import client from "@/app/lib/mongo"
 
 export async function getReviews(unparsedCoupleId) {
     try {
-        const client = await clientPromise
+        
         const database = client.db('couples');
         const reviews = database.collection('reviews');
         const couplesId = new ObjectId(unparsedCoupleId)
@@ -22,10 +22,10 @@ export async function getReviews(unparsedCoupleId) {
         }
 
         const parsedData = { ...data, _id: data._id.toString() }
-        return parsedData;
+        return parsedData as unknown as {_id: string, reviews: any[]};
     } catch (error) {
         console.error("[getReviews] Server error on couples route")
         console.error(error)
-        return { error: "There was an error" };
+        throw new Error ("Error on getReviews")
     }
 }

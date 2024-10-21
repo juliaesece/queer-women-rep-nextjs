@@ -10,22 +10,25 @@ import { createCouple } from "../_actions/createCouple";
 import Alert from '@mui/material/Alert';
 import { useState } from "react";
 
-export default function Conductor({session}) {
+export default function Conductor({ session }) {
     const { couple, currentSection } = useAddContext();
-    const [alert, setAlert] = useState("")
+    const [alert, setAlert] = useState({ severity: "", message: "" })
 
     const createNewCouple = async (event) => {
         event.preventDefault()
+        setAlert({ severity: "success", message: "We're processing your query" })
+
         const datedCouple = {
             ...couple,
             dateAdded: new Date()
         }
+
         const result = await createCouple(datedCouple, session.user.id);
         if (result) {
-            setAlert("success")
+            setAlert({ severity: "success", message: "The new couple has been added to the database successfully" })
         }
         else {
-            setAlert("error")
+            setAlert({ severity: "error", message: "There was an error with the database" })
         }
     }
 
@@ -59,12 +62,10 @@ export default function Conductor({session}) {
                 <>
                     <h1>General concerns and information</h1>
                     <Concerns />
-                    {alert && <Alert severity={alert == "success" ? "success" : "error"} className={styles.alert}>
-                        {alert == "success" ?
-                            "The new couple has been added to the database successfully" :
-                            "There was an error with the database"}
+                    {alert.message && <Alert severity={alert.severity == "success" ? "success" : "error"} className={styles.alert}>
+                        {alert.message}
                     </Alert>}
-                    <button type="submit" onClick={createNewCouple} disabled={alert && true}>Submit</button>
+                    <button type="submit" onClick={createNewCouple} disabled={alert.message && true}>Submit</button>
                 </>
             }
         </form>

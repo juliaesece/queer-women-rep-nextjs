@@ -43,7 +43,7 @@ const AddContextProvider = ({ children }: { children: React.ReactNode }) => {
         ],
         origin: "",
         originType: "",
-        year: 0,
+        year: new Date(),
         status: "",
         description: "",
         isThereQueerCreators: false,
@@ -58,10 +58,12 @@ const AddContextProvider = ({ children }: { children: React.ReactNode }) => {
         romanticConnection: 0 as outOfFive,
         chemistry: 0 as outOfFive,
         ending: "",
-        concernsComingOut: false,
-        concernsDeath: false,
-        concernsCheating: false,
-        concernsHomophobia: 0 as outOfFive,
+        concerns: {
+            comingOut: false,
+            death: false,
+            cheating: false,
+            homophobia: 0 as outOfFive
+        },
         dateAdded: new Date()
     });
 

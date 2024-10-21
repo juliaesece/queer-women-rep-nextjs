@@ -5,7 +5,7 @@ import { getCouples } from "../utils/getCouples";
 import Modal from "@/app/_modal-components/Modal"
 import { countCouples } from "../utils/countCouples";
 import GridLayout from "../_layout-components/GridLayout";
-import { Couple } from "@/app/utils/types";
+import { ShortCouple } from "@/app/utils/types";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../utils/authOptions";
 
@@ -13,7 +13,7 @@ async function getPages(supercategory) {
     try {
         const count = await countCouples(supercategory)
 
-        if (!count.error) {
+        if (count) {
             return Math.ceil(count / 9)
         } else {
             return 3
@@ -27,7 +27,7 @@ async function getPages(supercategory) {
 export default async function Home({ searchParams, params }: { searchParams, params: { supercategory: string } }) {
     const supercategory = params.supercategory
     const extraFilter = searchParams.filter
-    const couples: Couple[] = await getCouples(supercategory, 0, extraFilter)
+    const couples: ShortCouple[] = await getCouples(supercategory, 0, extraFilter)
     const infoId = searchParams.info
     const nbPages = await getPages(supercategory)
     const session = await getServerSession(authOptions)

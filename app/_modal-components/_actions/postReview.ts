@@ -1,25 +1,33 @@
 "use server";
 
 import { ObjectId } from 'mongodb';
-import clientPromise from "@/app/lib/mongo";
+import client from "@/app/lib/mongo";
+import { Collection } from 'mongodb';
 
 export async function postReview(reviewsId, newReview) {
+
+    type Reviews = {
+        messages: { _id: String, reviews: String[] }[],
+    }
 
     try {
         const id = new ObjectId(reviewsId)
 
-        const client = await clientPromise
+
         const database = client.db('couples');
-        const reviews = database.collection('reviews');
+        const reviews: Collection<Reviews> = database.collection('reviews');
+
+        const updateObject = {
+            $push: {
+                "reviews": newReview
+            }
+        }
+
         const result = await reviews.updateOne(
             { _id: id },
-            {
-                $push: {
-                    "reviews": newReview
-                }
-            }
+            updateObject
         )
-        
+
         if (!result.acknowledged || result.matchedCount != 1) {
             throw new Error("Database error, please try again in a few minutes")
         }

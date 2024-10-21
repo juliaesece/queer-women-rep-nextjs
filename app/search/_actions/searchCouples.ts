@@ -1,10 +1,10 @@
 "use server"
 
-import clientPromise from "@/app/lib/mongo"
+import client from "@/app/lib/mongo"
 
 function transformQuery(query, prefix = '') {
   const transformedQuery = {};
-
+  
   if ('people' in query) {
     transformedQuery["$or"] = [{}, {}];
   }
@@ -48,7 +48,7 @@ function transformQuery(query, prefix = '') {
 }
 
 
-export async function searchCouples(unparsedSearchCouple) {
+export async function searchCouples(unparsedSearchCouple, session) {
 
   let searchCouple = { ...unparsedSearchCouple }
   searchCouple.people = unparsedSearchCouple.person
@@ -57,7 +57,7 @@ export async function searchCouples(unparsedSearchCouple) {
   let filter = transformQuery(searchCouple)
 
   try {
-    const client = await clientPromise
+    
     const database = client.db('couples');
     const collection = database.collection('couples');
     const data = await
@@ -67,7 +67,7 @@ export async function searchCouples(unparsedSearchCouple) {
 
     const logDB = client.db('log');
     const searchLog = logDB.collection('search')
-    searchLog.insertOne({ timestamp: new Date(), query: filter, userId: "admin" }) // Don't await?
+    searchLog.insertOne({ timestamp: new Date(), query: filter, userId: session ? session.user.id : null, username: session ? session.user.username : "no-user" }) // Don't await?
 
     return JSON.parse(JSON.stringify(data));
   } catch (error) {

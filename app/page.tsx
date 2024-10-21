@@ -5,23 +5,22 @@ import PaginationConductor from "./_nav-components/PaginationConductor";
 import { getCouples } from "./utils/getCouples";
 import Modal from "@/app/_modal-components/Modal"
 import { countCouples } from "./utils/countCouples";
-import { Couple } from "@/app/utils/types";
+import { ShortCouple } from "@/app/utils/types";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./utils/authOptions";
 
 async function getData(extraFilter) {
   try {
+    const couples : ShortCouple[] = await getCouples("home", 0, extraFilter)
 
-    const couples = await getCouples("home", 0, extraFilter)
-
-    if (!couples.error) {
+    if (couples) {
       return couples
     } else {
-      return []
+      throw new Error("Database Error")
     }
   }
   catch (e) {
-    return []
+    throw new Error(e)
   }
 };
 
@@ -29,7 +28,7 @@ async function getPages(supercategory) {
   try {
     const count = await countCouples(supercategory)
 
-    if (!count.error) {
+    if (count) {
       return Math.ceil(count / 9)
     } else {
       return 3
@@ -42,7 +41,7 @@ async function getPages(supercategory) {
 
 export default async function Home({ searchParams }) {
   const extraFilter = searchParams.filter
-  const couples: Couple[] = await getData(extraFilter)
+  const couples: ShortCouple[] = await getData(extraFilter)
   const infoId = searchParams.info
   const nbPages = await getPages("home")
   const session = await getServerSession(authOptions)

@@ -13,17 +13,15 @@ import ReviewsComponent from "./Reviews";
 import { Session } from "next-auth";
 import RatingsWrapper from "./_components/RatingsWrapper";
 import { storyImportanceOptions, screenTimeOptions } from "../utils/couplesOptions";
+import { Couple } from "../utils/types";
 
 export default async function Modal({ mongoId, from, session }: { mongoId: string, from: string, session: Session }) {
 
-    const couple = await getCoupleById(mongoId);
-    if (couple.error) {
-        throw new Error("Invalid Id")
-    }
+    const couple : Couple = await getCoupleById(mongoId);
+
 
     let reviews = {
         _id: 'undefined',
-        coupleId: couple._id,
         reviews: []
     }
 
@@ -40,7 +38,7 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                 <Image className={st.modal_image} src={couple.image} alt={couple.altImg} width={2000} height={2000} />
                 <div className={st.modal_textContent}>
                     <div className={st.modal_title}>
-                        <h2>{"person1" in couple ? couple.person1.name : couple.people[0].name} and {"person2" in couple ? couple.person2.name : couple.people[1].name}</h2>
+                        <h2>{couple.people[0].name} and {couple.people[1].name}</h2>
                         <h3>{couple.originType} — {couple.origin} ({typeof couple.year.getMonth === 'function' ? couple.year.getFullYear() : "Undefined"})</h3>
                     </div>
 

@@ -1,5 +1,5 @@
 "use server"
-import clientPromise from "@/app/lib/mongo"
+import client from "@/app/lib/mongo"
 
 export async function countCouples(unparsedSupercategory) {
 
@@ -16,7 +16,7 @@ export async function countCouples(unparsedSupercategory) {
 
 
     try {
-        const client = await clientPromise
+        
         const database = client.db('couples');
         const collection = database.collection('couples');
         const result = await
@@ -24,6 +24,6 @@ export async function countCouples(unparsedSupercategory) {
                 .countDocuments(filter);
         return result;
     } catch (error) {
-        return { error: error.message }
+        return false
     }
 }
