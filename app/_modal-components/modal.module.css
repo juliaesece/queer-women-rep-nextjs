@@ -147,7 +147,15 @@
     }
 
     .modal_closeButton {
-        position: fixed;
+        position: sticky;
+        right: 1rem;
+        top: 1rem;
+        display: block;
+        height: 48px;
+        width: 48px;
+        z-index: 10;
+        margin-left: auto;
+        margin-bottom: -50px;
     }
 
     .modal_textContent {

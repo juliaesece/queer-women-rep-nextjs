@@ -19,3 +19,9 @@
     padding: 1rem;
     border-radius: 5px;
 }
+
+@media (max-width: 620px) {
+    .results {
+        width: 100%;
+    }
+}

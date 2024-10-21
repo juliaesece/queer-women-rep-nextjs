@@ -7,9 +7,6 @@ export default function SearchRelationship() {
 
     return (
         <section className={styles.section}>
-            
-
-
             <div>
                 <label htmlFor="screenTime">How much screen time they have:</label>
                 <select name="screenTime" onChange={handleChange} value={searchCouple.screenTime}>

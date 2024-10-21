@@ -125,3 +125,12 @@
     color: #333;
     padding: 10px 15px;
 }
+
+@media (max-width: 620px) {
+    .section {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+}
