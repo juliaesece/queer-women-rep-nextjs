@@ -67,7 +67,7 @@ const ReviewsComponent = ({ reviews, session }) => {
           Reviews
         </h3>
         <List className={st.listContainer}>
-          {clientReviews.map((review) => (
+          {clientReviews && clientReviews.map((review) => (
             <ListItem key={review.date} divider>
               <em>{review.username}</em>:
               <ListItemText primary={review.review} sx={{ ml: 2 }} />
@@ -75,7 +75,7 @@ const ReviewsComponent = ({ reviews, session }) => {
           ))}
         </List>
 
-        {clientReviews.length === 0 && (
+        {(!clientReviews || clientReviews?.length === 0) && (
           <Typography variant="body2" align="center">
             No reviews yet. Be the first to review!
           </Typography>

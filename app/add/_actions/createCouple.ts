@@ -6,18 +6,12 @@ import { ObjectId } from 'mongodb';
 
 export async function createCouple(newCouple: Couple, userId: string) {
 
-    // Convert newcouple TODO!!
-    /*
-    year to date
-    screentime, story importance, global rating, romantic connection, concernshomophobia, and chemistry to numbers
-    */
-
     try {
         const parsedUserId = new ObjectId(userId)
         const client = await clientPromise
         const database = client.db('couples');
         const collection = database.collection('couples');
-        const parsedCouple = {...newCouple, year: new Date (newCouple.year)}
+        const parsedCouple = {...newCouple, year: new Date (newCouple.year), createdBy: parsedUserId}
         const result = await collection.insertOne(parsedCouple)
 
         if (!result.acknowledged || !result.insertedId) throw new Error("Database error when creating the new couple")
@@ -59,8 +53,8 @@ export async function createCouple(newCouple: Couple, userId: string) {
 
         return true;
     } catch (error) {
-        console.log("[id route] Server error on couples route")
-        console.log(error)
+        console.error("[createCouple] Server error on couples route")
+        console.error(error)
         return false
     }
 }

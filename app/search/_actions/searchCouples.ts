@@ -49,20 +49,12 @@ function transformQuery(query, prefix = '') {
 
 
 export async function searchCouples(unparsedSearchCouple) {
-  console.log("start search")
 
   let searchCouple = { ...unparsedSearchCouple }
   searchCouple.people = unparsedSearchCouple.person
   delete searchCouple.person
 
-  console.log()
-  console.log(searchCouple)
-  console.log()
-
   let filter = transformQuery(searchCouple)
-  console.log("filter", filter)
-  console.log("stringified", JSON.stringify(filter))
-
 
   try {
     const client = await clientPromise
@@ -79,8 +71,8 @@ export async function searchCouples(unparsedSearchCouple) {
 
     return JSON.parse(JSON.stringify(data));
   } catch (error) {
-    console.log("Server error on couples route")
-    console.log(error)
+    console.error("[searchCouples] Server error on couples route")
+    console.error(error)
   }
   return ({ error: "There was an error" });
 }

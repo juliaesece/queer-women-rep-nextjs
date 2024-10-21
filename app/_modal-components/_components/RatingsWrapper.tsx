@@ -3,9 +3,9 @@ import { useState } from "react";
 import { Rating } from "@mui/material";
 import { rateCouple } from "../_actions/rateCouple";
 
-export default function RatingsWrapper({ value, icon, emptyIcon, sx, couple, session, collectionName }) {
+export default function RatingsWrapper({ dbValue, icon, emptyIcon, sx, couple, session, collectionName }) {
+    const [value, setValue] = useState(dbValue);
 
-    console.log("session", session.user.id)
     return (
         <>
             <Rating
@@ -13,13 +13,14 @@ export default function RatingsWrapper({ value, icon, emptyIcon, sx, couple, ses
                 size="large"
                 sx={sx}
                 precision={0.5}
-
+                readOnly={!session}
                 icon={icon}
                 emptyIcon={emptyIcon}
                 onChange={(event, newValue) => {
-                    console.log(collectionName)
+                    setValue(newValue)
                     rateCouple(collectionName, couple._id, session.user.id, newValue)
                 }}
-            />    </>
+            />
+        </>
     );
 }

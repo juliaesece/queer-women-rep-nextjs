@@ -26,8 +26,8 @@ export async function postReview(reviewsId, newReview) {
 
         return true;
     } catch (error) {
-        console.log("[id route] Server error on couples route")
-        console.log(error)
+        console.error("[id route] Server error on couples route")
+        console.error(error)
         return false
     }
 }

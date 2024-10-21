@@ -31,7 +31,6 @@ export async function rateCouple(collectionName: string, coupleId: string, userI
         const ratings = database.collection(collectionName)
 
         const ratingsKey = "ratings." + parsedUserId
-        console.log(ratingsKey)
         let setObject = {}
         setObject[ratingsKey] = rating
 
@@ -41,8 +40,6 @@ export async function rateCouple(collectionName: string, coupleId: string, userI
                 $set: setObject
             }
         )
-
-        console.log("result", result)
 
         if (!result.acknowledged) {
             throw new Error("Database error, please try again in a few minutes")
@@ -54,16 +51,11 @@ export async function rateCouple(collectionName: string, coupleId: string, userI
 
 
         const newResult = await ratings.findOne({ _id: parsedRatingsId })
-        console.log(newResult)
         const newRatings = Object.values(newResult.ratings)
-        console.log(newRatings)
         const sum = newRatings.reduce((a: number, b: number) => a + b, 0);
-        console.log(sum)
         const avg = (Number(sum) / newRatings.length) || 0;
-        console.log("avg", avg)
         const couplesSetObject = {}
         couplesSetObject[fieldToUpdate] = avg
-        console.log(couplesSetObject)
         const updatedCouples = await database.collection("couples").updateOne({ _id: newResult._id }, { $set: couplesSetObject })
         if (!updatedCouples.acknowledged || updatedCouples.matchedCount != 1) {
             throw new Error("Database error, please try again in a few minutes")
@@ -71,8 +63,8 @@ export async function rateCouple(collectionName: string, coupleId: string, userI
 
         return true;
     } catch (error) {   
-        console.log("[rateCouple] Server error on couples route")
-        console.log(error)
+        console.error("[rateCouple] Server error on couples route")
+        console.error(error)
         return false
     }
 }

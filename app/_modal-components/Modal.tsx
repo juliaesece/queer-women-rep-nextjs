@@ -3,19 +3,19 @@ import st from "./modal.module.css"
 import Image from "next/image";
 import { getCoupleById } from "@/app/utils/getCoupleById";
 import { getReviews } from "./_actions/getReviews";
-import { IconButton, Rating } from "@mui/material";
+import { IconButton } from "@mui/material";
 import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import WhatshotOutlined from "@mui/icons-material/WhatshotOutlined";
 import CloseIcon from '@mui/icons-material/Close';
 import ReviewsComponent from "./Reviews";
-import { rateCouple } from "./_actions/rateCouple";
 import { Session } from "next-auth";
 import RatingsWrapper from "./_components/RatingsWrapper";
+import { storyImportanceOptions, screenTimeOptions } from "../utils/couplesOptions";
 
 export default async function Modal({ mongoId, from, session }: { mongoId: string, from: string, session: Session }) {
-    console.log(mongoId)
+
     const couple = await getCoupleById(mongoId);
     if (couple.error) {
         throw new Error("Invalid Id")
@@ -27,7 +27,7 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
         reviews: []
     }
 
-    reviews = await getReviews(couple._id, couple.reviewsId)
+    reviews = await getReviews(couple._id)
 
     return (
         <div className={st.modal}>
@@ -47,68 +47,81 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                     <div className={st.modal_ratings}>
                         <div>
                             <p>Global Rating</p>
-                            <RatingsWrapper
-                                value={couple.globalRating}
-                                icon={undefined}
-                                emptyIcon={undefined}
-                                sx={{
-                                    color: "#d63900",
-                                    "& .MuiRating-icon": {
+                            <div className={st.modal_ratings_inline}>
+                                <RatingsWrapper
+                                    dbValue={couple.globalRating}
+                                    icon={undefined}
+                                    emptyIcon={undefined}
+                                    sx={{
                                         color: "#d63900",
-                                        opacity: 0.4
-                                    },
-                                    "& .MuiRating-iconFilled": {
-                                        opacity: 0.9
-                                    },
-                                    '& .MuiRating-iconHover': {
-                                        opacity: 1
-                                    }
-                                }}
-                                couple={couple} session={session} collectionName="globalRatings" />
-
+                                        "& .MuiRating-icon": {
+                                            color: "#d63900",
+                                            opacity: 0.4
+                                        },
+                                        "& .MuiRating-iconFilled": {
+                                            opacity: 0.9
+                                        },
+                                        '& .MuiRating-iconHover': {
+                                            opacity: 1
+                                        }
+                                    }}
+                                    couple={couple} session={session} collectionName="globalRatings" />
+                                <span>
+                                    {couple.globalRating}
+                                </span>
+                            </div>
                         </div>
                         <div>
                             <p>Romantic rating</p>
-                            <RatingsWrapper
-                                value={couple.romanticConnection}
-                                icon={<Favorite fontSize="inherit" />}
-                                emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
-                                sx={{
-                                    color: "#d63900",
-                                    "& .MuiRating-icon": {
+                            <div className={st.modal_ratings_inline}>
+                                <RatingsWrapper
+                                    dbValue={couple.romanticConnection}
+                                    icon={<Favorite fontSize="inherit" />}
+                                    emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+                                    sx={{
                                         color: "#d63900",
-                                        opacity: 0.4
-                                    },
-                                    "& .MuiRating-iconFilled": {
-                                        opacity: 0.9
-                                    },
-                                    '& .MuiRating-iconHover': {
-                                        opacity: 1
-                                    }
-                                }}
-                                couple={couple} session={session} collectionName="romanticRatings" />
-
+                                        "& .MuiRating-icon": {
+                                            color: "#d63900",
+                                            opacity: 0.4
+                                        },
+                                        "& .MuiRating-iconFilled": {
+                                            opacity: 0.9
+                                        },
+                                        '& .MuiRating-iconHover': {
+                                            opacity: 1
+                                        }
+                                    }}
+                                    couple={couple} session={session} collectionName="romanticRatings" />
+                                <span>
+                                    {couple.romanticConnection}
+                                </span>
+                            </div>
                         </div>
                         <div>
                             <p>Chemistry rating</p>
-                            <RatingsWrapper
-                                value={couple.chemistry}
-                                icon={<WhatshotIcon fontSize="inherit" />}
-                                emptyIcon={<WhatshotOutlined fontSize="inherit" />}
-                                sx={{
-                                    color: "#d63900",
-                                    "& .MuiRating-icon": {
+                            <div className={st.modal_ratings_inline}>
+                                <RatingsWrapper
+                                    dbValue={couple.chemistry}
+                                    icon={<WhatshotIcon fontSize="inherit" />}
+                                    emptyIcon={<WhatshotOutlined fontSize="inherit" />}
+                                    sx={{
                                         color: "#d63900",
-                                        opacity: 0.4
-                                    },
-                                    "& .MuiRating-iconFilled": {
-                                        opacity: 0.9
-                                    },
-                                    '& .MuiRating-iconHover': {
-                                        opacity: 1
-                                    }
-                                }}
-                                couple={couple} session={session} collectionName="chemistryRatings" />
+                                        "& .MuiRating-icon": {
+                                            color: "#d63900",
+                                            opacity: 0.4
+                                        },
+                                        "& .MuiRating-iconFilled": {
+                                            opacity: 0.9
+                                        },
+                                        '& .MuiRating-iconHover': {
+                                            opacity: 1
+                                        }
+                                    }}
+                                    couple={couple} session={session} collectionName="chemistryRatings" />
+                                <span>
+                                    {couple.chemistry}
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div className={st.modal_description}>
@@ -128,8 +141,8 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                         <br />
 
                         <p><em>State of the story</em>: {couple.status}</p>
-                        <p><em>Screen time</em>: {couple.screenTime}</p>
-                        <p><em>Story importance</em>: {couple.storyImportance}</p>
+                        <p><em>Screen time</em>: {screenTimeOptions.find((el) => el.value == couple.screenTime).label}</p>
+                        <p><em>Story importance</em>: {storyImportanceOptions.find((el) => el.value == couple.storyImportance).label}</p>
                     </div>
 
                     <div className={st.modal_spoilerland}>
