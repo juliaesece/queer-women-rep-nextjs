@@ -9,7 +9,7 @@ export default function SearchRelationship() {
         <section className={styles.section}>
             <div>
                 <label htmlFor="screenTime">How much screen time they have:</label>
-                <select name="screenTime" onChange={handleChange} value={searchCouple.screenTime}>
+                <select name="screenTime" onChange={handleChange} value={searchCouple.screenTime || "default"}>
                     <option value={0}>-----</option>
                     {screenTimeOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
@@ -19,7 +19,7 @@ export default function SearchRelationship() {
 
             <div>
                 <label htmlFor="storyImportance">How important their relationship is for the movie/tv show:</label>
-                <select name="storyImportance" onChange={handleChange} value={searchCouple.storyImportance}>
+                <select name="storyImportance" onChange={handleChange} value={searchCouple.storyImportance || "default"}>
                     <option value={0}>-----</option>
                     {storyImportanceOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
@@ -42,7 +42,7 @@ export default function SearchRelationship() {
 
             <div>
                 <label htmlFor="romantiConnection">Romantic connection:</label>
-                <select name="romanticConnection" onChange={handleChange} value={searchCouple.romanticConnection}>
+                <select name="romanticConnection" onChange={handleChange} value={searchCouple.romanticConnection || "default"}>
                     <option value="0">-----</option>
                     {romanticConnectionOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
@@ -52,7 +52,7 @@ export default function SearchRelationship() {
 
             <div>
                 <label htmlFor="chemistry">Chemistry:</label>
-                <select name="chemistry" onChange={handleChange} value={searchCouple.chemistry}>
+                <select name="chemistry" onChange={handleChange} value={searchCouple.chemistry || "default"}>
                     <option value="0">-----</option>
                     {chemistryOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
@@ -62,7 +62,7 @@ export default function SearchRelationship() {
 
             <div>
                 <label htmlFor="ending">Ending:</label>
-                <select name="ending" onChange={handleChange} value={searchCouple.ending}>
+                <select name="ending" onChange={handleChange} value={searchCouple.ending || "default"}>
                     <option value="default">-----</option>
                     {endingOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>

@@ -25,6 +25,7 @@ export type Couple = {
     people: Person[],
     origin: string,
     originType: string,
+    tags: string[],
     year: any,
     status: string,
     description: string,

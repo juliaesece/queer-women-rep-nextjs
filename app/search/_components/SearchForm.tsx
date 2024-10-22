@@ -20,7 +20,19 @@ export default function SearchForm({ session }) {
     const findCouples = async (e) => {
         e.preventDefault()
         setWaitingMessage("Searching...")
-        const result = await searchCouples(searchCouple, session)
+
+        let modifiableSearchCouple =JSON.parse(JSON.stringify(searchCouple)) // Deep copy, otherwise ethnicity becomes undefined
+
+        // If person is empty, delete
+        if (Object.keys(modifiableSearchCouple.person).length == 1
+         && Object.keys(modifiableSearchCouple.person)[0] == "ethnicity"
+         && modifiableSearchCouple.person.ethnicity.length == 0
+        ) delete modifiableSearchCouple.person
+        else if (
+            modifiableSearchCouple.person.ethnicity.length == 0
+        ) delete modifiableSearchCouple.person.ethnicity
+
+        const result = await searchCouples(modifiableSearchCouple, session)
         setResult(result)
         if (result.length == 0) setWaitingMessage("No couples were found")
     }

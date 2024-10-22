@@ -4,7 +4,7 @@ import client from "@/app/lib/mongo"
 
 function transformQuery(query, prefix = '') {
   const transformedQuery = {};
-  
+
   if ('people' in query) {
     transformedQuery["$or"] = [{}, {}];
   }
@@ -25,10 +25,10 @@ function transformQuery(query, prefix = '') {
 
         if (peopleKey === 'ethnicity') { // Handle ethnicity specially because it is an array
           if (peopleValue.length == 0) continue
-          transformedQuery["$or"][0][newKey1] = {"$all": peopleValue};
-          transformedQuery["$or"][1][newKey2] = {"$all": peopleValue};
+          transformedQuery["$or"][0][newKey1] = { "$all": peopleValue };
+          transformedQuery["$or"][1][newKey2] = { "$all": peopleValue };
           continue
-        } 
+        }
 
         transformedQuery["$or"][0][newKey1] = peopleValue;
         transformedQuery["$or"][1][newKey2] = peopleValue;
@@ -50,14 +50,22 @@ function transformQuery(query, prefix = '') {
 
 export async function searchCouples(unparsedSearchCouple, session) {
 
-  let searchCouple = { ...unparsedSearchCouple }
-  searchCouple.people = unparsedSearchCouple.person
-  delete searchCouple.person
+  let filter
 
-  let filter = transformQuery(searchCouple)
+  if (Object.keys(unparsedSearchCouple).length == 0) {
+    filter = {}
+  } else {
+    let searchCouple = { ...unparsedSearchCouple }
+    if ('person' in searchCouple) {
+      searchCouple.people = unparsedSearchCouple.person
+      delete searchCouple.person
+    }
+
+    filter = transformQuery(searchCouple)
+  }
 
   try {
-    
+
     const database = client.db('couples');
     const collection = database.collection('couples');
     const data = await
