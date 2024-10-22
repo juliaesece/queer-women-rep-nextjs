@@ -135,7 +135,10 @@ export const homophobiaOptions: NumericOption[] = [
 
 export const originTypeOptions: Option[] = [
     { value: 'TV Show', label: 'TV Show' },
-    { value: 'Movie', label: 'Movie' }
+    { value: 'Movie', label: 'Movie' },
+    { value: 'Videogame', label: 'Videogame' },
+    { value: 'Music video', label: 'Music video' }
+
 ];
 
 export const statusOptions: Option[] = [

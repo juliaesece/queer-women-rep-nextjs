@@ -17,7 +17,7 @@ import { Couple } from "../utils/types";
 
 export default async function Modal({ mongoId, from, session }: { mongoId: string, from: string, session: Session }) {
 
-    const couple : Couple = await getCoupleById(mongoId);
+    const couple: Couple = await getCoupleById(mongoId);
 
 
     let reviews = {
@@ -95,32 +95,35 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                                 </span>
                             </div>
                         </div>
-                        <div>
-                            <p>Chemistry rating</p>
-                            <div className={st.modal_ratings_inline}>
-                                <RatingsWrapper
-                                    dbValue={couple.chemistry}
-                                    icon={<WhatshotIcon fontSize="inherit" />}
-                                    emptyIcon={<WhatshotOutlined fontSize="inherit" />}
-                                    sx={{
-                                        color: "#d63900",
-                                        "& .MuiRating-icon": {
+                        {!(couple.people[0].lifeStage == "Children" || couple.people[0].lifeStage == "Children") &&
+                            <div>
+                                <p>Chemistry rating</p>
+                                <div className={st.modal_ratings_inline}>
+                                    <RatingsWrapper
+                                        dbValue={couple.chemistry}
+                                        icon={<WhatshotIcon fontSize="inherit" />}
+                                        emptyIcon={<WhatshotOutlined fontSize="inherit" />}
+                                        sx={{
                                             color: "#d63900",
-                                            opacity: 0.4
-                                        },
-                                        "& .MuiRating-iconFilled": {
-                                            opacity: 0.9
-                                        },
-                                        '& .MuiRating-iconHover': {
-                                            opacity: 1
-                                        }
-                                    }}
-                                    couple={couple} session={session} collectionName="chemistryRatings" />
-                                <span>
-                                    {couple.chemistry}
-                                </span>
+                                            "& .MuiRating-icon": {
+                                                color: "#d63900",
+                                                opacity: 0.4
+                                            },
+                                            "& .MuiRating-iconFilled": {
+                                                opacity: 0.9
+                                            },
+                                            '& .MuiRating-iconHover': {
+                                                opacity: 1
+                                            }
+                                        }}
+                                        couple={couple} session={session} collectionName="chemistryRatings" />
+                                    <span>
+                                        {couple.chemistry}
+                                    </span>
+                                </div>
                             </div>
-                        </div>
+                        }
+
                     </div>
                     <div className={st.modal_description}>
                         {/* <div className={st.modal_watchedRatings}>

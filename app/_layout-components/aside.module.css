@@ -59,8 +59,6 @@
 
 .aside__list_items:hover {
     cursor: pointer;
-    font-stretch: extra-expanded;
-    letter-spacing: 3px;
 }
 
 .aside__list_items_disabled {
@@ -68,7 +66,6 @@
 }
 
 .aside__list_items:hover.aside__list_items_disabled {
-    letter-spacing: normal;
     cursor: default;
 }
 

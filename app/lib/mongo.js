@@ -9,7 +9,11 @@ let client = new MongoClient(process.env.MONGODB_URI, {
         version: ServerApiVersion.v1,
         strict: true,
         deprecationErrors: true,
-    }
+    },
+    maxPoolSize: 20,
+    minPoolSize: 5,
+    maxIdleTimeMS: 50000,
+    waitQueueTimeoutMS: 10000
 });
 
 try {
@@ -23,7 +27,7 @@ try {
         await client.connect()
     }
 }
-catch (e) {
+catch (error) {
     console.error("Error when attempting to connect to mongodb")
     console.error(error)
 }

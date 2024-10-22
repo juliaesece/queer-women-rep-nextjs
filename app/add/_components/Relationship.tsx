@@ -74,16 +74,17 @@ export default function Relationship() {
                 </select>
             </div>
 
-            <div>
-                <label htmlFor="chemistry">Chemistry:</label>
-                <select name="chemistry" onChange={handleChange} value={couple.chemistry}>
-                    <option value="0">-----</option>
-                    {chemistryOptions.map(option => (
-                        <option key={option.value} value={option.value}>{option.label}</option>
-                    ))}
-                </select>
-            </div>
-
+            {!(couple.people[0].lifeStage == "Children" || couple.people[0].lifeStage == "Children") &&
+                <div>
+                    <label htmlFor="chemistry">Chemistry:</label>
+                    <select name="chemistry" onChange={handleChange} value={couple.chemistry}>
+                        <option value="0">-----</option>
+                        {chemistryOptions.map(option => (
+                            <option key={option.value} value={option.value}>{option.label}</option>
+                        ))}
+                    </select>
+                </div>
+            }
             <div>
                 <label htmlFor="ending">Ending:</label>
                 <select name="ending" onChange={handleChange} value={couple.ending}>

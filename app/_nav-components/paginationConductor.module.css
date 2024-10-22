@@ -1,14 +1,13 @@
 .pagination {
-    grid-column: 3 / 5;
-    grid-row: 3 / 4;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+
     height: 35px;
-    margin-bottom: 100px;
+
 }
 
 @media (max-width: 620px) {
     .pagination {
-        height: 130px;
         margin-top: 10px;
         grid-column: 1 / 2;
     }

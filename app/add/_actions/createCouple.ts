@@ -41,10 +41,7 @@ export async function createCouple(newCouple: Couple, userId: string) {
 
         const updateDoc = {
             $set: {
-                reviewsId: reviewsResult.insertedId,
-                globalRatingsId: globalResult.insertedId,
-                chemistryRatingsId: chemistryResult.insertedId,
-                romanticRatingsId: romanticResult.insertedId
+                reviewsId: reviewsResult.insertedId
             }
         }
 
