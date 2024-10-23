@@ -130,15 +130,14 @@ export const homophobiaOptions: NumericOption[] = [
     { value: 2, label: 'A little bit' },
     { value: 3, label: 'A solid amount' },
     { value: 4, label: 'A considerable amount' },
-    { value: 5, label: 'Just. too. much.' },
+    { value: 5, label: 'An unusually high, brutal amount' },
 ];
 
 export const originTypeOptions: Option[] = [
     { value: 'TV Show', label: 'TV Show' },
     { value: 'Movie', label: 'Movie' },
     { value: 'Videogame', label: 'Videogame' },
-    { value: 'Music video', label: 'Music video' }
-
+    { value: 'Webseries', label: 'Webseries' }
 ];
 
 export const statusOptions: Option[] = [

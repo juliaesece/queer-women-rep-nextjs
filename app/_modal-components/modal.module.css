@@ -68,16 +68,19 @@
     grid-template-columns: 1fr max-content;
     grid-template-rows: min-content min-content min-content;
     gap: 0.4rem;
+    row-gap: 1rem;
     grid-template-areas:
         "title        title"
-        "description ratings"
-        "spoilerland spoilerland";
-
+        "description mediaRating"
+        "coupleDescription coupleRating"
+        "spoilerland spoilerland"
+        "reviews reviews";
 }
 
 .modal_title {
     grid-area: title;
     margin-bottom: 2rem;
+    max-width: 500px;
 }
 
 .modal_description {
@@ -89,7 +92,6 @@
 }
 
 .modal_ratings {
-    grid-area: ratings;
     border: solid 3px #cc3f0caa;
     border-radius: 10px;
     padding: 1.5rem 3rem;
@@ -103,12 +105,44 @@
     gap: 0.5rem;
     align-items: center;
     font-size: 1.1rem;
+    height: min-content;
+}
+
+.modal_mediaRating {
+    grid-area: mediaRating;
+}
+
+.modal_coupleRating {
+    grid-area: coupleRating;
+}
+
+.shorten {
+    max-width: 210px;
+}
+
+.small {
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 .modal_ratings_inline {
     display: flex;
     align-items: center;
     gap: 1rem;
+}
+
+.modal_coupleDescription {
+    grid-area: coupleDescription;
+}
+
+.modal_tags {
+    padding: 0.2rem 0.6rem;
+    border: solid 1px #e0e0e0;
+    color: white;
+    border-radius: 20px;
+    margin-right: 0.5rem;
+    background: transparent;
+    background: #ffffff22;
 }
 
 .modal_spoilerland {
@@ -165,9 +199,12 @@
         gap: 0.4rem;
         grid-template-areas:
             "title"
-            "ratings"
             "description"
-            "spoilerland";
+            "mediaRating"
+            "coupleDescription"
+            "coupleRating"
+            "spoilerland"
+            "reviews";
         background: #d461a6;
         border-radius: 50px 100px 0 0;
     }

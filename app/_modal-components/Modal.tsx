@@ -39,12 +39,12 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                 <div className={st.modal_textContent}>
                     <div className={st.modal_title}>
                         <h2>{couple.people[0].name} and {couple.people[1].name}</h2>
-                        <h3>{couple.originType} — {couple.origin} ({typeof couple.year.getMonth === 'function' ? couple.year.getFullYear() : "Undefined"})</h3>
+                        <h3>{couple.mediaType} — {couple.origin} ({typeof couple.year.getMonth === 'function' ? couple.year.getFullYear() : "Undefined"})</h3>
                     </div>
 
-                    <div className={st.modal_ratings}>
+                    <div className={`${st.modal_ratings}  ${st.modal_mediaRating}`}>
                         <div>
-                            <p>Global Rating</p>
+                            <p className={st.shorten}>Rating for {couple.origin}</p>
                             <div className={st.modal_ratings_inline}>
                                 <RatingsWrapper
                                     dbValue={couple.globalRating}
@@ -69,6 +69,30 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                                 </span>
                             </div>
                         </div>
+
+
+                    </div>
+                    <div className={st.modal_description}>
+                        {/* <div className={st.modal_watchedRatings}>
+                            <div>
+                                Watched by user?
+                                <IconButton disabled sx={{ border: "none" }} size="small">
+                                    <VisibilityIcon />
+                                </IconButton>
+                            </div>
+                            <div>
+                                Watched by [watchedCount] users.
+                            </div>
+                        </div> */}
+                        <p><em>Synopsis for {couple.origin}:</em></p>
+                        <p>{couple.mediaDescription}</p>
+                        <br />
+                        <p><em>State of the story</em>: {couple.status}</p>
+
+                    </div>
+
+
+                    <div className={`${st.modal_ratings} ${st.modal_coupleRating}`}>
                         <div>
                             <p>Romantic rating</p>
                             <div className={st.modal_ratings_inline}>
@@ -93,6 +117,7 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                                 <span>
                                     {couple.romanticConnection}
                                 </span>
+
                             </div>
                         </div>
                         {!(couple.people[0].lifeStage == "Children" || couple.people[0].lifeStage == "Children") &&
@@ -123,30 +148,34 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                                 </div>
                             </div>
                         }
+                        {!session && <p className={st.small}>Log in to vote/rate</p>}
 
                     </div>
-                    <div className={st.modal_description}>
-                        {/* <div className={st.modal_watchedRatings}>
-                            <div>
-                                Watched by user?
-                                <IconButton disabled sx={{ border: "none" }} size="small">
-                                    <VisibilityIcon />
-                                </IconButton>
-                            </div>
-                            <div>
-                                Watched by [watchedCount] users.
-                            </div>
-                        </div> */}
-                        <p><em>Description</em></p>
-                        <p>{couple.description}</p>
-                        <br />
-
-                        <p><em>State of the story</em>: {couple.status}</p>
+                    <div>
+                        <h3><em>The couple</em></h3>
+                        <p><em>Short description of the couple</em></p>
+                        <p>{couple.shortDescription}</p>
                         <p><em>Screen time</em>: {screenTimeOptions.find((el) => el.value == couple.screenTime).label}</p>
                         <p><em>Story importance</em>: {storyImportanceOptions.find((el) => el.value == couple.storyImportance).label}</p>
+                        <br />
+
+                        {couple.tags && <><p>Tags: {couple.tags.map((tag) =>
+                            <Link href={from + "?tag=" + tag} className={st.modal_tags} key={tag}>{tag}</Link>
+                        )}</p><br /></>}
+
+                        
                     </div>
 
                     <div className={st.modal_spoilerland}>
+                        {couple.longDescription &&
+                            <>
+                                <details>
+                                    <summary><em>Detailed description of the couple (likely to contain spoilers)</em></summary>
+                                    {couple.longDescription}
+                                </details>
+                                <br />
+                            </>
+                        }
                         <details>
                             <summary>
                                 <em>Enter spoilerland (click here to show the themes; click on a theme to reveal spoilers)</em>

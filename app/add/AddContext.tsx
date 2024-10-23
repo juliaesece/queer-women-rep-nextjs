@@ -1,5 +1,5 @@
 import { createContext, useState, useContext } from 'react';
-import {Person, Couple, outOfFive, outOfFour } from '../utils/types'
+import { Couple, outOfFive, outOfFour } from '../utils/types'
 
 type AddContextType = {
     couple: Couple,
@@ -42,16 +42,16 @@ const AddContextProvider = ({ children }: { children: React.ReactNode }) => {
             }
         ],
         origin: "",
-        originType: "",
+        mediaType: "",
         year: new Date(),
         status: "",
-        description: "",
-        isThereQueerCreators: false,
-        queerDirectors: false,
+        mediaDescription: "",
+        areThereQueerCreators: false,
         image: "",
         altImg: "",
-        coupleDescription: "",
-        coupleDescriptionIsSpoiler: false,
+        shortDescription: "",
+        longDescription: "",
+        tags: [],
         screenTime: 0 as outOfFive,
         storyImportance: 0 as outOfFour,
         globalRating: 0 as outOfFive,
@@ -70,7 +70,7 @@ const AddContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [currentSection, setCurrentSection] = useState(0)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
-        if (e.target.name == "originType" && e.target.value == "Movie") {
+        if (e.target.name == "mediaType" && e.target.value == "Movie") {
             setCouple(
                 prevCouple => ({
                     ...prevCouple,

@@ -195,6 +195,7 @@ details>summary {
   align-items: center;
   gap: 0.1rem;
   cursor: pointer;
+  list-style: none;
 }
 
 details>summary::before {
@@ -203,6 +204,7 @@ details>summary::before {
   height: 18px;
   transition: all .3s ease-in;
   margin-bottom: 2px;
+  flex-shrink: 0;
 }
 
 details[open] summary::before {

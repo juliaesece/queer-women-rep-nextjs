@@ -11,7 +11,7 @@ export async function countCouples(unparsedSupercategory) {
     let filter = {}
     if (unparsedSupercategory != null && unparsedSupercategory != "home") {
         const supercategory: string = supercategoryLookup[unparsedSupercategory as keyof typeof supercategoryLookup]
-        filter = { originType: supercategory }
+        filter = { mediaType: supercategory }
     }
 
 

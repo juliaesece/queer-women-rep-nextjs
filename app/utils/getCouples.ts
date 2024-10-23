@@ -11,7 +11,7 @@ export async function getCouples(unparsedSupercategory: string, unparsedPage: nu
     }
 
     let filter = {}
-    let sort = {}
+    let sort: any = { "dateAdded": -1 }
 
     switch (extraFilter) {
         case "recently-added":
@@ -21,16 +21,18 @@ export async function getCouples(unparsedSupercategory: string, unparsedPage: nu
             sort = { "year": -1 }
             break;
         case "more-diverse":
-            filter = { "$or": [
-                {"people.gender": "Non-Binary"},
-                {"people.genderIdentity": "Trans"},
-                {"people.genderIdentity": "Trans"},
-                {"people.ethnicity": "black"},
-                {"people.ethnicity": "asian"},
-                {"people.ethnicity": "indigenous"},
-                {"people.ethnicity": "latinx"},
-                {"people.genderExpression": "Butch"}
-            ] }
+            filter = {
+                "$or": [
+                    { "people.gender": "Non-Binary" },
+                    { "people.genderIdentity": "Trans" },
+                    { "people.genderIdentity": "Trans" },
+                    { "people.ethnicity": "black" },
+                    { "people.ethnicity": "asian" },
+                    { "people.ethnicity": "indigenous" },
+                    { "people.ethnicity": "latinx" },
+                    { "people.genderExpression": "Butch" }
+                ]
+            }
             break;
         case "happy-endings":
             filter = { "ending": "Happy" }
@@ -41,14 +43,14 @@ export async function getCouples(unparsedSupercategory: string, unparsedPage: nu
 
     if (unparsedSupercategory != null && unparsedSupercategory != "home") {
         const supercategory: string = supercategoryLookup[unparsedSupercategory as keyof typeof supercategoryLookup]
-        filter = {...filter, originType: supercategory }
+        filter = { ...filter, mediaType: supercategory }
     }
 
     const page: number = unparsedPage ? Number(unparsedPage) - 1 : 0
     const cardsPerPage = 9
 
     try {
-        
+
         const database = client.db('couples');
         const collection = database.collection('couples');
         const data = await
@@ -65,7 +67,7 @@ export async function getCouples(unparsedSupercategory: string, unparsedPage: nu
                 })
                 .toArray();
 
-        const parsedData : ShortCouple[] = data.map((el) => ({people: el.people, origin: el.origin, image: el.image, _id: el._id.toString()}));
+        const parsedData: ShortCouple[] = data.map((el) => ({ people: el.people, origin: el.origin, image: el.image, _id: el._id.toString() }));
         return parsedData;
     } catch (error) {
         console.error("[getCouples] Server error on couples route")

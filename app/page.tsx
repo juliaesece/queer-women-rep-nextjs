@@ -8,21 +8,26 @@ import { countCouples } from "./utils/countCouples";
 import { ShortCouple } from "@/app/utils/types";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./utils/authOptions";
+import { unstable_cache } from 'next/cache';
 
-async function getData(extraFilter) {
-  try {
-    const couples : ShortCouple[] = await getCouples("home", 0, extraFilter)
+const getCachedData = unstable_cache(
+  async (extraFilter) => {
+    try {
+      const couples: ShortCouple[] = await getCouples("home", 0, extraFilter)
 
-    if (couples) {
-      return couples
-    } else {
-      throw new Error("Database Error")
+      if (couples) {
+        return couples
+      } else {
+        throw new Error("Database Error")
+      }
     }
-  }
-  catch (e) {
-    throw new Error(e)
-  }
-};
+    catch (e) { 
+      throw new Error(e)
+    }
+  }, [], {
+  tags: ["coupleData"],
+  revalidate: 3600
+})
 
 async function getPages(supercategory) {
   try {
@@ -41,7 +46,7 @@ async function getPages(supercategory) {
 
 export default async function Home({ searchParams }) {
   const extraFilter = searchParams.filter
-  const couples: ShortCouple[] = await getData(extraFilter)
+  const couples: ShortCouple[] = await getCachedData(extraFilter)
   const infoId = searchParams.info
   const nbPages = await getPages("home")
   const session = await getServerSession(authOptions)
@@ -51,7 +56,7 @@ export default async function Home({ searchParams }) {
       <Aside />
       <main className={styles.main}>
         <GridLayout couples={couples} />
-        <PaginationConductor supercategory="home" page={1} current="home" totalPages={nbPages} extraFilter={extraFilter}/>
+        <PaginationConductor supercategory="home" page={1} current="home" totalPages={nbPages} extraFilter={extraFilter} />
       </main>
       {infoId && <Modal mongoId={infoId} from="/" session={session} />}
     </>

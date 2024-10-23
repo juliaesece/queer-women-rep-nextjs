@@ -8,6 +8,26 @@ import GridLayout from "../_layout-components/GridLayout";
 import { ShortCouple } from "@/app/utils/types";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../utils/authOptions";
+import { unstable_cache } from "next/cache";
+
+const getCachedData = unstable_cache(
+    async (supercategory, page, extraFilter) => {
+      try {
+        const couples: ShortCouple[] = await getCouples(supercategory, page, extraFilter)
+  
+        if (couples) {
+          return couples
+        } else {
+          throw new Error("Database Error")
+        }
+      }
+      catch (e) { 
+        throw new Error(e)
+      }
+    }, [], {
+    tags: ["coupleData"],
+    revalidate: 3600
+  })
 
 async function getPages(supercategory) {
     try {
@@ -27,7 +47,7 @@ async function getPages(supercategory) {
 export default async function Home({ searchParams, params }: { searchParams, params: { supercategory: string } }) {
     const supercategory = params.supercategory
     const extraFilter = searchParams.filter
-    const couples: ShortCouple[] = await getCouples(supercategory, 0, extraFilter)
+    const couples: ShortCouple[] = await getCachedData(supercategory, 0, extraFilter)
     const infoId = searchParams.info
     const nbPages = await getPages(supercategory)
     const session = await getServerSession(authOptions)

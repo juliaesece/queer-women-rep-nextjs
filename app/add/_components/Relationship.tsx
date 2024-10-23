@@ -3,33 +3,58 @@ import { useAddContext } from "../AddContext";
 import { screenTimeOptions, storyImportanceOptions, romanticConnectionOptions, chemistryOptions, endingOptions } from "@/app/utils/couplesOptions";
 
 export default function Relationship() {
-    const { couple, handleChange, handleCheckbox, currentSection, setCurrentSection } = useAddContext()
+    const { couple, handleChange, setCouple, currentSection, setCurrentSection } = useAddContext()
 
+    const handleTags = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+        setCouple(
+            prevCouple => ({
+                ...prevCouple,
+                tags: e.target.value.split(", "),
+            })
+        )
+    }
 
     return (
         <section className={styles.section}>
             <div className={styles.fullWidth}>
-                <label htmlFor="coupleDescription">Description of the story of the couple within the TV Show/Movie:</label>
+                <label htmlFor="coupleDescription" className={styles.required}>Short description of the story of the couple within the TV Show/Movie, cannot contain spoilers:</label>
                 <textarea
-                    name="coupleDescription"
-                    placeholder="Here write a summary of who they are and who they are for each other. You can copy the description you made before if the story of the couple is the same as the story of the TV Show/Movie, like in a romantic movie."
+                    name="shortDescription"
+                    placeholder="Here write a short summary of who they are and why do they know each other."
                     onChange={handleChange}
-                    value={couple.coupleDescription}
+                    value={couple.shortDescription}
+                    className={styles.longTextInput}
+                    required
+                >
+                </textarea>
+            </div>
+            {/* <div className={styles.fullWidth}>
+                <input
+                    type="checkbox"
+                    name="coupleDescriptionIsSameAsStory"
+                    onChange={handleCheckbox}
+                    checked={couple.coupleDescriptionIsSameAsStory}
+                    className={styles.checkbox}
+                />
+                <label className={styles.checkboxLabel} htmlFor="coupleDescriptionIsSameAsStory">It's the same as the main story</label>
+            </div> */}
+
+            <div className={styles.fullWidth}>
+                <label htmlFor="tags">Tags (separated by a comma)</label>
+                <input className={styles.textInput} placeholder="For instance: ennemies to lovers, period drama, etc." name="tags" id="tags" onChange={handleTags} value={couple.tags.join(", ")} />
+            </div>
+
+            <div className={styles.fullWidth}>
+                <label htmlFor="coupleDescription">Long description of the story of the couple within the TV Show/Movie, may contain spoilers:</label>
+                <textarea
+                    name="longDescription"
+                    placeholder="Here you can write a longer description, speaking about different stages of the relationship, or why it's good or bad representation."
+                    onChange={handleChange}
+                    value={couple.longDescription}
                     className={styles.longTextInput}
                 >
                 </textarea>
             </div>
-            <div className={styles.fullWidth}>
-                <input
-                    type="checkbox"
-                    name="coupleDescriptionIsSpoiler"
-                    onChange={handleCheckbox}
-                    checked={couple.coupleDescriptionIsSpoiler}
-                    className={styles.checkbox}
-                />
-                <label className={styles.checkboxLabel} htmlFor="coupleDescriptionIsSpoiler">This a spoiler for the TV Show/Movie (leave unchecked if it isn&apos;t)</label>
-            </div>
-
 
             <div>
                 <label htmlFor="screen-time">Give an approximate of how much screen time they have:</label>
@@ -51,6 +76,9 @@ export default function Relationship() {
                 </select>
             </div>
 
+            <div className={styles.fullWidth}  >
+                <p>Be the first to vote:</p>
+            </div>
             <div>
                 <label htmlFor="globalRating">Global rating:</label>
                 <input

@@ -8,7 +8,7 @@ import Story from "./Story";
 import { useAddContext } from "../AddContext";
 import { createCouple } from "../_actions/createCouple";
 import Alert from '@mui/material/Alert';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Conductor({ session }) {
     const { couple, currentSection } = useAddContext();
@@ -31,6 +31,8 @@ export default function Conductor({ session }) {
             setAlert({ severity: "error", message: "There was an error with the database" })
         }
     }
+
+    useEffect(()=> {console.log(couple.tags)}, [couple])
 
     return (
         <form className={styles.form} >

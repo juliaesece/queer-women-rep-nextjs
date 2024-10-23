@@ -8,8 +8,8 @@ export default function SearchStory() {
     return (
         <section className={styles.section}>
             <div>
-                <label  htmlFor="originType">Origin Type</label>
-                <select name="originType" onChange={handleChange} value={searchCouple.originType || "default"}>
+                <label  htmlFor="mediaType">Media type</label>
+                <select name="mediaType" onChange={handleChange} value={searchCouple.mediaType || "default"}>
                     <option value="default">-----</option>
                     {originTypeOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
@@ -31,7 +31,7 @@ export default function SearchStory() {
                     name="isThereQueerCreators"
                     id="isThereQueerCreators"
                     onChange={handleCheckbox}
-                    checked={searchCouple.isThereQueerCreators}
+                    checked={searchCouple.areThereQueerCreators}
                     className={styles.checkbox}
                 />
                 <label className={styles.checkboxLabel} htmlFor="isThereQueerCreators">There is a queer woman or non-binary person among the directors or writers (leave unchecked if there isn&apos;t)</label>
