@@ -271,12 +271,12 @@ export default function Countries({ name, number, handleChange }: { name: string
             <Autocomplete
                 disablePortal
                 options={countries}
-                value={couple.people[0][name]}
+                value={couple.people[number][name]}
                 onChange={(event: any, newValue: any) => {
                     setCouple(prevCouple => ({
                         ...prevCouple,
                         people: prevCouple.people.map((person, index) =>
-                            index === 0 ? { ...person, [name]: newValue?.label ? newValue.label : "" } : person
+                            index === number ? { ...person, [name]: newValue?.label ? newValue.label : "" } : person
                         )
                     }))
                 }

@@ -21,6 +21,9 @@ export default function FormNav() {
                 Relationship
             </div>
             <div onClick={() => setCurrentSection(4)} className={currentSection == 4 ? styles.active : ""}>
+                First votes
+            </div>
+            <div onClick={() => setCurrentSection(5)} className={currentSection == 5 ? styles.active : ""}>
                 Final information
             </div>
         </nav>

@@ -9,6 +9,8 @@ import { useAddContext } from "../AddContext";
 import { createCouple } from "../_actions/createCouple";
 import Alert from '@mui/material/Alert';
 import { useEffect, useState } from "react";
+import { outOfFive, outOfFour } from "@/app/utils/types";
+import Rate from "./Rate";
 
 export default function Conductor({ session }) {
     const { couple, currentSection } = useAddContext();
@@ -20,7 +22,12 @@ export default function Conductor({ session }) {
 
         const datedCouple = {
             ...couple,
-            dateAdded: new Date()
+            dateAdded: new Date(),
+            screenTime: Number(couple.screenTime) as outOfFive,
+            storyImportance: Number(couple.storyImportance) as outOfFour,
+            globalRating: Number(couple.globalRating) as outOfFive,
+            romanticConnection: Number(couple.romanticConnection) as outOfFive,
+            chemistry: Number(couple.chemistry) as outOfFive
         }
 
         const result = await createCouple(datedCouple, session.user.id);
@@ -60,7 +67,13 @@ export default function Conductor({ session }) {
                     <Relationship />
                 </>
             }
-            {currentSection == 4 &&
+                        {currentSection == 4 &&
+                <>
+                    <h1>Their relationship</h1>
+                    <Rate />
+                </>
+            }
+            {currentSection == 5 &&
                 <>
                     <h1>General concerns and information</h1>
                     <Concerns />

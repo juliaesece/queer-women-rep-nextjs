@@ -25,8 +25,7 @@ const getCachedData = unstable_cache(
         throw new Error(e)
       }
     }, [], {
-    tags: ["coupleData"],
-    revalidate: 3600
+    tags: ["coupleData"]
   })
 
 async function getPages(supercategory) {

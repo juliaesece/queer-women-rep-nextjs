@@ -41,7 +41,7 @@ export default function Relationship() {
 
             <div className={styles.fullWidth}>
                 <label htmlFor="tags">Tags (separated by a comma)</label>
-                <input className={styles.textInput} placeholder="For instance: ennemies to lovers, period drama, etc." name="tags" id="tags" onChange={handleTags} value={couple.tags.join(", ")} />
+                <input className={styles.textInput} placeholder="For instance: enemies to lovers, period drama, etc." name="tags" id="tags" onChange={handleTags} value={couple.tags.join(", ")} />
             </div>
 
             <div className={styles.fullWidth}>
@@ -75,44 +75,6 @@ export default function Relationship() {
                     ))}
                 </select>
             </div>
-
-            <div className={styles.fullWidth}  >
-                <p>Be the first to vote:</p>
-            </div>
-            <div>
-                <label htmlFor="globalRating">Global rating:</label>
-                <input
-                    placeholder="Number from 0 to 5"
-                    name="globalRating"
-                    type="number"
-                    min="0"
-                    max="5"
-                    onChange={handleChange}
-                    value={couple.globalRating}
-                />
-            </div>
-
-            <div>
-                <label htmlFor="romantic-connection">Romantic connection:</label>
-                <select name="romanticConnection" onChange={handleChange} value={couple.romanticConnection}>
-                    <option value="0">-----</option>
-                    {romanticConnectionOptions.map(option => (
-                        <option key={option.value} value={option.value}>{option.label}</option>
-                    ))}
-                </select>
-            </div>
-
-            {!(couple.people[0].lifeStage == "Children" || couple.people[0].lifeStage == "Children") &&
-                <div>
-                    <label htmlFor="chemistry">Chemistry:</label>
-                    <select name="chemistry" onChange={handleChange} value={couple.chemistry}>
-                        <option value="0">-----</option>
-                        {chemistryOptions.map(option => (
-                            <option key={option.value} value={option.value}>{option.label}</option>
-                        ))}
-                    </select>
-                </div>
-            }
             <div>
                 <label htmlFor="ending">Ending:</label>
                 <select name="ending" onChange={handleChange} value={couple.ending}>

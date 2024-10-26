@@ -47,7 +47,8 @@ export type Couple = {
         homophobia: outOfFive,
     },
     dateAdded: Date,
-    _id?: string
+    _id?: string,
+    webseriesLink?: string
 }
 
 export type SearchPerson = {

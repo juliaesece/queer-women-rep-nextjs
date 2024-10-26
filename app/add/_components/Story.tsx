@@ -33,9 +33,13 @@ export default function Story() {
                 <label htmlFor="year">Release date</label>
                 <input type="date" placeholder="Year" name="year" onChange={handleChange} value={couple.year} />
             </div>
+            {couple.mediaType == "Webseries" && <div className={styles.fullWidth}>
+                    <label htmlFor="webseriesLink">Link to the webseries:</label>
+                    <input className={styles.textInput} placeholder="Link" name="webseriesLink" onChange={handleChange} value={couple.webseriesLink} />
+                </div>}
             <div className={styles.fullWidth}>
-                <label htmlFor="description">Synopsis of the TV Show/Movie</label>
-                <textarea name="description" className={styles.longTextInput} onChange={handleChange} value={couple.mediaDescription}>
+                <label htmlFor="mediaDescription">Synopsis of the TV Show/Movie</label>
+                <textarea name="mediaDescription" className={styles.longTextInput} onChange={handleChange} value={couple.mediaDescription}>
                 </textarea>
             </div>
             <div className={styles.fullWidth}>
@@ -48,8 +52,8 @@ export default function Story() {
                     className={styles.checkbox}
                 />
                 <label className={styles.checkboxLabel} htmlFor="areThereQueerCreators">There is a queer woman or non-binary person among the directors or writers (leave unchecked if there isn&apos;t)</label>
+            </div>
 
-            </div>  
             <h2>An image of them</h2>
             <div className={styles.fullWidth}>
                 <label className={styles.required} htmlFor="status">Image URL</label>
