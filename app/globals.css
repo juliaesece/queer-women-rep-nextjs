@@ -148,13 +148,11 @@ a:visited {
   color: initial;
 }
 
-/* mine */
+/* Small screens */
 
 @media screen and (max-width: 620px) {
   body {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 65px auto 160px;
+    display: block;
 
   }
 }
