@@ -63,7 +63,8 @@ export async function getCouples(unparsedSupercategory: string, unparsedPage: nu
                     _id: 1,
                     people: 1,
                     origin: 1,
-                    image: 1
+                    image: 1,
+                    altImg: 1
                 })
                 .toArray();
 

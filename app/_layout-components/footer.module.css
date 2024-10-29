@@ -17,6 +17,7 @@
 @media (max-width: 620px) {
     .footer {
         grid-column: 1 / 2;
+        grid-row: 3 / 4;
         margin-top: 2rem;
         padding-right: 90px;
     }

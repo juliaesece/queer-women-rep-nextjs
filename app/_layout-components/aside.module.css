@@ -111,6 +111,17 @@
         transition: none;
     }
 
+    .aside:not(:has(.aside__details[open])) .aside__list, 
+    .aside:not(:has(.aside__details[open])) .advancedSearch__container {
+        display: none;
+    }
+
+    .aside:has(.aside__details[open]) .aside__list,
+    .advancedSearch__container {
+        display: block;
+    }
+
+
     .aside__details[open] .aside__summary::before {
         transform: none;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'%3E%3C/path%3E%3C/svg%3E");
@@ -125,7 +136,6 @@
         margin-bottom: 0.2rem;
     }
 
-
     .aside {
         position: fixed;
         z-index: 3;
@@ -137,7 +147,7 @@
         grid-column: 1 / 2;
     }
 
-    .aside:has(.aside__details[open])  {
+    .aside:has(.aside__details[open]) {
         left: 0rem;
         right: 1rem;
     }

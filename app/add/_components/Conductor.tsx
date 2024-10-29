@@ -18,7 +18,7 @@ export default function Conductor({ session }) {
 
     const createNewCouple = async (event) => {
         event.preventDefault()
-        setAlert({ severity: "success", message: "We're processing your query" })
+        setAlert({ severity: "info", message: "We're processing your query" })
 
         const datedCouple = {
             ...couple,
@@ -38,8 +38,6 @@ export default function Conductor({ session }) {
             setAlert({ severity: "error", message: "There was an error with the database" })
         }
     }
-
-    useEffect(()=> {console.log(couple.tags)}, [couple])
 
     return (
         <form className={styles.form} >

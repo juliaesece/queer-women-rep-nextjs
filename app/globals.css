@@ -153,7 +153,9 @@ a:visited {
 @media screen and (max-width: 620px) {
   body {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: 65px auto 160px;
+
   }
 }
 
@@ -184,7 +186,7 @@ a:visited {
 }
 
 @media (prefers-reduced-motion) {
-  body > * {
+  body>* {
     animation: none !important;
   }
 }
@@ -209,4 +211,15 @@ details>summary::before {
 
 details[open] summary::before {
   transform: rotate(90deg);
+}
+
+
+/* For Safari */
+details>summary::-webkit-details-marker {
+  display: none;
+}
+
+/* For Firefox */
+details>summary::marker {
+  display: none;
 }

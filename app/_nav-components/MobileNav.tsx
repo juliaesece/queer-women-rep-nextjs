@@ -4,7 +4,6 @@ import { FC } from "react";
 import styles from "./mobileNav.module.css";
 import Link from "next/link";
 import { useState } from "react";
-
 import Image from "next/image";
 import hamburguer from "@/public/hamburger-icon.svg"
 import cruz from "@/public/letterboxd-cruz.svg"
@@ -26,20 +25,19 @@ const MobileNav: FC<Props> = ({ links }) => {
         ...links
     ]
 
-
     return (
         <nav className={styles.mobileMenu}>
             <span>
                 <Link href="/">
-                <Image
-                    priority
-                    src={logo}
-                    className={styles.mobileMenu__logo}
-                    alt="Queer women rep logo, a stylised q"
-                    placeholder="blur"
-                    height={50}
-                    width={50}
-                />
+                    <Image
+                        priority
+                        src={logo}
+                        className={styles.mobileMenu__logo}
+                        alt="Queer women rep logo, a stylised q"
+                        placeholder="blur"
+                        height={50}
+                        width={50}
+                    />
                 </Link>
             </span>
             <span>
@@ -54,7 +52,7 @@ const MobileNav: FC<Props> = ({ links }) => {
                             className={styles.mobileMenu__icon_underlined}
                         />
                     </Link> :
-                    <p className={styles.mobileList__loggedIn}>Logged in</p>
+                    <span className={styles.mobileList__loggedIn}>Logged in</span>
                 }
             </span>
             <span className={styles.mobileMenu__close}>

@@ -14,10 +14,53 @@ import { Session } from "next-auth";
 import RatingsWrapper from "./_components/RatingsWrapper";
 import { storyImportanceOptions, screenTimeOptions } from "../utils/couplesOptions";
 import { Couple } from "../utils/types";
+import { headers } from 'next/headers'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 export default async function Modal({ mongoId, from, session }: { mongoId: string, from: string, session: Session }) {
 
+    function getSearchTranslation(locale) {
+        // Object mapping locales to their main language translations of "search"
+        const translations = {
+            'us': 'search',
+            'gb': 'search',
+            'uk': 'search',
+            'es': 'buscar',
+            'cl': 'buscar',
+            'mx': 'buscar',
+            'ar': 'buscar',
+            'fr': 'recherche',
+            'ca': 'search',
+            'de': 'suchen',
+            'it': 'cerca',
+            'pt': 'buscar',
+            'br': 'buscar',
+            'nl': 'search',
+            'jp': '検索',
+            "eg": "search",
+            'kr': '검색',
+            'cn': '搜索',
+            'tw': '搜尋',
+            'ru': 'поиск',
+            'pl': 'szukaj',
+            'tr': 'arama',
+            'se': 'sök',
+            'dk': 'søg',
+            'no': 'søk',
+            'fi': 'etsi'
+        };
+    
+        // Convert locale to lowercase to handle different cases
+        const normalizedLocale = locale.toLowerCase();
+        
+        // Return translation if it exists, otherwise return 'search' as default
+        return translations[normalizedLocale] || 'search';
+    }
+
     const couple: Couple = await getCoupleById(mongoId);
+
+    const headersList = await headers()
+    const acceptLanguage = headersList.get('accept-language').slice(3,5) ?? "us"
 
 
     let reviews = {
@@ -88,7 +131,7 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                         <p>{couple.mediaDescription}</p>
                         <br />
                         <p><em>State of the story</em>: {couple.status}</p>
-
+                        <p><a className={st.link} href={`https://www.justwatch.com/${acceptLanguage}/${getSearchTranslation(acceptLanguage)}?q=${couple.origin}`} target="_blank">Search where to watch<OpenInNewIcon fontSize="small" /></a></p>
                     </div>
 
 
@@ -159,7 +202,7 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                         <p><em>Story importance</em>: {storyImportanceOptions.find((el) => el.value == couple.storyImportance).label}</p>
                         <br />
 
-                        {couple.tags && <><p>Tags: {couple.tags.map((tag) =>
+                        {couple.tags && <><p  className={st.modal_tags_container}><span>Tags:</span> {couple.tags.map((tag) =>
                             <Link href={from + "?tag=" + tag} className={st.modal_tags} key={tag}>{tag}</Link>
                         )}</p><br /></>}
 
