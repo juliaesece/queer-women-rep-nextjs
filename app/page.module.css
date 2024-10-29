@@ -35,8 +35,10 @@
 
 @media (max-width: 620px) {
   .main {
-    height: auto;
-    max-height: none;
+    display: block;
+    min-height: max-content;
+    height: calc(250px * 9 + 62px);
+    max-height: 4000px;
     flex-wrap: nowrap;
     width: 100svw;
     max-width: 100svw;
@@ -45,14 +47,13 @@
     justify-content: initial;
     align-items: initial;
     overflow-x: hidden;
-    overflow: initial; 
-    grid-column: 1 / 2;
+    overflow-y: clip; 
   }
 
   .main>div {
-    flex-basis: unset;
-    flex-direction: column;
-    flex-shrink: none;
+    display: block;
+    height: max-content;
+    min-height: max-content;
   }
 
   .main>div:first-child>div:first-child>a>img {

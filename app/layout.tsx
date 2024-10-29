@@ -15,7 +15,6 @@ interface DashboardProps {
 }
 
 export default function RootLayout({ children, params }: DashboardProps) {
-  const { supercategory, page } = params
 
   return (
     <html lang="en">

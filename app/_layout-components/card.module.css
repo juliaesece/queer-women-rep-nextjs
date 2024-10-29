@@ -59,5 +59,8 @@
         font-size: 1.1rem;
         color: #333;
         flex-basis: unset;
+        margin-bottom: 0.1rem;
+        min-height: max-content;
+        height: 250px;
     }
   }
