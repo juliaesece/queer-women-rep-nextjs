@@ -15,7 +15,11 @@ export default function Aside() {
             <ul className={st.aside__list}>
                 <li className={`${st.aside__list_items} ${st.aside__list_items_disabled}`}> Most popular and liked</li>
                 <li className={`${st.aside__list_items} ${st.aside__list_items_disabled}`} >Most popular</li>
-                <li className={`${st.aside__list_items} ${st.aside__list_items_disabled}`}>Most liked</li>
+                <li className={st.aside__list_items}>
+                    <Link href={pathname + "?filter=most-liked"}>
+                        Most liked
+                    </Link>
+                </li>
                 <li className={st.aside__list_items}>
                     <Link href={pathname + "?filter=recently-added"}>
                         Recently added

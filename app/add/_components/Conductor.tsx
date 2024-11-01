@@ -16,6 +16,19 @@ export default function Conductor({ session }) {
     const { couple, currentSection } = useAddContext();
     const [alert, setAlert] = useState({ severity: "", message: "" })
 
+    useEffect(() => {
+        const handleBeforeUnload = (e) => {
+            e.preventDefault();
+            e.returnValue = '';
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+
     const createNewCouple = async (event) => {
         event.preventDefault()
         setAlert({ severity: "info", message: "We're processing your query" })
@@ -43,20 +56,20 @@ export default function Conductor({ session }) {
         <form className={styles.form} >
             {currentSection == 0 &&
                 <>
-                    <h1>The couple</h1>
-                    <Person number={0} />
+                    <h1>The story they&apos;re in</h1>
+                    <Story />
                 </>
             }
             {currentSection == 1 &&
                 <>
                     <h1>The couple</h1>
-                    <Person number={1} />
+                    <Person number={0} />
                 </>
             }
             {currentSection == 2 &&
                 <>
-                    <h1>The story they&apos;re in</h1>
-                    <Story />
+                    <h1>The couple</h1>
+                    <Person number={1} />
                 </>
             }
             {currentSection == 3 &&
@@ -65,7 +78,7 @@ export default function Conductor({ session }) {
                     <Relationship />
                 </>
             }
-                        {currentSection == 4 &&
+            {currentSection == 4 &&
                 <>
                     <h1>Their relationship</h1>
                     <Rate />

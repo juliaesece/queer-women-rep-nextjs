@@ -48,7 +48,8 @@ export type Couple = {
     },
     dateAdded: Date,
     _id?: string,
-    webseriesLink?: string
+    webseriesLink?: string,
+    genres?: string
 }
 
 export type SearchPerson = {

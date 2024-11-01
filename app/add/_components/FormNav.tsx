@@ -9,13 +9,13 @@ export default function FormNav() {
     return (
         <nav className={styles.main}>
             <div onClick={() => setCurrentSection(0)} className={currentSection == 0 ? styles.active : ""}>
-                Person 1
+                Story
             </div>
             <div onClick={() => setCurrentSection(1)} className={currentSection == 1 ? styles.active : ""}>
-                Person 2
+                Person 1
             </div>
             <div onClick={() => setCurrentSection(2)} className={currentSection == 2 ? styles.active : ""}>
-                Story
+                Person 2
             </div>
             <div onClick={() => setCurrentSection(3)} className={currentSection == 3 ? styles.active : ""}>
                 Relationship

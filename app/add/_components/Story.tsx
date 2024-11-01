@@ -1,12 +1,17 @@
 import styles from "./Form.module.css";
 import { useAddContext } from "../AddContext";
 import { originTypeOptions, statusOptions } from "@/app/utils/couplesOptions";
+import SearchTMDB from "./SearchTMDB";
 
 export default function Story() {
     const { couple, handleChange, handleCheckbox, currentSection, setCurrentSection } = useAddContext()
 
     return (
         <section className={styles.section}>
+            <div className={styles.fullWidth}>
+                <SearchTMDB />
+
+            </div>
             <div>
                 <label className={styles.required} htmlFor="mediaType">Media type</label>
                 <select name="mediaType" onChange={handleChange} value={couple.mediaType} required>
@@ -34,9 +39,9 @@ export default function Story() {
                 <input type="date" placeholder="Year" name="year" onChange={handleChange} value={couple.year} />
             </div>
             {couple.mediaType == "Webseries" && <div className={styles.fullWidth}>
-                    <label htmlFor="webseriesLink">Link to the webseries:</label>
-                    <input className={styles.textInput} placeholder="Link" name="webseriesLink" onChange={handleChange} value={couple.webseriesLink} />
-                </div>}
+                <label htmlFor="webseriesLink">Link to the webseries:</label>
+                <input className={styles.textInput} placeholder="Link" name="webseriesLink" onChange={handleChange} value={couple.webseriesLink} />
+            </div>}
             <div className={styles.fullWidth}>
                 <label htmlFor="mediaDescription">Synopsis of the TV Show/Movie</label>
                 <textarea name="mediaDescription" className={styles.longTextInput} onChange={handleChange} value={couple.mediaDescription}>

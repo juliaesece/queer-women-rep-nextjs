@@ -14,6 +14,9 @@ export async function getCouples(unparsedSupercategory: string, unparsedPage: nu
     let sort: any = { "dateAdded": -1 }
 
     switch (extraFilter) {
+        case "most-liked":
+            sort = {"romanticConnection": -1}
+            break;
         case "recently-added":
             sort = { "dateAdded": -1 }
             break;
