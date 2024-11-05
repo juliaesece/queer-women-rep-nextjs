@@ -18,7 +18,7 @@ export default async function AdvancedSearch({ searchParams }) {
             <SearchContextProvider>
                 <SearchForm session={session} />
                 <Results />
-                {infoId && <Modal mongoId={infoId} from="/search" session={session} />}
+                {infoId && <Modal mongoId={infoId} session={session} />}
             </SearchContextProvider>
         </main>
     );
