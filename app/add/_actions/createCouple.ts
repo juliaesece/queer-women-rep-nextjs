@@ -23,8 +23,6 @@ export async function createCouple(newCouple: Couple, userId: string) {
         } as Couple
         const result = await collection.insertOne(parsedCouple)
 
-        console.log("will insert parsed", parsedCouple)
-
         if (!result.acknowledged || !result.insertedId) throw new Error("Database error when creating the new couple")
 
         const reviews = database.collection('reviews');

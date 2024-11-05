@@ -130,6 +130,7 @@ export default async function Modal({ mongoId, session }: { mongoId: string, ses
                         <p>{couple.mediaDescription}</p>
                         <br />
                         <p><em>State of the story</em>: {couple.status}</p>
+                        {couple.genres && <p><em>Genres</em>: {couple.genres.map((genre, idx) => ((idx + 1) != couple.genres.length ? genre.name.toLocaleLowerCase() + ", " : genre.name.toLocaleLowerCase()))}</p>}
                         <p><a className={st.link} href={`https://www.justwatch.com/${acceptLanguage}/${getSearchTranslation(acceptLanguage)}?q=${couple.origin}`} target="_blank">Search where to watch<OpenInNewIcon fontSize="small" /></a></p>
                     </div>
 

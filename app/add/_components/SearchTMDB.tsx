@@ -27,8 +27,6 @@ const SearchTMDB = () => {
 
       if (!results) throw new Error("TMDB error")
 
-      console.log(results)
-
       const topResults = results.map((item) => {
         const isTV = item.media_type === "tv";
         return {
@@ -43,12 +41,10 @@ const SearchTMDB = () => {
       setResults(topResults);
     } catch (err) {
       setResults([]);
-      console.log(err)
+      console.error(err)
       setError("An error occurred. Please try again.");
     }
   };
-
-  useEffect(() => console.log(couple), [couple])
 
   const handleSelectResult = async (result) => {
     const selected = await getOneTMDB(result.media_type, result.id)

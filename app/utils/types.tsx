@@ -21,6 +21,11 @@ export type ShortCouple = {
     image: string
 }
 
+export type Genre = {
+    id: string,
+    name: string
+}
+
 export type Couple = {
     people: Person[],
     origin: string,
@@ -49,7 +54,7 @@ export type Couple = {
     dateAdded: Date,
     _id?: string,
     webseriesLink?: string,
-    genres?: string,
+    genres?: Genre[],
     globalRatingCount?: number,
     chemistryCount?: number,
     romanticConnectionCount?: number
