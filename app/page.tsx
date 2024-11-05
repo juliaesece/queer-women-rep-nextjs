@@ -21,16 +21,16 @@ const getCachedData = unstable_cache(
         throw new Error("Database Error")
       }
     }
-    catch (e) { 
+    catch (e) {
       throw new Error(e)
     }
   }, [], {
   tags: ["coupleData"]
 })
 
-async function getPages(supercategory) {
+async function getPages(supercategory, extraFilter) {
   try {
-    const count = await countCouples(supercategory)
+    const count = await countCouples(supercategory, extraFilter)
 
     if (count) {
       return Math.ceil(count / 9)
@@ -47,7 +47,7 @@ export default async function Home({ searchParams }) {
   const extraFilter = searchParams.filter
   const couples: ShortCouple[] = await getCachedData(extraFilter)
   const infoId = searchParams.info
-  const nbPages = await getPages("home")
+  const nbPages = await getPages("home", extraFilter)
   const session = await getServerSession(authOptions)
 
   return (
@@ -57,7 +57,7 @@ export default async function Home({ searchParams }) {
         <GridLayout couples={couples} />
         <PaginationConductor supercategory="home" page={1} current="home" totalPages={nbPages} extraFilter={extraFilter} />
       </main>
-      {infoId && <Modal mongoId={infoId} from="/" session={session} />}
+      {infoId && <Modal mongoId={infoId} session={session} />}
     </>
   );
 }

@@ -26,7 +26,6 @@ export async function rateCouple(collectionName: string, coupleId: string, userI
         const parsedUserId = new ObjectId(userId)
         const parsedRatingsId = new ObjectId(coupleId)
 
-        
         const database = client.db('couples');
         const ratings = database.collection(collectionName)
 
@@ -49,13 +48,16 @@ export async function rateCouple(collectionName: string, coupleId: string, userI
             throw new Error("Database error, please try again in a few minutes")
         }
 
-
         const newResult = await ratings.findOne({ _id: parsedRatingsId })
         const newRatings = Object.values(newResult.ratings)
         const sum = newRatings.reduce((a: number, b: number) => a + b, 0);
         const avg = (Number(sum) / newRatings.length) || 0;
         const couplesSetObject = {}
         couplesSetObject[fieldToUpdate] = avg
+
+        const fieldToUpdateCount = fieldToUpdate + "Count"
+        couplesSetObject[fieldToUpdateCount] = newRatings.length
+
         const updatedCouples = await database.collection("couples").updateOne({ _id: newResult._id }, { $set: couplesSetObject })
         if (!updatedCouples.acknowledged || updatedCouples.matchedCount != 1) {
             throw new Error("Database error, please try again in a few minutes")

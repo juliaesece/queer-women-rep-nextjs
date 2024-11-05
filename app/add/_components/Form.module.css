@@ -54,6 +54,16 @@
     box-sizing: border-box;
 }
 
+.shortTextInput {
+    height: 2.3rem;
+    min-width: 70%;
+    padding: 0.2rem 0.4rem;
+    border-radius: 8px;
+    border: solid 1px rgba(0, 0, 0, 0.3);
+    width: 80%;
+    box-sizing: border-box;
+}
+
 .longTextInput {
     height: 4rem;
     font-family: inherit;
@@ -84,7 +94,7 @@
     margin-top: 0.6rem;
 }
 
-.section>button {
+.section>button, .TMDBbutton {
     background-color: #ff8fe7;
     border: none;
     padding: 1rem 2rem;
@@ -95,7 +105,12 @@
     cursor: pointer;
 }
 
-.section>button:hover {
+.TMDBbutton {
+    padding: 0.5rem 1rem;
+    margin-left: 1rem;
+}
+
+.section>button:hover, .TMDBbutton {
     background-color: #e57fcf;
 }
 

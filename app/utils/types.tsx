@@ -49,7 +49,10 @@ export type Couple = {
     dateAdded: Date,
     _id?: string,
     webseriesLink?: string,
-    genres?: string
+    genres?: string,
+    globalRatingCount?: number,
+    chemistryCount?: number,
+    romanticConnectionCount?: number
 }
 
 export type SearchPerson = {

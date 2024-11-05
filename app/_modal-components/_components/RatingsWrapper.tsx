@@ -17,6 +17,12 @@ export default function RatingsWrapper({ dbValue, icon, emptyIcon, sx, couple, s
                 icon={icon}
                 emptyIcon={emptyIcon}
                 onChange={(event, newValue) => {
+                    console.log("event", event, "newvalue", newValue)
+                    if (event.type == "click") {
+                        setValue(dbValue)
+                        rateCouple(collectionName, couple._id, session.user.id, dbValue)
+                        return
+                    }
                     setValue(newValue)
                     rateCouple(collectionName, couple._id, session.user.id, newValue)
                 }}

@@ -1,14 +1,16 @@
 "use server"
 import client from "@/app/lib/mongo"
+import parseFilter from "./parseFilter"
 
-export async function countCouples(unparsedSupercategory) {
+export async function countCouples(unparsedSupercategory, extraFilter) {
 
     const supercategoryLookup: { "tv-shows": string, "movies": string } = {
         "tv-shows": "TV Show",
         "movies": "Movie"
     }
 
-    let filter = {}
+    let {sort, filter} = parseFilter(extraFilter)
+
     if (unparsedSupercategory != null && unparsedSupercategory != "home") {
         const supercategory: string = supercategoryLookup[unparsedSupercategory as keyof typeof supercategoryLookup]
         filter = { mediaType: supercategory }

@@ -13,7 +13,7 @@ import { outOfFive, outOfFour } from "@/app/utils/types";
 import Rate from "./Rate";
 
 export default function Conductor({ session }) {
-    const { couple, currentSection } = useAddContext();
+    const { couple, currentSection, setCouple, emptyCouple } = useAddContext();
     const [alert, setAlert] = useState({ severity: "", message: "" })
 
     useEffect(() => {
@@ -46,6 +46,7 @@ export default function Conductor({ session }) {
         const result = await createCouple(datedCouple, session.user.id);
         if (result) {
             setAlert({ severity: "success", message: "The new couple has been added to the database successfully" })
+            setCouple(emptyCouple)
         }
         else {
             setAlert({ severity: "error", message: "There was an error with the database" })

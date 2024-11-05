@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { queryTMDB, getOneTMDB } from "../_actions/queryTMDB";
 import styles from "./SearchTMDB.module.css";
+import defaultStyles from "./Form.module.css"
 import Image from "next/image";
 import { useAddContext } from "../AddContext";
 
@@ -71,8 +72,8 @@ const SearchTMDB = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.searchBar}>
+    <>
+      <div className={defaultStyles.fullWidth}>
         <label htmlFor="searchTMDB">
           Complete this faster with information from The Movie Database (which also includes information about TV Shows)
         </label>
@@ -83,9 +84,9 @@ const SearchTMDB = () => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search for a movie or TV show"
-          className={styles.input}
+          className={defaultStyles.shortTextInput}
         />
-        <button className={styles.button} onClick={handleSearch}>
+        <button className={defaultStyles.TMDBbutton} onClick={handleSearch}>
           Search
         </button>
       </div>
@@ -113,7 +114,7 @@ const SearchTMDB = () => {
                       height={231}
                     />
                   ) : (
-                    <span>No Poster Available</span>
+                    <span className={styles.poster}>No Poster Available</span>
                   )}
                 </div>
                 <h3 className={styles.title}>{result.title}</h3>
@@ -126,7 +127,7 @@ const SearchTMDB = () => {
         </div>
       )}
 
-    </div>
+    </>
   );
 };
 

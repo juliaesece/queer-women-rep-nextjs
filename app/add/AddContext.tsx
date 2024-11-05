@@ -7,14 +7,15 @@ type AddContextType = {
     currentSection: number,
     setCurrentSection: React.Dispatch<React.SetStateAction<number>>,
     handleChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLTextAreaElement>) => void,
-    handleCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void
+    handleCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    emptyCouple: Couple
 }
 
 export const AddContext = createContext<null | AddContextType>(null);
 
 
 const AddContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const [couple, setCouple] = useState({
+    const emptyCouple = {
         people: [
             {
                 name: "",
@@ -65,7 +66,8 @@ const AddContextProvider = ({ children }: { children: React.ReactNode }) => {
             homophobia: 0 as outOfFive
         },
         dateAdded: new Date()
-    });
+    }
+    const [couple, setCouple] = useState(emptyCouple);
 
     const [currentSection, setCurrentSection] = useState(0)
 
@@ -104,7 +106,8 @@ const AddContextProvider = ({ children }: { children: React.ReactNode }) => {
         currentSection,
         setCurrentSection,
         handleChange,
-        handleCheckbox
+        handleCheckbox,
+        emptyCouple
     };
 
     return (

@@ -2,6 +2,7 @@
 
 import client from "@/app/lib/mongo"
 import { ShortCouple } from "./types"
+import parseFilter from "./parseFilter"
 
 export async function getCouples(unparsedSupercategory: string, unparsedPage: number, extraFilter: string | undefined) {
 
@@ -10,39 +11,7 @@ export async function getCouples(unparsedSupercategory: string, unparsedPage: nu
         "movies": "Movie"
     }
 
-    let filter = {}
-    let sort: any = { "dateAdded": -1 }
-
-    switch (extraFilter) {
-        case "most-liked":
-            sort = {"romanticConnection": -1}
-            break;
-        case "recently-added":
-            sort = { "dateAdded": -1 }
-            break;
-        case "most-recent":
-            sort = { "year": -1 }
-            break;
-        case "more-diverse":
-            filter = {
-                "$or": [
-                    { "people.gender": "Non-Binary" },
-                    { "people.genderIdentity": "Trans" },
-                    { "people.genderIdentity": "Trans" },
-                    { "people.ethnicity": "black" },
-                    { "people.ethnicity": "asian" },
-                    { "people.ethnicity": "indigenous" },
-                    { "people.ethnicity": "latinx" },
-                    { "people.genderExpression": "Butch" }
-                ]
-            }
-            break;
-        case "happy-endings":
-            filter = { "ending": "Happy" }
-            break;
-        default:
-            break
-    }
+    let {sort, filter} = parseFilter(extraFilter)
 
     if (unparsedSupercategory != null && unparsedSupercategory != "home") {
         const supercategory: string = supercategoryLookup[unparsedSupercategory as keyof typeof supercategoryLookup]

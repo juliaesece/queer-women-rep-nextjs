@@ -3,12 +3,10 @@ import st from "./modal.module.css"
 import Image from "next/image";
 import { getCoupleById } from "@/app/utils/getCoupleById";
 import { getReviews } from "./_actions/getReviews";
-import { IconButton } from "@mui/material";
 import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import WhatshotOutlined from "@mui/icons-material/WhatshotOutlined";
-import CloseIcon from '@mui/icons-material/Close';
 import ReviewsComponent from "./Reviews";
 import { Session } from "next-auth";
 import RatingsWrapper from "./_components/RatingsWrapper";
@@ -16,8 +14,9 @@ import { storyImportanceOptions, screenTimeOptions } from "../utils/couplesOptio
 import { Couple } from "../utils/types";
 import { headers } from 'next/headers'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import GoBack from "./_components/GoBack";
 
-export default async function Modal({ mongoId, from, session }: { mongoId: string, from: string, session: Session }) {
+export default async function Modal({ mongoId, session }: { mongoId: string, session: Session }) {
 
     function getSearchTranslation(locale) {
         // Object mapping locales to their main language translations of "search"
@@ -49,10 +48,10 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
             'no': 'søk',
             'fi': 'etsi'
         };
-    
+
         // Convert locale to lowercase to handle different cases
         const normalizedLocale = locale.toLowerCase();
-        
+
         // Return translation if it exists, otherwise return 'search' as default
         return translations[normalizedLocale] || 'search';
     }
@@ -60,8 +59,7 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
     const couple: Couple = await getCoupleById(mongoId);
 
     const headersList = await headers()
-    const acceptLanguage = headersList.get('accept-language').slice(3,5) ?? "us"
-
+    const acceptLanguage = headersList.get('accept-language').slice(3, 5) ?? "us"
 
     let reviews = {
         _id: 'undefined',
@@ -73,11 +71,7 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
     return (
         <div className={st.modal}>
             <div className={st.modal_content}>
-                <Link href={from} className={st.modal_closeButton}>
-                    <IconButton size="large">
-                        <CloseIcon />
-                    </IconButton>
-                </Link>
+                <GoBack />
                 <Image className={st.modal_image} src={couple.image} alt={couple.altImg} width={2000} height={2000} />
                 <div className={st.modal_textContent}>
                     <div className={st.modal_title}>
@@ -89,6 +83,9 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                         <div>
                             <p className={st.shorten}>Rating for {couple.origin}</p>
                             <div className={st.modal_ratings_inline}>
+                                <span>
+                                    {couple.globalRating}
+                                </span>
                                 <RatingsWrapper
                                     dbValue={couple.globalRating}
                                     icon={undefined}
@@ -107,9 +104,11 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                                         }
                                     }}
                                     couple={couple} session={session} collectionName="globalRatings" />
-                                <span>
-                                    {couple.globalRating}
-                                </span>
+                                {couple.globalRatingCount &&
+                                    <span>
+                                        ({couple.globalRatingCount})
+                                    </span>
+                                }
                             </div>
                         </div>
 
@@ -139,6 +138,9 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                         <div>
                             <p>Romantic rating</p>
                             <div className={st.modal_ratings_inline}>
+                                <span>
+                                    {couple.romanticConnection}
+                                </span>
                                 <RatingsWrapper
                                     dbValue={couple.romanticConnection}
                                     icon={<Favorite fontSize="inherit" />}
@@ -157,16 +159,20 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                                         }
                                     }}
                                     couple={couple} session={session} collectionName="romanticRatings" />
-                                <span>
-                                    {couple.romanticConnection}
-                                </span>
-
+                                {couple.romanticConnectionCount &&
+                                    <span>
+                                        ({couple.romanticConnectionCount})
+                                    </span>
+                                }
                             </div>
                         </div>
                         {!(couple.people[0].lifeStage == "Children" || couple.people[0].lifeStage == "Children") &&
                             <div>
                                 <p>Chemistry rating</p>
                                 <div className={st.modal_ratings_inline}>
+                                    <span>
+                                        {couple.chemistry}
+                                    </span>
                                     <RatingsWrapper
                                         dbValue={couple.chemistry}
                                         icon={<WhatshotIcon fontSize="inherit" />}
@@ -185,9 +191,11 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                                             }
                                         }}
                                         couple={couple} session={session} collectionName="chemistryRatings" />
-                                    <span>
-                                        {couple.chemistry}
-                                    </span>
+                                    {couple.chemistryCount &&
+                                        <span>
+                                            ({couple.chemistryCount})
+                                        </span>
+                                    }
                                 </div>
                             </div>
                         }
@@ -202,11 +210,11 @@ export default async function Modal({ mongoId, from, session }: { mongoId: strin
                         <p><em>Story importance</em>: {storyImportanceOptions.find((el) => el.value == couple.storyImportance).label}</p>
                         <br />
 
-                        {couple.tags && <><p  className={st.modal_tags_container}><span>Tags:</span> {couple.tags.map((tag) =>
-                            <Link href={from + "?tag=" + tag} className={st.modal_tags} key={tag}>{tag}</Link>
+                        {couple.tags && <><p className={st.modal_tags_container}><span>Tags:</span> {couple.tags.map((tag) =>
+                            <Link href={"/?tag=" + tag} className={st.modal_tags} key={tag}>{tag}</Link>
                         )}</p><br /></>}
 
-                        
+
                     </div>
 
                     <div className={st.modal_spoilerland}>
