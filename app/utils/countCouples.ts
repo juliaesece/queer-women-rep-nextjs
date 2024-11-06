@@ -9,7 +9,7 @@ export async function countCouples(unparsedSupercategory, extraFilter) {
         "movies": "Movie"
     }
 
-    let {sort, filter} = parseFilter(extraFilter)
+    let {sort, filter} = parseFilter(extraFilter, null)
 
     if (unparsedSupercategory != null && unparsedSupercategory != "home") {
         const supercategory: string = supercategoryLookup[unparsedSupercategory as keyof typeof supercategoryLookup]

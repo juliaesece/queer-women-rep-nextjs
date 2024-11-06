@@ -1,4 +1,4 @@
-export default function parseFilter(unparsedFilter) {
+export default function parseFilter(unparsedFilter, tag) {
 
     let filter = {}
     let sort: any = { "dateAdded": -1 }
@@ -32,6 +32,8 @@ export default function parseFilter(unparsedFilter) {
         default:
             break
     }
+
+    if (tag) filter = {...filter, "tags": tag}
 
     return {sort, filter}
 }

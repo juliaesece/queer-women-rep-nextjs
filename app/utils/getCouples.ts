@@ -4,14 +4,14 @@ import client from "@/app/lib/mongo"
 import { ShortCouple } from "./types"
 import parseFilter from "./parseFilter"
 
-export async function getCouples(unparsedSupercategory: string, unparsedPage: number, extraFilter: string | undefined) {
+export async function getCouples(unparsedSupercategory: string, unparsedPage: number, extraFilter: string | undefined, tag) {
 
     const supercategoryLookup: { "tv-shows": string, "movies": string } = {
         "tv-shows": "TV Show",
         "movies": "Movie"
     }
 
-    let {sort, filter} = parseFilter(extraFilter)
+    let {sort, filter} = parseFilter(extraFilter, tag)
 
     if (unparsedSupercategory != null && unparsedSupercategory != "home") {
         const supercategory: string = supercategoryLookup[unparsedSupercategory as keyof typeof supercategoryLookup]

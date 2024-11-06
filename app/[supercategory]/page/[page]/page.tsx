@@ -11,9 +11,9 @@ import { authOptions } from "@/app/utils/authOptions";
 import { unstable_cache } from "next/cache";
 
 const getCachedData = unstable_cache(
-    async (supercategory, page, extraFilter) => {
+    async (supercategory, page, extraFilter, tag) => {
       try {
-        const couples: ShortCouple[] = await getCouples(supercategory, page, extraFilter)
+        const couples: ShortCouple[] = await getCouples(supercategory, page, extraFilter, tag)
   
         if (couples) {
           return couples
@@ -48,7 +48,8 @@ export default async function Home({ searchParams, params }: { searchParams, par
     const page = params.page
     const extraFilter = searchParams.filter
     const supercategory = params.supercategory
-    const couples: ShortCouple[] = await getCachedData(supercategory, Number(page), extraFilter)
+    const tag = searchParams.tag
+    const couples: ShortCouple[] = await getCachedData(supercategory, Number(page), extraFilter, tag)
     const infoId = searchParams.info
     const nbPages = await getPages(supercategory, extraFilter)
     const session = await getServerSession(authOptions)
