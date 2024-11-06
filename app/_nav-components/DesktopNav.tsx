@@ -4,7 +4,7 @@ import { FC } from "react";
 import Image from "next/image";
 import styles from "./desktop.module.css"
 import Link from "next/link";
-import logo from "@/public/queer-women-rep.png"
+import logo from "@/public/es-logo.png"
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
 type link = {
@@ -26,7 +26,8 @@ const DesktopNav: FC<Props> = ({ links }) => {
         <>
             <header className={styles.header}>
                 <Link href="/">
-                    <Image className={styles.header__logo} src={logo} alt="Queer women rep logo" />
+                    <Image className={styles.header__logo} src={logo} alt="Everything Sapphic logo"
+                    width={250} height={50} />
                 </Link>
             </header>
             <nav className={styles.nav}>

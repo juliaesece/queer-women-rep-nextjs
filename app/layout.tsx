@@ -5,8 +5,8 @@ import { Analytics } from "@vercel/analytics/react"
 import Footer from "./_layout-components/Footer";
 
 export const metadata: Metadata = {
-  title: "Queer women rep",
-  description: "Collective database of sapphic representation in media",
+  title: "Everything Sapphic",
+  description: "A collective database of sapphic representation in media, where you can filter for the kind of representation you're searching for.",
 };
 
 interface DashboardProps {
