@@ -47,6 +47,7 @@ export default function Conductor({ session }) {
         if (result) {
             setAlert({ severity: "success", message: "The new couple has been added to the database successfully" })
             setCouple(emptyCouple)
+            setTimeout(() => { setAlert({ severity: "", message: "" }) }, 2000)
         }
         else {
             setAlert({ severity: "error", message: "There was an error with the database" })
