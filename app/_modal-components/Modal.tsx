@@ -59,7 +59,7 @@ export default async function Modal({ mongoId, session }: { mongoId: string, ses
     const couple: Couple = await getCoupleById(mongoId);
 
     const headersList = await headers()
-    const acceptLanguage = headersList.get('accept-language').slice(3, 5) ?? "us"
+    const acceptLanguage = headersList.get('accept-language')?.slice(3, 5) ?? "us"
 
     let reviews = {
         _id: 'undefined',
