@@ -39,8 +39,6 @@
     color: white;
 }
 
-
-
 .modal_closeButton {
     position: absolute;
     right: 1rem;
@@ -87,6 +85,7 @@
         "coupleDescription coupleRating"
         "spoilerland spoilerland"
         "reviews reviews";
+
 }
 
 .modal_title {
@@ -212,7 +211,7 @@
     }
 
     .modal_textContent {
-        padding: 2rem;
+        padding: 2rem 1rem;
         display: grid;
         grid-template-columns: 1fr;
         gap: 0.4rem;
@@ -226,6 +225,15 @@
             "reviews";
         background: #d461a6;
         border-radius: 50px 100px 0 0;
+
+    }
+
+    .modal_textContent>* {
+        width: calc(100vw - 2rem);
+    }
+
+    .modal_ratings {
+        padding: 1rem 0;
     }
 
     .modal_image {
