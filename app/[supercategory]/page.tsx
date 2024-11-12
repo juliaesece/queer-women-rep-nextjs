@@ -2,7 +2,7 @@
 import styles from "@/app/page.module.css"
 import PaginationConductor from "../_nav-components/PaginationConductor";
 import { getCouples } from "../utils/getCouples";
-import Modal from "@/app/_modal-components/Modal"
+import Modal from "@/app/@modal/Modal"
 import { countCouples } from "../utils/countCouples";
 import GridLayout from "../_layout-components/GridLayout";
 import { ShortCouple } from "@/app/utils/types";
