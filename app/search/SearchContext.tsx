@@ -9,7 +9,6 @@ type SearchContextType = {
     setResult: React.Dispatch<React.SetStateAction<Couple[]>>,
     handleChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLTextAreaElement>) => void,
     handleEthnicityChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    handleSecondNationality: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void,
     waitingMessage: string,
     setWaitingMessage: React.Dispatch<React.SetStateAction<string>>
@@ -45,14 +44,6 @@ const SearchContextProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }
 
-    const handleSecondNationality = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { value, checked } = e.target;
-        setSearchCouple({
-            ...searchCouple,
-            person: { ...searchCouple.person, moreThanOneCountry: checked }
-        })
-    }
-
     const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, checked } = e.target;
         setSearchCouple(
@@ -70,7 +61,6 @@ const SearchContextProvider = ({ children }: { children: React.ReactNode }) => {
         setResult,
         handleChange,
         handleEthnicityChange,
-        handleSecondNationality,
         handleCheckbox,
         waitingMessage,
         setWaitingMessage
