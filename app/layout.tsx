@@ -11,10 +11,10 @@ export const metadata: Metadata = {
 
 interface DashboardProps {
   children: React.ReactNode;
-  params: { supercategory: string, page: string }
+  modal: React.ReactNode;
 }
 
-export default function RootLayout({ children, params }: DashboardProps) {
+export default function RootLayout({ children, modal }: DashboardProps) {
 
   return (
     <html lang="en">
@@ -23,6 +23,8 @@ export default function RootLayout({ children, params }: DashboardProps) {
           <NavConductor />
           {children}
           <Footer />  
+          {modal}
+          <div id="modal-root" />
       </body>
     </html>
   );

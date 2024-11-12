@@ -1,6 +1,6 @@
 
 import styles from './page.module.css';
-import Modal from "@/app/@modal/Modal"
+import Modal from "@/app/@modal/(.)info/[id]/Modal"
 import SearchForm from './_components/SearchForm';
 import { getServerSession } from "next-auth";
 import { authOptions } from "../utils/authOptions";

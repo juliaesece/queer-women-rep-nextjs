@@ -3,7 +3,7 @@ import GridLayout from "@/app/_layout-components/GridLayout";
 import styles from "@/app/page.module.css"
 import PaginationConductor from "@/app/_nav-components/PaginationConductor";
 import { getCouples } from "@/app/utils/getCouples";
-import Modal from "@/app/@modal/Modal"
+import Modal from "@/app/@modal/(.)info/[id]/Modal"
 import { countCouples } from "@/app/utils/countCouples";
 import { ShortCouple } from "@/app/utils/types";
 import { getServerSession } from "next-auth";

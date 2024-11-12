@@ -10,8 +10,8 @@ import WhatshotOutlined from "@mui/icons-material/WhatshotOutlined";
 import ReviewsComponent from "./Reviews";
 import { Session } from "next-auth";
 import RatingsWrapper from "./_components/RatingsWrapper";
-import { storyImportanceOptions, screenTimeOptions } from "../utils/couplesOptions";
-import { Couple } from "../utils/types";
+import { storyImportanceOptions, screenTimeOptions } from "../../../utils/couplesOptions";
+import { Couple } from "../../../utils/types";
 import { headers } from 'next/headers'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import GoBack from "./_components/GoBack";
