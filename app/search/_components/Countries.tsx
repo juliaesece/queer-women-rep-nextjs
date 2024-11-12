@@ -2,17 +2,11 @@ import { useState } from 'react';
 import styles from "./Form.module.css";
 import { Autocomplete } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import { useSearchContext } from '../SearchContext';
 
-export default function Countries({ name, number, handleChange }: { name: string, number: number, handleChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => void }) {
-    // const { couple, setCouple } = useState({})
-    // const [inputValue, setInputValue] = useState("")
-
-    let question = "";
-    if (name === "nationality") {
-        question = "Which country are they from?"
-    } else {
-        question = "Which is their second country?"
-    }
+export default function Countries({ name }: { name: string}) {
+    const [inputValue, setInputValue] = useState("")
+    const { searchCouple, setSearchCouple } = useSearchContext()
 
     const countries = [
         { label: "Doesn't apply (fantasy, etc.)", id: 1 },
@@ -264,33 +258,29 @@ export default function Countries({ name, number, handleChange }: { name: string
         { label: "Zimbabwe", id: 247 }
     ];
 
-    return (<></>)
+    return (
+        <>
+            <label className={styles.label} htmlFor={name}>Which country are they from?</label>
+            <Autocomplete
+                disablePortal
+                options={countries}
+                value={searchCouple.person[name]}
+                onChange={(event: any, newValue: any) => {
+                    setSearchCouple(prevCouple => ({
+                        ...prevCouple,
+                        person: {...prevCouple.person, nationality: newValue.label}
+                    }))
+                }
+                }
+                inputValue={inputValue}
+                onInputChange={(event, newInputValue) => {
+                    setInputValue(newInputValue);
+                }}
+                renderInput={(params) => <TextField {...params} label="Country" name={name} />}
+            />
 
-    // return (
-    //     <>
-    //         <label className={styles.label} htmlFor={name}> {question} </label>
-    //         <Autocomplete
-    //             disablePortal
-    //             options={countries}
-    //             value={couple.people[0][name]}
-    //             onChange={(event: any, newValue: any) => {
-    //                 setCouple(prevCouple => ({
-    //                     ...prevCouple,
-    //                     people: prevCouple.people.map((person, index) =>
-    //                         index === 0 ? { ...person, [name]: newValue?.label ? newValue.label : "" } : person
-    //                     )
-    //                 }))
-    //             }
-    //             }
-    //             inputValue={inputValue}
-    //             onInputChange={(event, newInputValue) => {
-    //                 setInputValue(newInputValue);
-    //             }}
-    //             renderInput={(params) => <TextField {...params} label="Country" name={name} />}
-    //         />
-
-    //     </>
-    // );
+        </>
+    );
 }
 
 

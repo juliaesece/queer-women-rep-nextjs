@@ -68,8 +68,6 @@ export type SearchPerson = {
     genderExpression?: string,
     ethnicity?: string[],
     nationality?: string,
-    moreThanOneCountry?: boolean,
-    secondNationality?: string,
     lifeStage?: string,
 }
 

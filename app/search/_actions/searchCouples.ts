@@ -30,6 +30,12 @@ function transformQuery(query, prefix = '') {
           continue
         }
 
+        if (peopleKey === 'nationality') { // Handle ethnicity specially because it is an array
+          transformedQuery["$or"][0]["$or"] = [{"people.0.nationality": peopleValue}, {"people.0.secondNationality": peopleValue}];
+          transformedQuery["$or"][1]["$or"] = [{"people.1.nationality": peopleValue}, {"people.1.secondNationality": peopleValue}];
+          continue
+        }
+
         transformedQuery["$or"][0][newKey1] = peopleValue;
         transformedQuery["$or"][1][newKey2] = peopleValue;
       }

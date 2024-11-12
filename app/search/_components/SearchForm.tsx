@@ -22,7 +22,7 @@ export default function SearchForm({ session }) {
         setWaitingMessage("Searching...")
 
         let modifiableSearchCouple =JSON.parse(JSON.stringify(searchCouple)) // Deep copy, otherwise ethnicity becomes undefined
-
+        
         // If person is empty, delete
         if (Object.keys(modifiableSearchCouple.person).length == 1
          && Object.keys(modifiableSearchCouple.person)[0] == "ethnicity"

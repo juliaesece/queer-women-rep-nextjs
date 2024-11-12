@@ -1,7 +1,6 @@
 "use client";
 
 import styles from './SearchForm.module.css';
-import Countries from '../../add/_components/Countries';
 import {
     genderOptions,
     sexualOrientationOptions,
@@ -9,6 +8,7 @@ import {
     genderExpressionOptions, lifeStageOptions, ethnicityOptions
 } from "@/app/utils/couplesOptions"
 import { useSearchContext } from '../SearchContext';
+import Countries from './Countries';
 
 
 export default function SearchPeople() {
@@ -43,15 +43,6 @@ export default function SearchPeople() {
         }
     };
 
-    const handleSecondNationality = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { value, checked } = e.target;
-        setSearchCouple(
-            {
-                ...searchCouple,
-                person: { ...searchCouple.person, moreThanOneCountry: checked }
-            }
-        )
-    }
 
     return (
         <section className={styles.section}>
@@ -125,20 +116,9 @@ export default function SearchPeople() {
             </fieldset>
             <fieldset>
                 <div>
-                    {/* <Countries name="nationality" handleChange={handleChange} /> */}
+                    <Countries name="nationality" />
                 </div>
-                <div className={styles.checkboxDiv}>
-                    <input
-                        type="checkbox"
-                        name="moreThanOneCountry"
-                        id="moreThanOneCountry"
-                        onChange={handleSecondNationality}
-                        className={styles.checkbox}
-                        checked={searchCouple.person.moreThanOneCountry} />
-                    <label className={styles.checkboxLabel} htmlFor="moreThanOneCountry">They are from more than one country (immigrants, travelers, etc.)</label>
-                </div>
-                {searchCouple.person.moreThanOneCountry === true && <div>
-                    {/*  <Countries name="secondNationality" handleChange={handleChange} /> */}</div>}
+               
             </fieldset>
         </section>
     );
