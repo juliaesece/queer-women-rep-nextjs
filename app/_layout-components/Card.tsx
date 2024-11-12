@@ -10,7 +10,7 @@ interface Props {
 
 const Card: FC<Props> = ({ couple }) => {
 
-  const link = "?info=" + couple._id
+  const link = "/info/" + couple._id
   return (
     <div className={st.card}>
       <Link href={link} className={st.card__link}>
