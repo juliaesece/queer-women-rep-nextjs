@@ -1,6 +1,6 @@
 import styles from "./Form.module.css";
 import { useAddContext } from "../AddContext";
-import { screenTimeOptions, storyImportanceOptions, romanticConnectionOptions, chemistryOptions, endingOptions } from "@/app/utils/couplesOptions";
+import { screenTimeOptions, storyImportanceOptions, endingOptions } from "@/app/utils/couplesOptions";
 
 export default function Relationship() {
     const { couple, handleChange, setCouple, currentSection, setCurrentSection } = useAddContext()
