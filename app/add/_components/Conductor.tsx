@@ -29,6 +29,11 @@ export default function Conductor({ session }) {
         };
     }, []);
 
+    useEffect(()=> {
+        console.log("couple.globalRating, couple.chemistry, couple.romanticConnection")
+        console.log(couple.globalRating, couple.chemistry, couple.romanticConnection)
+    }, [couple])
+
     const createNewCouple = async (event) => {
         event.preventDefault()
         setAlert({ severity: "info", message: "We're processing your query" })
