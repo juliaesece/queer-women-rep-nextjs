@@ -1,6 +1,6 @@
 import { useSearchContext } from "../SearchContext";
 import styles from "./Form.module.css";
-import { screenTimeOptions, storyImportanceOptions, romanticConnectionOptions, chemistryOptions, endingOptions } from "@/app/utils/couplesOptions";
+import { screenTimeOptions, storyImportanceOptions, numberAndHigherOptions, endingOptions } from "@/app/utils/couplesOptions";
 
 export default function SearchRelationship() {
     const { searchCouple, handleChange, handleCheckbox } = useSearchContext()
@@ -29,22 +29,19 @@ export default function SearchRelationship() {
 
             <div>
                 <label htmlFor="globalRating">Global rating:</label>
-                <input
-                    placeholder="Number from 0 to 5"
-                    name="globalRating"
-                    type="number"
-                    min="0"
-                    max="5"
-                    onChange={handleChange}
-                    value={searchCouple.globalRating}
-                />
+                <select name="globalRating" onChange={handleChange} value={searchCouple.globalRating || "default"}>
+                    <option value="0">-----</option>
+                    {numberAndHigherOptions.map(option => (
+                        <option key={option.value} value={option.value}>{option.label}</option>
+                    ))}
+                </select>
             </div>
 
             <div>
                 <label htmlFor="romantiConnection">Romantic connection:</label>
                 <select name="romanticConnection" onChange={handleChange} value={searchCouple.romanticConnection || "default"}>
                     <option value="0">-----</option>
-                    {romanticConnectionOptions.map(option => (
+                    {numberAndHigherOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
                     ))}
                 </select>
@@ -54,7 +51,7 @@ export default function SearchRelationship() {
                 <label htmlFor="chemistry">Chemistry:</label>
                 <select name="chemistry" onChange={handleChange} value={searchCouple.chemistry || "default"}>
                     <option value="0">-----</option>
-                    {chemistryOptions.map(option => (
+                    {numberAndHigherOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
                     ))}
                 </select>

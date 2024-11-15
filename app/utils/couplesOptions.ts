@@ -85,20 +85,12 @@ export const storyImportanceOptions: NumericOption[] = [
     { value: 4, label: 'Extras — it is a detail in the story' },
 ];
 
-export const romanticConnectionOptions: NumericOption[] = [
-    { value: 5, label: 'Like Romeo & Juliet, or rather, Julie & Juliet' },
-    { value: 4, label: 'Good' },
-    { value: 3, label: 'Meh' },
-    { value: 2, label: 'Bad' },
-    { value: 1, label: '??? How are these people together?' },
-];
-
-export const chemistryOptions: NumericOption[] = [
-    { value: 5, label: '🔥🔥' },
-    { value: 4, label: 'Very good' },
-    { value: 3, label: 'Meh' },
-    { value: 2, label: 'Not really' },
-    { value: 1, label: '❄️❄️' },
+export const numberAndHigherOptions: NumericOption[] = [
+    { value: 5, label: '5 stars' },
+    { value: 4, label: '4 stars or more' },
+    { value: 3, label: '3 stars or more' },
+    { value: 2, label: '2 stars or more' },
+    { value: 1, label: '1 star or more' },
 ];
 
 export const endingOptions: Option[] = [

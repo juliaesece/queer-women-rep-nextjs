@@ -29,10 +29,9 @@ export default function Conductor({ session }) {
         };
     }, []);
 
-    useEffect(()=> {
-        console.log("couple.globalRating, couple.chemistry, couple.romanticConnection")
-        console.log(couple.globalRating, couple.chemistry, couple.romanticConnection)
-    }, [couple])
+    // useEffect(()=> {
+    //     console.log(couple)
+    // }, [couple])
 
     const createNewCouple = async (event) => {
         event.preventDefault()

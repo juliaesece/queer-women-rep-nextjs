@@ -11,9 +11,8 @@ function transformQuery(query, prefix = '') {
 
   for (let [key, value] of Object.entries(query)) {
     // Parse strings
-    if (typeof value === 'string' && ['0', '1', '2', '3', '4', '5'].includes(value)) value = Number(value)
 
-    if (value === "default" || value === 0 || value === "0") continue; // Avoid empty filters
+    if (value === "default" || value === 0 || value === "0" || value === "") continue; // Avoid empty filters
 
     if (key === 'people' && typeof value === 'object') {
       // Handle the 'people' object specially
@@ -31,8 +30,8 @@ function transformQuery(query, prefix = '') {
         }
 
         if (peopleKey === 'nationality') { // Handle ethnicity specially because it is an array
-          transformedQuery["$or"][0]["$or"] = [{"people.0.nationality": peopleValue}, {"people.0.secondNationality": peopleValue}];
-          transformedQuery["$or"][1]["$or"] = [{"people.1.nationality": peopleValue}, {"people.1.secondNationality": peopleValue}];
+          transformedQuery["$or"][0]["$or"] = [{ "people.0.nationality": peopleValue }, { "people.0.secondNationality": peopleValue }];
+          transformedQuery["$or"][1]["$or"] = [{ "people.1.nationality": peopleValue }, { "people.1.secondNationality": peopleValue }];
           continue
         }
 
@@ -45,6 +44,12 @@ function transformQuery(query, prefix = '') {
       Object.assign(transformedQuery, nestedTransformed);
     } else {
       // Handle non-object values
+      if (typeof value === 'string' && ['0', '1', '2', '3', '4', '5'].includes(value)) {
+        const tempValue = value
+        value = {}
+        value["$gte"] = Number(tempValue)
+      }
+
       const newKey = prefix ? `${prefix}.${key}` : key;
       transformedQuery[newKey] = value;
     }
