@@ -58,7 +58,7 @@ export default async function Home({ searchParams, params }: { searchParams, par
                 <GridLayout couples={couples} />
                 <PaginationConductor supercategory={supercategory} page={1} current={supercategory} totalPages={nbPages} extraFilter={extraFilter}/>
             </main>
-            {infoId && <Modal mongoId={infoId} session={session} />}
+            {infoId && <Modal mongoId={infoId} session={session} origin="home" />}
         </>
     );
 }

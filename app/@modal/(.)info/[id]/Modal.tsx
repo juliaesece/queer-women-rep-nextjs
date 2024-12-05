@@ -16,7 +16,7 @@ import { headers } from 'next/headers'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import GoBack from "./_components/GoBack";
 
-export default async function Modal({ mongoId, session }: { mongoId: string, session: Session }) {
+export default async function Modal({ mongoId, session, origin }: { mongoId: string, session: Session, origin: string }) {
 
     function getSearchTranslation(locale) {
         // Object mapping locales to their main language translations of "search"
@@ -71,7 +71,7 @@ export default async function Modal({ mongoId, session }: { mongoId: string, ses
     return (
         <div className={st.modal}>
             <div className={st.modal_content}>
-                <GoBack />
+                <GoBack origin={origin} />
                 <Image className={st.modal_image} src={couple.image} alt={couple.altImg} width={2000} height={2000} />
                 <div className={st.modal_textContent}>
                     <div className={st.modal_title}>

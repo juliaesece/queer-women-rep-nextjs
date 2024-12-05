@@ -5,11 +5,12 @@ import { IconButton } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import st from "../modal.module.css"
 
-function GoBack({ }) {
+function GoBack({ origin }) {
     const router = useRouter();
 
     const goBack = () => {
-        router.back()
+        if (origin == "info") router.push("/")
+        else router.back()
     }
 
     return (

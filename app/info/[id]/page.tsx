@@ -7,6 +7,6 @@ export default async function Home({ searchParams, params }) {
   const session = await getServerSession(authOptions)
 
   return (
-    <Modal mongoId={infoId} session={session} />
+    <Modal mongoId={infoId} session={session} origin="info" />
   );
 }

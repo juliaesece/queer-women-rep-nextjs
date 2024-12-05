@@ -6,5 +6,5 @@ export default async function ModalPage({ params }) {
     const mongoId = params.id
     const session = await getServerSession(authOptions)
 
-    return (<Modal mongoId={mongoId} session={session} />);
+    return (<Modal mongoId={mongoId} session={session} origin="home" />);
 }
