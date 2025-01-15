@@ -19,12 +19,6 @@
   box-sizing: border-box;
 }
 
-.main>div {
-  flex-basis: 32%;
-  display: flex;
-  gap: 1px;
-}
-
 .main>div:first-child>div:first-child>a>img {
   border-top-left-radius: 15px;
 }
