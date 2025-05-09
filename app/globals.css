@@ -94,7 +94,6 @@ video {
 
 body {
   font-family: "Helvetica Neue", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", sans-serif;
-  width: 100svw;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -176,9 +175,10 @@ a:visited {
   body {
     height: 100vh;
     width: 100vw;
+    outline: 1px solid red !important;
     display: grid;
     grid-template-columns: minmax(0, 0.3fr) [outer-layer-start] 0.6fr 1fr 1fr [outer-layer-end] minmax(0, 0.3fr);
-    grid-template-rows: 90px auto 45px;
+    grid-template-rows: 90px 1fr min-content;
     gap: 0px;
     column-gap: 5px;
   }

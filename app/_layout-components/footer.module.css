@@ -4,13 +4,20 @@
     background-color: white;
     display: block;
     font-weight: 400;
-    padding: 1rem;
     font-family: 'Inter', sans-serif;
     background: linear-gradient(to left, white 0%, hsl(313, 100%, 78%) 100%);
-    height: fit-content;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.footer>p>a {
+.footer>div {
+    box-sizing: border-box;
+    width: 80%;
+    margin: 1rem;
+}
+
+.footer>div>p>a {
     font-weight: bold;
 }
 
@@ -22,7 +29,7 @@
         padding-right: 90px;
     }
 
-    .footer > p {
+    .footer>p {
         margin-top: 0.5rem;
     }
 
