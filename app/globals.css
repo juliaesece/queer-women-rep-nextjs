@@ -92,8 +92,16 @@ video {
   vertical-align: baseline;
 }
 
+:root {
+  --bg-color: #fff1fc;
+  --orange: #d83605;
+}
+
 body {
   font-family: "Helvetica Neue", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", sans-serif;
+  background-color: var(--bg-color);
+  background: radial-gradient(60% 60% at 0px 550px, hsla(11, 80%, 82%, 50%), transparent), radial-gradient(100% 100% at top right, hsla(324, 80%, 72%, 50%), transparent), transparent no-repeat fixed center;
+
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -221,4 +229,8 @@ details>summary::-webkit-details-marker {
 /* For Firefox */
 details>summary::marker {
   display: none;
+}
+
+* {
+  box-sizing: content-box;
 }
