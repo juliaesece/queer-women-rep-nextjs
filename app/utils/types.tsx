@@ -93,3 +93,58 @@ export type SearchCouple = {
     dateAdded?: Date,
     _id?: string
 }
+
+export type ShortBook = {
+    _id: string,
+    title: string,
+    author: string,
+    image: string,
+    rating: number
+}
+
+export type Book = {
+    title: string,
+    author: string,
+    genres: string[],
+    tags: string[],
+    rating: number,
+    description: string,
+    image: string,
+    altImg: string,
+    dateAdded: Date,
+    _id?: string,
+    ratingCount?: number,
+    year: number,
+    status: string,
+    areThereQueerCreators: boolean,
+    shortDescription: string,
+    longDescription: string,
+    storyImportance: outOfFour,
+    ending: string,
+    concerns: {
+        comingOut: boolean,
+        death: boolean,
+        cheating: boolean,
+        homophobia: outOfFive,
+    }
+}
+
+export type SearchBook = {
+    title?: string,
+    author?: string,
+    genres?: string[],
+    tags?: string[],
+    rating?: number,
+    dateAdded?: Date,
+    _id?: string,
+    year?: number,
+    status?: string,
+    areThereQueerCreators?: boolean,
+    shortDescription?: string,
+    storyImportance?: outOfFour,
+    ending?: string,
+    concernsComingOut?: boolean,
+    concernsDeath?: boolean,
+    concernsCheating?: boolean,
+    concernsHomophobia?: outOfFive
+}

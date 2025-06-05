@@ -10,7 +10,8 @@ import { unstable_cache } from 'next/cache';
 const getCachedData = unstable_cache(
   async (extraFilter, tag) => {
     try {
-      const couples: ShortCouple[] = await getCouples("home", 0, extraFilter, tag)
+      console.log("get data")
+      const couples: ShortCouple[] = await getCouples("home", 1, extraFilter, tag)
 
       if (couples) {
         return couples
@@ -22,7 +23,8 @@ const getCachedData = unstable_cache(
       throw new Error(e)
     }
   }, [], {
-  tags: ["coupleData"]
+  tags: ["coupleData"],
+    revalidate: 1
 })
 
 async function getPages(supercategory, extraFilter) {
@@ -41,8 +43,9 @@ async function getPages(supercategory, extraFilter) {
 };
 
 export default async function Home({ searchParams }) {
-  const extraFilter = searchParams.filter
-  const tag = searchParams.tag
+  const searchParamsRes = await searchParams
+  const extraFilter = searchParamsRes.filter
+  const tag = searchParamsRes.tag
   const couples: ShortCouple[] = await getCachedData(extraFilter, tag)
   const nbPages = await getPages("home", extraFilter)
 
