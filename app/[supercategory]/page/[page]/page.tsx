@@ -10,6 +10,11 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/utils/authOptions";
 import { unstable_cache } from "next/cache";
 
+interface PageProps {
+  params: Promise<{ supercategory: string, page: string }>;
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+}
+
 const getCachedData = unstable_cache(
   async (supercategory, page, extraFilter, tag) => {
     try {
@@ -25,8 +30,7 @@ const getCachedData = unstable_cache(
       throw new Error(e)
     }
   }, [], {
-  tags: ["coupleData"],
-  revalidate: 1
+  tags: ["coupleData"]
 })
 
 async function getPages(supercategory, extraFilter) {
@@ -45,13 +49,13 @@ async function getPages(supercategory, extraFilter) {
 };
 
 
-export default async function Home({ searchParams, params }: { searchParams, params: { supercategory: string, page: string } }) {
+export default async function Home({ searchParams, params }: PageProps) {
   const paramsRes = await params
   const searchParamsRes = await searchParams
 
   const page = paramsRes.page
-  const extraFilter = searchParamsRes.filter
   const supercategory = paramsRes.supercategory
+  const extraFilter = searchParamsRes.filter
   const tag = searchParamsRes.tag
   const infoId = searchParamsRes.info
 

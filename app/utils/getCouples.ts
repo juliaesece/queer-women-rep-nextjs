@@ -6,8 +6,6 @@ import parseFilter from "./parseFilter"
 
 export async function getCouples(unparsedSupercategory: string, unparsedPage: number, extraFilter: string | undefined, tag) {
 
-    console.log("getCouples called", unparsedPage, extraFilter)
-
     const supercategoryLookup: { "tv-shows": string, "movies": string } = {
         "tv-shows": "TV Show",
         "movies": "Movie"
@@ -24,12 +22,6 @@ export async function getCouples(unparsedSupercategory: string, unparsedPage: nu
     const cardsPerPage = 9
 
     try {
-
-        console.log("filter", filter)
-        console.log("sort", sort)
-        console.log("skipping", page * cardsPerPage)
-        console.log("limiting", cardsPerPage)
-
         const database = client.db('couples');
         const collection = database.collection('couples');
         const data = await

@@ -5,17 +5,20 @@ import { Book } from '../../utils/types';
 import { ObjectId } from 'mongodb';
 import { Collection } from 'mongodb';
 import { revalidateTag } from "next/cache";
+import { createBookSchema } from './schemas';
 
 export async function createBook(newBook: Book, userId: string) {
     try {
-        const parsedUserId = new ObjectId(userId)
+        // Validate input
+        const validatedInput = createBookSchema.parse({ newBook, userId });
+        const parsedUserId = new ObjectId(validatedInput.userId)
 
-        const database = client.db('books');
+        const database = client.db('couples');
         const collection: Collection<Book> = database.collection('books');
         const parsedBook = {
-            ...newBook,
+            ...validatedInput.newBook,
             dateAdded: new Date(),
-            ratingCount: newBook.rating ? 1 : 0
+            ratingCount: validatedInput.newBook.rating ? 1 : 0
         } as Book
         const result = await collection.insertOne(parsedBook)
 

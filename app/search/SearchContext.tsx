@@ -11,7 +11,9 @@ type SearchContextType = {
     handleEthnicityChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void,
     waitingMessage: string,
-    setWaitingMessage: React.Dispatch<React.SetStateAction<string>>
+    setWaitingMessage: React.Dispatch<React.SetStateAction<string>>,
+    sortBy: string,
+    setSortBy: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const SearchContext = createContext<null | SearchContextType>(null);
@@ -21,6 +23,7 @@ const SearchContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [searchCouple, setSearchCouple] = useState<SearchCouple>({ person: {ethnicity: []} });
     const [result, setResult] = useState([])
     const [waitingMessage, setWaitingMessage] = useState("No search has been made yet.")
+    const [sortBy, setSortBy] = useState("rating")
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         setSearchCouple({
@@ -63,7 +66,9 @@ const SearchContextProvider = ({ children }: { children: React.ReactNode }) => {
         handleEthnicityChange,
         handleCheckbox,
         waitingMessage,
-        setWaitingMessage
+        setWaitingMessage,
+        sortBy,
+        setSortBy
     };
 
     return (

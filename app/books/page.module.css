@@ -178,6 +178,8 @@ backdrop-filter: blur ;
 .tags {
   display: flex;
   flex-wrap: wrap;
+  max-height: 90px;
+  overflow: hidden;
 }
 
 .filterTag {

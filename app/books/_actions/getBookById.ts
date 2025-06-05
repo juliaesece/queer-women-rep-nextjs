@@ -3,12 +3,15 @@
 import { ObjectId } from 'mongodb';
 import client from "@/app/lib/mongo"
 import { Book } from '../../utils/types';
+import { getBookByIdSchema } from './schemas';
 
 export async function getBookById(unparsedId: string) {
     try {
-        const id = new ObjectId(unparsedId)
+        // Validate input
+        const validatedInput = getBookByIdSchema.parse({ unparsedId });
+        const id = new ObjectId(validatedInput.unparsedId)
 
-        const database = client.db('books');
+        const database = client.db('couples');
         const collection = database.collection('books');
         const data = await
             collection.findOne({ _id: id })

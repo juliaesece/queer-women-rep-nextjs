@@ -10,7 +10,6 @@ import { unstable_cache } from 'next/cache';
 const getCachedData = unstable_cache(
   async (extraFilter, tag) => {
     try {
-      console.log("get data")
       const couples: ShortCouple[] = await getCouples("home", 1, extraFilter, tag)
 
       if (couples) {
@@ -23,8 +22,7 @@ const getCachedData = unstable_cache(
       throw new Error(e)
     }
   }, [], {
-  tags: ["coupleData"],
-    revalidate: 1
+  tags: ["coupleData"]
 })
 
 async function getPages(supercategory, extraFilter) {

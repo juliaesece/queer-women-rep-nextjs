@@ -2,13 +2,16 @@
 
 import { ObjectId } from 'mongodb';
 import client from "@/app/lib/mongo";
+import { rateBookSchema } from './schemas';
 
 export async function rateBook(bookId: string, userId: string, rating: number) {
     try {
-        const parsedUserId = new ObjectId(userId)
-        const parsedBookId = new ObjectId(bookId)
+        // Validate input
+        const validatedInput = rateBookSchema.parse({ bookId, userId, rating });
+        const parsedUserId = new ObjectId(validatedInput.userId)
+        const parsedBookId = new ObjectId(validatedInput.bookId)
 
-        const database = client.db('books');
+        const database = client.db('couples');
         const ratings = database.collection('ratings')
 
         const ratingsKey = "ratings." + parsedUserId

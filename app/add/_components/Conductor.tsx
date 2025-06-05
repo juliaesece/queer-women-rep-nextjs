@@ -29,10 +29,6 @@ export default function Conductor({ session }) {
         };
     }, []);
 
-    // useEffect(()=> {
-    //     console.log(couple)
-    // }, [couple])
-
     const createNewCouple = async (event) => {
         event.preventDefault()
         setAlert({ severity: "info", message: "We're processing your query" })

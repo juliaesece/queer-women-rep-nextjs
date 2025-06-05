@@ -6,7 +6,7 @@ export async function countBooks(extraFilter) {
     let {sort, filter} = parseFilter(extraFilter, null)
 
     try {
-        const database = client.db('books');
+        const database = client.db('couples');
         const collection = database.collection('books');
         const result = await
             collection

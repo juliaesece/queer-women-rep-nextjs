@@ -13,8 +13,14 @@ export async function generateMetadata({ params }): Promise<Metadata> {
   }
 }
 
-export default async function Home({ searchParams, params }) {
-  const infoId = params.id
+interface PageProps {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export default async function Home({ searchParams, params }: PageProps) {
+  const resParams = await params
+  const infoId =  resParams.id
   const session = await getServerSession(authOptions)
 
   return (
