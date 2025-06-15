@@ -2,10 +2,10 @@ import { FC } from "react";
 import st from "./card.module.css"
 import Link from "next/link";
 import Image from "next/image";
-import { Couple } from "@/app/utils/types";
+import { ShortCouple } from "@/app/utils/types";
 
 interface Props {
-  couple: Couple;
+  couple: ShortCouple;
 }
 
 const Card: FC<Props> = ({ couple }) => {

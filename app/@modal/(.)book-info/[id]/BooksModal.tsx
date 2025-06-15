@@ -12,48 +12,7 @@ import GoBack from "./_components/GoBack";
 
 export default async function BooksModal({ mongoId, session, origin }: { mongoId: string, session: Session, origin: string }) {
 
-    function getSearchTranslation(locale) {
-        // Object mapping locales to their main language translations of "search"
-        const translations = {
-            'us': 'search',
-            'gb': 'search',
-            'uk': 'search',
-            'es': 'buscar',
-            'cl': 'buscar',
-            'mx': 'buscar',
-            'ar': 'buscar',
-            'fr': 'recherche',
-            'ca': 'search',
-            'de': 'suchen',
-            'it': 'cerca',
-            'pt': 'buscar',
-            'br': 'buscar',
-            'nl': 'search',
-            'jp': '検索',
-            "eg": "search",
-            'kr': '검색',
-            'cn': '搜索',
-            'tw': '搜尋',
-            'ru': 'поиск',
-            'pl': 'szukaj',
-            'tr': 'arama',
-            'se': 'sök',
-            'dk': 'søg',
-            'no': 'søk',
-            'fi': 'etsi'
-        };
-
-        // Convert locale to lowercase to handle different cases
-        const normalizedLocale = locale.toLowerCase();
-
-        // Return translation if it exists, otherwise return 'search' as default
-        return translations[normalizedLocale] || 'search';
-    }
-
     const book: Book = await getBookById(mongoId);
-
-    const headersList = await headers()
-    const acceptLanguage = headersList.get('accept-language')?.slice(3, 5) ?? "us"
 
     let reviews = {
         _id: 'undefined',
@@ -118,11 +77,13 @@ export default async function BooksModal({ mongoId, session, origin }: { mongoId
                                 Watched by [watchedCount] users.
                             </div>
                         </div> */}
-                        <p><em>Synopsis for {book.title}:</em></p>
-                        {/* <p>{book.mediaDescription}</p> */}
+                   
+                        <p>{book.description}</p>
                         <br />
-                        <p><em>State of the story</em>: {book.status}</p>
-                        {book.genres && <p><em>Genres</em>: {book.genres.map((genre, idx) => ((idx + 1) != book.genres.length ? genre.toLocaleLowerCase() + ", " : genre.toLocaleLowerCase()))}</p>}
+                        <p className={st.tags}>
+                                        {book.genres?.map((genre, idx) => <span className={`${st.highlightTag} ${st.genre}`} key={idx}>{genre}</span>)}
+                                        {book.tags?.map((tag, idx) => <span className={st.highlightTag} key={idx}>{tag}</span>)}
+                                    </p>
                     </div>
 
 
@@ -130,7 +91,7 @@ export default async function BooksModal({ mongoId, session, origin }: { mongoId
                     {!session && <p className={st.small}>Log in to vote/rate</p>}
 
                 </div>
-                <div>
+                {/* <div>
                     <h3><em>The book</em></h3>
                     <p><em>Short description of the book</em></p>
                     <p>{book.shortDescription}</p>
@@ -142,9 +103,9 @@ export default async function BooksModal({ mongoId, session, origin }: { mongoId
                     )}</p><br /></>}
 
 
-                </div>
+                </div> */}
 
-                <div className={st.modal_spoilerland}>
+                {/* <div className={st.modal_spoilerland}>
                     {book.longDescription &&
                         <>
                             <details>
@@ -208,7 +169,7 @@ export default async function BooksModal({ mongoId, session, origin }: { mongoId
                             {book.ending}
                         </details>
                     </details>
-                </div>
+                </div> */}
             </div>
         </div>
     )

@@ -15,7 +15,7 @@ export async function rateBook(bookId: string, userId: string, rating: number) {
         const ratings = database.collection('ratings')
 
         const ratingsKey = "ratings." + parsedUserId
-        let setObject = {}
+        let setObject: Record<string, number> = {}
         setObject[ratingsKey] = rating
 
         const result = await ratings.updateOne(
@@ -34,7 +34,7 @@ export async function rateBook(bookId: string, userId: string, rating: number) {
         }
 
         const newResult = await ratings.findOne({ _id: parsedBookId })
-        const newRatings = Object.values(newResult.ratings)
+        const newRatings = Object.values(newResult?.ratings || {}) as number[]
         const sum = newRatings.reduce((a: number, b: number) => a + b, 0);
         const avg = (Number(sum) / newRatings.length) || 0;
 
@@ -43,7 +43,7 @@ export async function rateBook(bookId: string, userId: string, rating: number) {
             ratingCount: newRatings.length
         }
 
-        const updatedBooks = await database.collection("books").updateOne({ _id: newResult._id }, { $set: booksSetObject })
+        const updatedBooks = await database.collection("books").updateOne({ _id: newResult?._id as ObjectId }, { $set: booksSetObject })
         if (!updatedBooks.acknowledged || updatedBooks.matchedCount != 1) {
             throw new Error("Database error, please try again in a few minutes")
         }

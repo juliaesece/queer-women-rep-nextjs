@@ -4,8 +4,13 @@ import { authOptions } from "../../utils/authOptions";
 import { getCoupleById } from "@/app/utils/getCoupleById";
 import { Metadata } from "next";
 
-export async function generateMetadata({ params }): Promise<Metadata> {
-  const couple = await getCoupleById(params.id);
+  interface PageProps {
+    params: Promise<{ id: string }>;
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  }
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const couple = await getCoupleById((await params).id);
   
   return {
     title: `${couple.people[0].name} and ${couple.people[1].name} (${couple.origin}) - Everything Sapphic`,
@@ -13,17 +18,14 @@ export async function generateMetadata({ params }): Promise<Metadata> {
   }
 }
 
-interface PageProps {
-  params: Promise<{ id: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}
+
 
 export default async function Home({ searchParams, params }: PageProps) {
   const resParams = await params
-  const infoId =  resParams.id
+  const infoId =  resParams.id as string
   const session = await getServerSession(authOptions)
 
   return (
-    <Modal mongoId={infoId} session={session} origin="info" />
+    <Modal mongoId={infoId} session={session ?? undefined} origin="info" />
   );
 }

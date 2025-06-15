@@ -2,7 +2,7 @@
 import client from "@/app/lib/mongo"
 import parseFilter from "../../utils/parseFilter"
 
-export async function countBooks(extraFilter) {
+export async function countBooks(extraFilter: string) {
     let {sort, filter} = parseFilter(extraFilter, null)
 
     try {

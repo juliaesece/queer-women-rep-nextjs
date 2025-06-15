@@ -27,13 +27,13 @@ const getCachedData = unstable_cache(
         }
       }
       catch (e) { 
-        throw new Error(e)
+            throw new Error(e instanceof Error ? e.message : String(e))
       }
     }, [], {
     tags: ["coupleData"]
   })
 
-async function getPages(supercategory, extraFilter) {
+async function getPages(supercategory: string, extraFilter: string | undefined) {
     try {
         const count = await countCouples(supercategory, extraFilter)
 

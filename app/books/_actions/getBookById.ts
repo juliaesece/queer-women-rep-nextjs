@@ -15,6 +15,11 @@ export async function getBookById(unparsedId: string) {
         const collection = database.collection('books');
         const data = await
             collection.findOne({ _id: id })
+
+        if (!data) {
+            throw new Error(`No data found for book ${unparsedId}`);
+        }
+
         const parsedData = {
             ...data,
             _id: data._id.toString()

@@ -15,10 +15,11 @@ import { Couple } from "../../../utils/types";
 import { headers } from 'next/headers'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import GoBack from "./_components/GoBack";
+import { SxProps, Theme, styled } from '@mui/material/styles';
 
-export default async function Modal({ mongoId, session, origin }: { mongoId: string, session: Session, origin: string }) {
+export default async function Modal({ mongoId, session, origin }: { mongoId: string, session: Session | undefined, origin: string }) {
 
-    function getSearchTranslation(locale) {
+    function getSearchTranslation(locale: string) {
         // Object mapping locales to their main language translations of "search"
         const translations = {
             'us': 'search',
@@ -53,7 +54,7 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
         const normalizedLocale = locale.toLowerCase();
 
         // Return translation if it exists, otherwise return 'search' as default
-        return translations[normalizedLocale] || 'search';
+        return translations[normalizedLocale as keyof typeof translations] || 'search';
     }
 
     const couple: Couple = await getCoupleById(mongoId);
@@ -61,12 +62,12 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
     const headersList = await headers()
     const acceptLanguage = headersList.get('accept-language')?.slice(3, 5) ?? "us"
 
-    let reviews = {
+    let reviews: { _id: string, reviews: any[] } = {
         _id: 'undefined',
         reviews: []
     }
 
-    reviews = await getReviews(couple._id)
+    reviews = await getReviews(couple._id as string) as { _id: string, reviews: any[] }
 
     return (
         <div className={st.modal}>
@@ -92,11 +93,11 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
                                     emptyIcon={undefined}
                                     sx={{
                                         color: "#d63900",
-                                        "& .MuiRating-icon": {
+                                        '& .MuiRating-icon': {
                                             color: "#d63900",
                                             opacity: 0.4
                                         },
-                                        "& .MuiRating-iconFilled": {
+                                        '& .MuiRating-iconFilled': {
                                             opacity: 0.9
                                         },
                                         '& .MuiRating-iconHover': {
@@ -130,7 +131,7 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
                         <p>{couple.mediaDescription}</p>
                         <br />
                         <p><em>State of the story</em>: {couple.status}</p>
-                        {couple.genres && <p><em>Genres</em>: {couple.genres.map((genre, idx) => ((idx + 1) != couple.genres.length ? genre.name.toLocaleLowerCase() + ", " : genre.name.toLocaleLowerCase()))}</p>}
+                        {(couple.genres ?? []).length > 0 && <p><em>Genres</em>: {(couple.genres ?? []).map((genre, idx) => ((idx + 1) != (couple.genres ?? []).length ? genre.name.toLocaleLowerCase() + ", " : genre.name.toLocaleLowerCase()))}</p>}
                         <p><a className={st.link} href={`https://www.justwatch.com/${acceptLanguage}/${getSearchTranslation(acceptLanguage)}?q=${couple.origin}`} target="_blank">Search where to watch<OpenInNewIcon fontSize="small" /></a></p>
                     </div>
 
@@ -148,11 +149,11 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
                                     emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
                                     sx={{
                                         color: "#d63900",
-                                        "& .MuiRating-icon": {
+                                        '& .MuiRating-icon': {
                                             color: "#d63900",
                                             opacity: 0.4
                                         },
-                                        "& .MuiRating-iconFilled": {
+                                        '& .MuiRating-iconFilled': {
                                             opacity: 0.9
                                         },
                                         '& .MuiRating-iconHover': {
@@ -180,11 +181,11 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
                                         emptyIcon={<WhatshotOutlined fontSize="inherit" />}
                                         sx={{
                                             color: "#d63900",
-                                            "& .MuiRating-icon": {
+                                            '& .MuiRating-icon': {
                                                 color: "#d63900",
                                                 opacity: 0.4
                                             },
-                                            "& .MuiRating-iconFilled": {
+                                            '& .MuiRating-iconFilled': {
                                                 opacity: 0.9
                                             },
                                             '& .MuiRating-iconHover': {
@@ -207,8 +208,8 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
                         <h3><em>The couple</em></h3>
                         <p><em>Short description of the couple</em></p>
                         <p>{couple.shortDescription}</p>
-                        <p><em>Screen time</em>: {screenTimeOptions.find((el) => el.value == couple.screenTime).label}</p>
-                        <p><em>Story importance</em>: {storyImportanceOptions.find((el) => el.value == couple.storyImportance).label}</p>
+                        <p><em>Screen time</em>: {(screenTimeOptions ?? []).find((el) => el.value == couple.screenTime)?.label ?? "Undefined"}</p>
+                        <p><em>Story importance</em>: {(storyImportanceOptions ?? []).find((el) => el.value == couple.storyImportance)?.label ?? "Undefined"}</p>
                         <br />
 
                         {couple.tags && <><p className={st.modal_tags_container}><span>Tags:</span> {couple.tags.map((tag) =>

@@ -30,8 +30,9 @@ export async function rateCouple(collectionName: string, coupleId: string, userI
         const ratings = database.collection(collectionName)
 
         const ratingsKey = "ratings." + parsedUserId
-        let setObject = {}
-        setObject[ratingsKey] = rating
+        let setObject = {
+            [ratingsKey]: rating
+        }
 
         const result = await ratings.updateOne(
             { _id: parsedRatingsId },
@@ -49,10 +50,13 @@ export async function rateCouple(collectionName: string, coupleId: string, userI
         }
 
         const newResult = await ratings.findOne({ _id: parsedRatingsId })
-        const newRatings = Object.values(newResult.ratings)
+        if (!newResult) {
+            throw new Error("Database error, please try again in a few minutes")
+        }
+        const newRatings = Object.values(newResult.ratings) as number[]
         const sum = newRatings.reduce((a: number, b: number) => a + b, 0);
         const avg = (Number(sum) / newRatings.length) || 0;
-        const couplesSetObject = {}
+        const couplesSetObject: Record<string, number> = {}
         couplesSetObject[fieldToUpdate] = avg
 
         const fieldToUpdateCount = fieldToUpdate + "Count"

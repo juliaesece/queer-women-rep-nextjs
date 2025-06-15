@@ -5,7 +5,16 @@ import { useRouter } from 'next/navigation'
 import styles from "./paginationConductor.module.css";
 
 
-export default function PaginationConductor({ supercategory, page, current, totalPages, extraFilter }) {
+type props = {
+    supercategory: string;
+    page: string | number;
+    current: string;
+    totalPages: number;
+    extraFilter: string | undefined;
+}
+
+
+export default function PaginationConductor({ supercategory, page, current, totalPages, extraFilter }: props) {
     const router = useRouter()
 
     let newURL = ""

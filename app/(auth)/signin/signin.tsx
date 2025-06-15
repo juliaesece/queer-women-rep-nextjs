@@ -4,8 +4,9 @@ import { signIn } from "next-auth/react"
 import st from "./signin.module.css"
 import EmailIcon from '@mui/icons-material/Email';
 import { useState } from "react";
+import type { ClientSafeProvider } from 'next-auth/react'
 
-export default function SignIn({ provider }) {
+export default function SignIn({ provider }: {provider: ClientSafeProvider}) {
     const [email, setEmail] = useState("")
 
     return (

@@ -1,9 +1,10 @@
 "use client"
 import { useState } from "react";
-import { Rating } from "@mui/material";
+import { Rating, SxProps, Theme } from "@mui/material";
 import { rateCouple } from "../_actions/rateCouple";
 
-export default function RatingsWrapper({ dbValue, icon, emptyIcon, sx, couple, session, collectionName }) {
+export default function RatingsWrapper({ dbValue, icon, emptyIcon, sx, couple, session, collectionName }:
+     { dbValue: number, icon: React.ReactNode, emptyIcon: React.ReactNode, sx: SxProps<Theme>, couple: any, session: any, collectionName: string }) {
     const [value, setValue] = useState(dbValue);
 
     return (
@@ -18,12 +19,12 @@ export default function RatingsWrapper({ dbValue, icon, emptyIcon, sx, couple, s
                 emptyIcon={emptyIcon}
                 onChange={(event, newValue) => {
                     if (event.type == "click") {
-                        setValue(dbValue)
+                        setValue(dbValue as number)
                         rateCouple(collectionName, couple._id, session.user.id, dbValue)
                         return
                     }
-                    setValue(newValue)
-                    rateCouple(collectionName, couple._id, session.user.id, newValue)
+                    setValue(newValue as number)
+                    rateCouple(collectionName, couple._id, session.user.id, newValue as number)
                 }}
             />
         </>

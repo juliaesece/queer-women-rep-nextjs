@@ -1,7 +1,7 @@
 "use server"
 import client from "@/app/lib/mongo"
 
-export async function setDBUsername(username, email) {
+export async function setDBUsername(username: string, email: string) {
 
     const usernameFilter = { username: { $eq: username } }
     const emailFilter = { email: { $eq: email } }
@@ -31,6 +31,7 @@ export async function setDBUsername(username, email) {
 
         return {error: false};
     } catch (error) {
-        return {error: error.message}
+        console.error(error)
+        return {error: false}
     }
 }

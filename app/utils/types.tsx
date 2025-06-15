@@ -18,7 +18,8 @@ export type ShortCouple = {
     _id: string,
     people: Person[],
     origin: string,
-    image: string
+    image: string,
+    altImg: string
 }
 
 export type Genre = {
@@ -93,6 +94,14 @@ export type SearchCouple = {
     dateAdded?: Date,
     _id?: string
 }
+
+export type Review = {
+    review: string,
+    username: string,
+    userId: string,
+    date: Date
+}
+  
 
 export type ShortBook = {
     _id: string,

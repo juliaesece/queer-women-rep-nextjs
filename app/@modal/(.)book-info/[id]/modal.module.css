@@ -181,6 +181,35 @@
     font-weight: bold;
 }
 
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 90px;
+    overflow: hidden;
+  }
+
+
+.highlightTag {
+    bottom: 0;
+    left: 0;
+    background-color: rgba(255, 105, 180, 1);
+    color: white;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin: 2px;
+    padding: 2px 5px;
+    line-height: 1.4rem;
+  }
+  
+  .highlightTag.genre {
+    border: solid 1px rgb(255, 105, 180);
+    background-color: rgba(255, 225,  220, 1);
+    color: rgb(255, 105, 180);
+  }
+  
+
 @keyframes zoom {
     from {
         transform: scale(0.1)

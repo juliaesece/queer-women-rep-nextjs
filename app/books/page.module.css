@@ -7,50 +7,24 @@
   padding: 1rem;
 }
 
-/* .main {
-  position: relative;
-  height: 100%;
-  width: 100%;
-
-  grid-column: 3 / 5;
-  grid-row: 2 / 3;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
-  overflow: auto;
-} */
-
 .search {
   grid-column: 1/3;
-  /* border: solid 1px #13131340;
-  padding: 1rem;
-  border-radius: 5px;
-  background-color: hsl(11, 80%, 82%); */
+
   margin: 1rem 0px;
 }
 
 .books {
   margin-top: 5px;
-  /* border: solid 1px #D461A650; */
   border-radius: 4px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
-    /* background-color: #D461A620; */
   padding: 10px 0;
 }
 
 .card {
-
   display: flex;
-  /* border: solid 1px #D461A650; */
-  /* border-bottom: solid 1px #D461A650; */
-  /* padding-bottom: 4px; */
-  /* border-radius: 4px; */
   border-radius: 0px;
-  /* width: calc(100% - (0.2rem*2) - 3px); */
   align-items: center;
   box-sizing: border-box;
   width: 100%;
@@ -59,39 +33,16 @@
   border-radius: 0.5rem;
   overflow: hidden;
   transition: transform 0.3s ease;
-  /* background-color: #D461A6; */
-  /* background-color: hsl(330, 100%, 99%); */
-  /* border: solid 1px rgb(255, 105, 180); */
-
-
-  /* border: solid 3px #cc3f0caa; */
+  border: solid 1px #e86637aa;
   border-radius: 10px;
-  /* padding: 0.2rem; */
-
   background-color: whitesmoke;
   background-color: rgba(255, 255, 255, 0.8);
   color: #333;
-backdrop-filter: blur ;
+  backdrop-filter: blur;
 }
 
-/* 
-.card:hover {
-  transform: translateY(-5px);
-} */
-
-/* .card>img {
-  margin: 4px;
-  margin-right: 0px;
-  width: auto;
-  height: 190px;
-  aspect-ratio: 1/1.5;
-  border-radius: 4px;
-  
-} */
-
-
 .img_container {
-	position: relative;
+  position: relative;
   width: 33%;
   flex: 0 0 33%;
   perspective: 700px;
@@ -104,16 +55,15 @@ backdrop-filter: blur ;
 }
 
 .books_img {
-	display: block;
-	width: 125px;
-	height: auto;
-	border-radius: 6px;
+  display: block;
+  width: 125px;
+  height: auto;
+  border-radius: 6px;
   max-width: 100%;
   max-height: 100%;
   box-shadow: 1px 1px 10px #12121240;
   z-index: 2;
   position: relative;
-  /* border: solid 1px grey */
 }
 
 
@@ -125,11 +75,9 @@ backdrop-filter: blur ;
   height: 100px;
   transform: scale(3);
   filter: blur(50px);
-  /* background: url("https://i0.wp.com/airlinkalaska.com/wp-content/uploads//aurora-2.jpg?resize=1024%2C683&ssl=1"); */
   background-size: cover;
   opacity: 0.8;
 }
-
 
 .header {
   display: flex;
@@ -167,11 +115,8 @@ backdrop-filter: blur ;
 
 .card__content {
   padding: 0.4rem 0.8rem 0.4rem 0rem;
-
   color: #131;
-  /* background-color: rgba(255, 255, 255, 1); */
   border-radius: 0px 1rem 1rem 0px;
-  /* height: 166px; */
   margin: 5px 0px 5px 1rem;
 }
 
@@ -185,9 +130,8 @@ backdrop-filter: blur ;
 .filterTag {
   bottom: 0;
   left: 0;
-  /* background-color: rgba(255, 105, 180, 1); */
   border: solid 1px #da2f84;
-  color:#da2f84;
+  color: #da2f84;
   border-radius: 0.5rem;
   margin: 2px;
   padding: 5px 8px;
@@ -212,11 +156,24 @@ backdrop-filter: blur ;
   color: rgb(255, 105, 180);
 }
 
+/* Small screens */
 
 @media (max-width: 620px) {
   .main {
     grid-column: 1 / 3;
     flex-direction: column;
     padding: 5px 1rem;
+    height: max-content;
+  }
+
+    .books {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 10px 0;
+  }
+
+  .books_img {
+    margin: 1rem 1rem;
   }
 }

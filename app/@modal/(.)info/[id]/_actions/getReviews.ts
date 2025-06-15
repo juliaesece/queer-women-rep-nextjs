@@ -2,8 +2,9 @@
 
 import { ObjectId } from 'mongodb';
 import client from "@/app/lib/mongo"
+import { Review } from '@/app/utils/types';
 
-export async function getReviews(unparsedCoupleId) {
+export async function getReviews(unparsedCoupleId: string) {
     try {
         
         const database = client.db('couples');
@@ -22,7 +23,7 @@ export async function getReviews(unparsedCoupleId) {
         }
 
         const parsedData = { ...data, _id: data._id.toString() }
-        return parsedData as unknown as {_id: string, reviews: any[]};
+        return parsedData as unknown as {_id: string, reviews: Review[]};
     } catch (error) {
         console.error("[getReviews] Server error on couples route")
         console.error(error)

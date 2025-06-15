@@ -5,7 +5,7 @@ import { Book } from "../../utils/types"
 import parseFilter from "../../utils/parseFilter"
 import { getBooksSchema } from './schemas';
 
-export async function getBooks(unparsedPage: number, extraFilter: string | undefined, tag) {
+export async function getBooks(unparsedPage: number, extraFilter: string | undefined, tag: string) {
     try {
         // Validate input
         const validatedInput = getBooksSchema.parse({ unparsedPage, extraFilter, tag });
@@ -54,6 +54,6 @@ export async function getBooks(unparsedPage: number, extraFilter: string | undef
     } catch (error) {
         console.error("[getBooks] Server error on books route")
         console.error(error)
-        throw new Error(error)
+        throw new Error(error as string)
     }
 }

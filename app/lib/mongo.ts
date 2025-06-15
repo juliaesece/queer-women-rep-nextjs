@@ -36,11 +36,10 @@ try {
         // In production mode, it's best to not use a global variable.
         client = new MongoClient(uri, options);
     }
-
-}
-catch (error) {
+} catch (error) {
     console.error("Error when attempting to connect to mongodb")
     console.error(error)
+    throw error;
 }
 
-export default client
+export default client;

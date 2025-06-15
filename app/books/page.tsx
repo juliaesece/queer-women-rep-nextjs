@@ -13,19 +13,19 @@ const getCachedData = unstable_cache(
 
             if (books) {
                 return books
-            } else {
+            } else {    
                 throw new Error("Database Error")
             }
         }
         catch (e) {
-            throw new Error(e)
+            throw new Error(e instanceof Error ? e.message : String(e))
         }
     }, [], {
     tags: ["bookData"],
-    revalidate: 60 // 60*60*24 // 1 day in seconds
+    revalidate: 60 // 60*60*24 // 1 day in sueconds
 })
 
-async function getPages(extraFilter) {
+async function getPages(extraFilter: string) {
     try {
         const count = await countBooks(extraFilter)
 
@@ -48,11 +48,12 @@ export default async function Component() {
             <Aside />
             <main className={styles.main}>
                 <div className={styles.search}>
-                    {["all books", "ice queen"].map((tag, idx) => <span className={styles.filterTag} key={idx}>{tag}</span>)}
+                    {["all books"].map((tag, idx) => <span className={styles.filterTag} key={idx}>{tag}</span>)}
                 </div>
+                Support for boooks is coming soon! Here&apos;s a preview.
                 <section className={styles.books}>
                     {books.map((book, idx) =>
-                        <div  key={idx}>
+                        <div key={idx}>
                             <Link href={"/book-info/" + book._id} className={styles.card}>
                                 <div className={styles.img_container}>
                                     <Image
