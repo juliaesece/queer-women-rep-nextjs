@@ -5,6 +5,11 @@ import MobileNav from "./MobileNav";
 import { useMediaQuery } from "react-responsive";
 import { useEffect, useState } from 'react'
 
+type link = {
+    to: string;
+    label: string;
+}
+
 /**
  * Modified from link below
  * @see https://observablehq.com/@werehamster/avoiding-hydration-mismatch-when-using-react-hooks
@@ -25,7 +30,7 @@ export function useBetterMediaQuery(mediaQueryString: string) {
   return matches
 }
 
-export default function NavQuery({ links }) {
+export default function NavQuery({ links }: {links: link[]}) {
     let isMobile = useBetterMediaQuery("(max-width: 620px)");
 
     return (

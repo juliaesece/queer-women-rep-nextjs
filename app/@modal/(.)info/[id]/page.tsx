@@ -2,9 +2,13 @@ import Modal from './Modal';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/utils/authOptions';
 
-export default async function ModalPage({ params }) {
-    const mongoId = params.id
+interface PageProps {
+    params: Promise<{ id: string }>;
+}
+
+export default async function ModalPage({ params }: PageProps) {
+    const mongoId = (await params).id
     const session = await getServerSession(authOptions)
 
-    return (<Modal mongoId={mongoId} session={session} origin="home" />);
+    return (<Modal mongoId={mongoId} session={session ?? undefined} origin="home" />);
 }

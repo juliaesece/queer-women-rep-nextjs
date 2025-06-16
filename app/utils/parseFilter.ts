@@ -5,7 +5,7 @@ export default function parseFilter(unparsedFilter, tag) {
 
     switch (unparsedFilter) {
         case "most-liked":
-            sort = {"romanticConnection": -1, "chemistry": -1, "globalRating": -1}
+            sort = {"averageRating": -1, "_id": 1 }
             break;
         case "recently-added":
             sort = { "dateAdded": -1 }

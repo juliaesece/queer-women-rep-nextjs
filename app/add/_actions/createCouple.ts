@@ -19,7 +19,8 @@ export async function createCouple(newCouple: Couple, userId: string) {
             createdBy: parsedUserId,
             globalRatingCount: newCouple.globalRating ? 1 : 0,
             chemistryCount: newCouple.chemistry ? 1 : 0,
-            romanticConnectionCount: newCouple.romanticConnection ? 1 : 0
+            romanticConnectionCount: newCouple.romanticConnection ? 1 : 0,
+            averageRating: (newCouple.chemistry + newCouple.romanticConnection + newCouple.globalRating) / 3
         } as Couple
         const result = await collection.insertOne(parsedCouple)
 

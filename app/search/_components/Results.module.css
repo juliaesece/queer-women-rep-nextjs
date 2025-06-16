@@ -20,6 +20,34 @@
     border-radius: 5px;
 }
 
+.sortContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.sortSelect {
+    padding: 0.5rem;
+    border: 1px solid #da2f84;
+    border-radius: 0.5rem;
+    background-color: white;
+    color: #da2f84;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.sortSelect:focus {
+    outline: none;
+    border-color: #da2f84;
+    box-shadow: 0 0 0 2px rgba(218, 47, 132, 0.2);
+}
+
+.sortContainer label {
+    color: #333;
+    font-size: 0.9rem;
+}
+
 @media (max-width: 620px) {
     .results {
         width: 100%;

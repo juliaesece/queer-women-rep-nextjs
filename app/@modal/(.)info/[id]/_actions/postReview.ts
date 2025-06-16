@@ -3,8 +3,9 @@
 import { ObjectId } from 'mongodb';
 import client from "@/app/lib/mongo";
 import { Collection } from 'mongodb';
+import { Review } from '@/app/utils/types';
 
-export async function postReview(reviewsId, newReview) {
+export async function postReview(reviewsId: string, newReview: Review) {
 
     type Reviews = {
         messages: { _id: String, reviews: String[] }[],

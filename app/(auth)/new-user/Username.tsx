@@ -5,8 +5,10 @@ import Alert from '@mui/material/Alert';
 import { useRouter } from 'next/navigation'
 import { getUserByEmail } from "../../utils/getUserByEmail";
 import st from "../signin/signin.module.css"
+import { Session } from "next-auth";
+import { FormEvent } from 'react'
 
-export default function Username({ session }) {
+export default function Username({ session }: {session: Session}) {
     const [username, setUsername] = useState("")
     const [alert, setAlert] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
@@ -23,13 +25,13 @@ export default function Username({ session }) {
         else checkUser()
     });
 
-    const submitUsername = async (e) => {
+    const submitUsername = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         const res = await setDBUsername(username, session.user.email)
-        if (res.error) {
+        if (typeof res === 'object' && res.error) {
             setAlert("error")
-            setErrorMessage(res.error)
+            setErrorMessage("Sorry, there was an error changing your username.")
         }
         else {
             setAlert("success")

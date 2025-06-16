@@ -22,7 +22,6 @@ export async function getCouples(unparsedSupercategory: string, unparsedPage: nu
     const cardsPerPage = 9
 
     try {
-
         const database = client.db('couples');
         const collection = database.collection('couples');
         const data = await

@@ -19,6 +19,10 @@ export default async function NavConductor() {
             label: "Movies"
         },
         {
+            to: "/books",
+            label: "Books"
+        },
+        {
             to: "/add",
             label: "Add a couple"
         },

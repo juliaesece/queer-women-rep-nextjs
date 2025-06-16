@@ -8,7 +8,8 @@ import Results from './_components/Results';
 import SearchContextProvider from './SearchContext';
 
 export default async function AdvancedSearch({ searchParams }) {
-    const infoId = searchParams.info
+    const resSearchParams = await searchParams
+    const infoId = resSearchParams.info
     const session = await getServerSession(authOptions)
 
     return (
@@ -21,4 +22,3 @@ export default async function AdvancedSearch({ searchParams }) {
         </main>
     );
 };
-

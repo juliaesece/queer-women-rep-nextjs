@@ -5,6 +5,8 @@ import st from "./reviews.module.css"
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material';
 import { postReview } from './_actions/postReview';
+import { Session } from 'next-auth';
+import { Review } from '@/app/utils/types';
 
 const theme = createTheme({
   palette: {
@@ -17,7 +19,7 @@ const theme = createTheme({
   },
 });
 
-const ReviewsComponent = ({ reviews, session }) => {
+const ReviewsComponent = ({ reviews, session }: { reviews: any, session: Session | null }) => {
   const MAX_CHARACTERS = 1000;
   const [clientReviews, setClientReviews] = useState(reviews.reviews);
   const [newReview, setNewReview] = useState('');
@@ -41,17 +43,17 @@ const ReviewsComponent = ({ reviews, session }) => {
     const newServerReview = {
       review: newReview,
       username: session.user.username,
-      userId: session.user._id,
+      userId: session.user.id,
       date: new Date()
     }
 
-    const res = await postReview(reviews._id, newServerReview)
+    const res = await postReview(reviews._id as string, newServerReview as Review)
     if (!res) alert("There was an error")
     setClientReviews([...clientReviews, newServerReview]);
     setNewReview('');
   };
 
-  const handleReviewChange = (e) => {
+  const handleReviewChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement >) => {
     const input = e.target.value;
     setNewReview(input);
 
