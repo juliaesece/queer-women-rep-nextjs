@@ -47,7 +47,11 @@ function transformQuery(query, prefix = '') {
       if (typeof value === 'string' && ['0', '1', '2', '3', '4', '5'].includes(value)) {
         const tempValue = value
         value = {}
-        value["$gte"] = Number(tempValue)
+        if (key == "concerns.homophobia") {
+          value["$lte"] = Number(tempValue)
+        } else {
+          value["$gte"] = Number(tempValue)
+        }
       }
 
       const newKey = prefix ? `${prefix}.${key}` : key;

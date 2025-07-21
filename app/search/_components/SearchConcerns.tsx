@@ -38,11 +38,11 @@ export default function SearchConcerns() {
                 </fieldset>
             ))}
             <div className={styles.fullWidth}>
-                <label htmlFor="concernsHomophobia">
-                    How much homophobic or sexist violence they are subjected to:
+                <label htmlFor="concerns.homophobia">
+                    How much homophobic or sexist violence they are subjected to (less or equal to):
                 </label>
                 <select
-                    name="concernsHomophobia"
+                    name="concerns.homophobia"
                     onChange={handleChange}
                     value={searchCouple.concernsHomophobia}
                 >

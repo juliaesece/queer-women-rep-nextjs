@@ -7,6 +7,7 @@ export default function SearchRelationship() {
 
     return (
         <section className={styles.section}>
+            <h3>All filters on this section are greater or equal to, so what you select is the minimum.</h3>
             <div>
                 <label htmlFor="screenTime">How much screen time they have:</label>
                 <select name="screenTime" onChange={handleChange} value={searchCouple.screenTime || "default"}>

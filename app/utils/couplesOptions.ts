@@ -112,7 +112,7 @@ export const concerns: Concern[] = [
 ];
 
 export const searchConcerns: DbConcern[] = [
-    { key: 'concerns.comingOut', question: 'Coming out is a thing in this story:' },
+    { key: 'concerns.comingOut', question: 'Coming out is a big part of the plot in this story:' },
     { key: 'concerns.death', question: 'Someone in the couple dies:' },
     { key: 'concerns.cheating', question: 'There is cheating (on a third party):' },
 ];

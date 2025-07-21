@@ -11,6 +11,11 @@
     grid-column: 1/3;
 }
 
+.section>h3 {
+    font-size: 1.2rem;
+    grid-column: 1/3;
+}
+
 .section>fieldset {
     grid-column: 1/3;
 }
