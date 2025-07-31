@@ -10,6 +10,13 @@
     max-height: 65px;
 }
 
+
+@media (min-width: 621px) {
+  .mobileMenu {
+    display: none;
+  }
+}
+
 .mobileMenu__logo {
     position: absolute;
     left: 0px;

@@ -62,6 +62,7 @@ const MobileNav: FC<Props> = ({ links }) => {
                         src={cruz}
                         alt="Cross menu icon"
                         className={styles.mobileMenu__icon_underlined}
+                        aria-label="Close menu"
                         height={35}
                         onClick={() => setMenuVisible(false)}
                     /> :
@@ -70,6 +71,7 @@ const MobileNav: FC<Props> = ({ links }) => {
                         src={hamburguer}
                         alt="Hamburguer menu icon"
                         className={styles.mobileMenu__icon_underlined}
+                        aria-label="Open menu"
                         height={35}
                         onClick={() => setMenuVisible(true)}
                     />}

@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../utils/authOptions";
-import NavQuery from "./NavQuery";
+import DesktopNav from "./DesktopNav";
+import MobileNav from "./MobileNav";
 
 export default async function NavConductor() {
     const session = await getServerSession(authOptions)
@@ -33,6 +34,9 @@ export default async function NavConductor() {
     ]
 
     return (
-        <NavQuery links={links}/>
+        <>
+            <MobileNav links={links} />
+            <DesktopNav links={links} />
+        </>
     );
 }
