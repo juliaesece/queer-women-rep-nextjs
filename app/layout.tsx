@@ -6,8 +6,8 @@ import Footer from "./_layout-components/Footer";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Everything Sapphic",
-  description: "A collective database of sapphic representation in media, where you can filter for the kind of representation you're searching for.",
+  title: "Everything Sapphic - Collaborative catalog of lesbian, bisexual and queer women media",
+  description: "A collaborative catalog of sapphic (lesbian, bisexual and queer women and enbies) representation in media, where you can filter for the kind of representation you're searching for.",
 };
 
 interface DashboardProps {

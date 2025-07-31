@@ -12,9 +12,9 @@
 
 
 @media (min-width: 621px) {
-  .mobileMenu {
-    display: none;
-  }
+    .mobileMenu {
+        display: none;
+    }
 }
 
 .mobileMenu__logo {
@@ -24,8 +24,15 @@
     margin: 5px;
 }
 
-.mobileMenu__close {
+.mobileMenu__toggle_open {
     z-index: 6;
+}
+
+.mobileMenu__close_icon {
+    position: fixed;
+    margin: 10px;
+    top: 0px;
+    right: 0px;
 }
 
 .mobileMenu__icon_underlined {
@@ -40,11 +47,10 @@
 }
 
 .mobileList {
-    position: absolute;
+    position: fixed;
     display: flex;
     flex-direction: column;
     padding: 10px;
-    position: absolute;
     top: 0px;
     left: 0px;
     width: 100%;
@@ -53,7 +59,7 @@
 }
 
 .mobileList__links {
-    box-sizing: b   order-box;
+    box-sizing: b order-box;
     margin: 5px 10px 5px 10px;
 }
 
@@ -74,7 +80,7 @@
     font-family: 'Inter', sans-serif;
     z-index: 2;
     font-size: 1.1rem;
-    margin-right: 1rem;    
+    margin-right: 1rem;
     font-weight: bold;
     font-weight: 500;
 }

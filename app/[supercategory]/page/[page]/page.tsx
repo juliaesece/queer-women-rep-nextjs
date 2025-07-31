@@ -9,10 +9,44 @@ import { ShortCouple } from "@/app/utils/types";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/utils/authOptions";
 import { unstable_cache } from "next/cache";
+import type { Metadata, ResolvingMetadata } from 'next'
 
 interface PageProps {
   params: Promise<{ supercategory: string, page: string }>;
   searchParams: Promise<{ [key: string]: string | undefined }>;
+}
+
+export async function generateMetadata(
+  { params, searchParams }: PageProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+
+  const linkDict = {
+    "tv-shows": "TV Shows",
+    "movies": "movies",
+    "books": "books"
+
+  }
+
+  const filterLookup = {
+    'most-liked': 'Most liked',
+    'recently-added': 'Recently added',
+    'most-recent': 'Most recent releases',
+    'more-diverse': 'More diversity!',
+    'happy-endings': 'Happy endings'
+  };
+
+  const resParams = await params;
+  const resSearchParams = await searchParams;
+  const supercategory = resParams.supercategory
+  const extraFilter = resSearchParams.filter
+  const tag = resSearchParams.tag
+
+
+  return {
+    title: `Sapphic ${linkDict[supercategory]}${extraFilter ? " – " + filterLookup[extraFilter] : ""}${tag ? " – " + tag : ""}`,
+    description: `Search for lesbian, bisexual, wlw ${supercategory} in our collaborative catalog of sapphic media`,
+  }
 }
 
 const getCachedData = unstable_cache(
