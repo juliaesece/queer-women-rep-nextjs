@@ -17,6 +17,29 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import GoBack from "./_components/GoBack";
 import { Suspense } from "react";
 
+const getYear = (yearValue) => {
+
+    if (!yearValue) {
+      return ""; // Null/undefined/empty string
+    }
+
+    let dateObject;
+
+    if (yearValue instanceof Date) {
+      dateObject = yearValue;
+    } else if (typeof yearValue === 'string' || typeof yearValue === 'number') {
+      dateObject = new Date(yearValue);
+    } else {
+      return "";
+    }
+
+    if (isNaN(dateObject.getTime())) {
+      return "";
+    }
+
+    return ` (${dateObject.getFullYear()})`; // Return the year
+  }
+
 export default async function Modal({ mongoId, session, origin }: { mongoId: string, session: Session | undefined, origin: string }) {
     function getSearchTranslation(locale: string) {
         // Object mapping locales to their main language translations of "search"
@@ -76,7 +99,7 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
 
                     <div className={st.modal_title}>
                         <h2>{couple.people[0].name} and {couple.people[1].name}</h2>
-                        <h3>{couple.mediaType} — {couple.origin} ({typeof couple.year.getMonth === 'function' ? couple.year.getFullYear() : "Undefined"})</h3>
+                        <h3>{couple.mediaType} — {couple.origin}{getYear(couple.year)}</h3>
                     </div>
 
                     <div className={`${st.modal_ratings}  ${st.modal_mediaRating}`}>
