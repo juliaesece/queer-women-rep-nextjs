@@ -11,14 +11,13 @@ import ReviewsComponent from "./Reviews";
 import { Session } from "next-auth";
 import RatingsWrapper from "./_components/RatingsWrapper";
 import { storyImportanceOptions, screenTimeOptions } from "../../../utils/couplesOptions";
-import { Couple } from "../../../utils/types";
+import { Couple, Review } from "../../../utils/types";
 import { headers } from 'next/headers'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import GoBack from "./_components/GoBack";
-import { SxProps, Theme, styled } from '@mui/material/styles';
+import { Suspense } from "react";
 
 export default async function Modal({ mongoId, session, origin }: { mongoId: string, session: Session | undefined, origin: string }) {
-
     function getSearchTranslation(locale: string) {
         // Object mapping locales to their main language translations of "search"
         const translations = {
@@ -57,17 +56,16 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
         return translations[normalizedLocale as keyof typeof translations] || 'search';
     }
 
-    const couple: Couple = await getCoupleById(mongoId);
+    const couplePromise = getCoupleById(mongoId);
+    const headersPromise = headers();
+    const [couple, headersList] = await Promise.all([
+        couplePromise,
+        headersPromise
+    ]);
 
-    const headersList = await headers()
     const acceptLanguage = headersList.get('accept-language')?.slice(3, 5) ?? "us"
 
-    let reviews: { _id: string, reviews: any[] } = {
-        _id: 'undefined',
-        reviews: []
-    }
-
-    reviews = await getReviews(couple._id as string) as { _id: string, reviews: any[] }
+    let reviewsPromise = getReviews(couple._id as string)
 
     return (
         <div className={st.modal}>
@@ -75,6 +73,7 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
                 <GoBack origin={origin} />
                 <Image className={st.modal_image} src={couple.image} alt={couple.altImg} width={2000} height={2000} />
                 <div className={st.modal_textContent}>
+
                     <div className={st.modal_title}>
                         <h2>{couple.people[0].name} and {couple.people[1].name}</h2>
                         <h3>{couple.mediaType} — {couple.origin} ({typeof couple.year.getMonth === 'function' ? couple.year.getFullYear() : "Undefined"})</h3>
@@ -116,17 +115,6 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
 
                     </div>
                     <div className={st.modal_description}>
-                        {/* <div className={st.modal_watchedRatings}>
-                            <div>
-                                Watched by user?
-                                <IconButton disabled sx={{ border: "none" }} size="small">
-                                    <VisibilityIcon />
-                                </IconButton>
-                            </div>
-                            <div>
-                                Watched by [watchedCount] users.
-                            </div>
-                        </div> */}
                         <p><em>Synopsis for {couple.origin}:</em></p>
                         <p>{couple.mediaDescription}</p>
                         <br />
@@ -284,7 +272,9 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
                             </details>
                         </details>
                     </div>
-                    <ReviewsComponent reviews={reviews} session={session} />
+                    <Suspense fallback="Loading reviews...">
+                        <ReviewsComponent reviewsPromise={reviewsPromise} session={session} />
+                    </Suspense>
                 </div>
             </div>
         </div >

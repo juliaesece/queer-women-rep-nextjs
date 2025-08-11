@@ -1,11 +1,13 @@
 import styles from "./page.module.css";
 import Aside from "./_layout-components/Aside";
 import GridLayout from "./_layout-components/GridLayout";
+import GridSkeleton from "./_layout-components/GridSkeleton";
 import PaginationConductor from "./_nav-components/PaginationConductor";
 import { getCouples } from "./utils/getCouples";
 import { countCouples } from "./utils/countCouples";
 import { ShortCouple } from "@/app/utils/types";
 import { unstable_cache } from 'next/cache';
+import { Suspense } from "react";
 
 const getCachedData = unstable_cache(
   async (extraFilter, tag) => {
@@ -51,7 +53,9 @@ export default async function Home({ searchParams }) {
     <>
       <Aside />
       <main className={styles.main}>
-        <GridLayout couples={couples} />
+        <Suspense fallback={<GridSkeleton />}> 
+          <GridLayout couples={couples} />
+        </Suspense>
         <PaginationConductor supercategory="home" page={1} current="home" totalPages={nbPages} extraFilter={extraFilter} />
       </main>
     </>

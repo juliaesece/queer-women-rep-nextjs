@@ -26,8 +26,8 @@ export default function RootLayout({ children, modal }: DashboardProps) {
         <Suspense>
           <Footer />
         </Suspense>
-        {modal}
-        <div id="modal-root" />
+          {modal}
+          <div id="modal-root" />
       </body>
     </html>
   );

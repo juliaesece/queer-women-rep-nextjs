@@ -1,5 +1,6 @@
 
 import GridLayout from "@/app/_layout-components/GridLayout";
+import GridSkeleton from "@/app/_layout-components/GridSkeleton";
 import styles from "@/app/page.module.css"
 import PaginationConductor from "@/app/_nav-components/PaginationConductor";
 import { getCouples } from "@/app/utils/getCouples";
@@ -10,6 +11,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/utils/authOptions";
 import { unstable_cache } from "next/cache";
 import type { Metadata, ResolvingMetadata } from 'next'
+import { Suspense } from "react";
+import { ModalSkeleton } from "@/app/@modal/(.)info/[id]/ModalSkeleton";
 
 interface PageProps {
   params: Promise<{ supercategory: string, page: string }>;
@@ -22,10 +25,10 @@ export async function generateMetadata(
 ): Promise<Metadata> {
 
   const linkDict = {
-    "tv-shows": "TV Shows",
-    "movies": "movies",
-    "books": "books"
-
+    "home": "media to watch/read",
+    "tv-shows": "TV shows to watch",
+    "movies": "movies to watch",
+    "books": "books to read"
   }
 
   const filterLookup = {
@@ -100,10 +103,14 @@ export default async function Home({ searchParams, params }: PageProps) {
   return (
     <>
       <main className={styles.main}>
-        <GridLayout couples={couples} />
+        <Suspense fallback={<GridSkeleton />}>
+          <GridLayout couples={couples} />
+        </Suspense>
         <PaginationConductor supercategory={supercategory} page={page} current={supercategory + "/page/" + page} totalPages={nbPages} extraFilter={extraFilter} />
       </main>
-      {infoId && <Modal mongoId={infoId} session={session} origin="home" />}
+      <Suspense fallback={<ModalSkeleton />}>
+        {infoId && <Modal mongoId={infoId} session={session} origin="home" />}
+      </Suspense>
     </>
   );
 }

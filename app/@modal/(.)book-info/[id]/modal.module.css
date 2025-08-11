@@ -65,9 +65,9 @@
     clip-path: path("M 0,0 0,300 c 0,0 42,-150 500,0 c 0,0 440,150 500,0 l 0,-300 z");
 }
 
-.modal_content {
+.modal_content_animation {
     animation-name: zoom;
-    animation-duration: 0.6s;
+    animation-duration: 0.3s;
 }
 
 .modal_textContent {

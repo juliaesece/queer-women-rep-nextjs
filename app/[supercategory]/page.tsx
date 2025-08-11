@@ -4,11 +4,14 @@ import { getCouples } from "../utils/getCouples";
 import Modal from "@/app/@modal/(.)info/[id]/Modal"
 import { countCouples } from "../utils/countCouples";
 import GridLayout from "../_layout-components/GridLayout";
+import GridSkeleton from "@/app/_layout-components/GridSkeleton";
 import { ShortCouple } from "@/app/utils/types";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../utils/authOptions";
 import { unstable_cache } from "next/cache";
 import type { Metadata, ResolvingMetadata } from 'next'
+import { Suspense } from "react";
+import { ModalSkeleton } from "@/app/@modal/(.)info/[id]/ModalSkeleton";
 
 interface PageProps {
   params: Promise<{ supercategory: string }>;
@@ -21,6 +24,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
 
   const linkDict = {
+    "home": "media to watch/read",
     "tv-shows": "TV shows to watch",
     "movies": "movies to watch",
     "books": "books to read"
@@ -39,7 +43,6 @@ export async function generateMetadata(
   const supercategory = resParams.supercategory
   const extraFilter = resSearchParams.filter
   const tag = resSearchParams.tag
-
 
   return {
     title: `Sapphic ${linkDict[supercategory]}${extraFilter ? " – " + filterLookup[extraFilter] : ""}${tag ? " – " + tag : ""}`,
@@ -94,10 +97,14 @@ export default async function Home({ searchParams, params }: PageProps) {
   return (
     <>
       <main className={styles.main}>
-        <GridLayout couples={couples} />
+        <Suspense fallback={<GridSkeleton />}>
+          <GridLayout couples={couples} />
+        </Suspense>
         <PaginationConductor supercategory={supercategory} page={1} current={supercategory} totalPages={nbPages} extraFilter={extraFilter} />
       </main>
-      {infoId && <Modal mongoId={infoId} session={session} origin="home" />}
+      <Suspense fallback={<ModalSkeleton />}>
+        {infoId && <Modal mongoId={infoId} session={session} origin="home" />}
+      </Suspense>
     </>
   );
 }

@@ -7,6 +7,7 @@ import { ThemeProvider } from '@mui/material';
 import { postReview } from './_actions/postReview';
 import { Session } from 'next-auth';
 import { Review } from '@/app/utils/types';
+import { use } from 'react'
 
 const theme = createTheme({
   palette: {
@@ -19,7 +20,8 @@ const theme = createTheme({
   },
 });
 
-const ReviewsComponent = ({ reviews, session }: { reviews: any, session: Session | null }) => {
+const ReviewsComponent = ({ reviewsPromise, session }: { reviewsPromise: Promise<{ _id: string, reviews: Review[] }>, session: Session | null }) => {
+  const reviews = use(reviewsPromise)
   const MAX_CHARACTERS = 1000;
   const [clientReviews, setClientReviews] = useState(reviews.reviews);
   const [newReview, setNewReview] = useState('');
@@ -53,7 +55,7 @@ const ReviewsComponent = ({ reviews, session }: { reviews: any, session: Session
     setNewReview('');
   };
 
-  const handleReviewChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement >) => {
+  const handleReviewChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const input = e.target.value;
     setNewReview(input);
 
@@ -70,7 +72,7 @@ const ReviewsComponent = ({ reviews, session }: { reviews: any, session: Session
         </h3>
         <List className={st.listContainer}>
           {clientReviews && clientReviews.map((review) => (
-            <ListItem key={review.date} divider>
+            <ListItem key={String(review.date)} divider>
               <em>{review.username}</em>:
               <ListItemText primary={review.review} sx={{ ml: 2 }} />
             </ListItem>
