@@ -17,16 +17,15 @@ export async function revalidateCoupleByIdAction(formData: FormData) {
     const coupleId = formData.get('coupleId') as string;
 
     if (!coupleId) {
-        return { success: false, message: 'Couple ID is required.' };
+        console.error(`Error revalidating tag, no coupleId`);
+        return
     }
 
     const tag = `couple:${coupleId}`;
     try {
         revalidateTag(tag);
         console.log(`✅ Successfully revalidated tag: ${tag}`);
-        return
     } catch (error) {
         console.error(`Error revalidating tag ${tag}:`, error);
-        return
     }
 }

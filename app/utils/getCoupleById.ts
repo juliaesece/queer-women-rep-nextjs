@@ -27,14 +27,12 @@ export const getCoupleById = unstable_cache(
             return parsedData as unknown as Couple;
         } catch (error) {
             console.error("[createCoupleById] Server error on couples route")
-            console.error(error)
+            console.error(error)    
             throw new Error("Server error on get by id")
         }
     },
-    // The key array for the cache should still be distinct.
     ['get-couple-by-id'],
     {
-        // ✨ Create dynamic tags ✨
         tags: ['couples', `couple:${extUnparsedId}`],
     }
 )
