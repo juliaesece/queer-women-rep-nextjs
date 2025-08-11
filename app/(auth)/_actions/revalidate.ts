@@ -6,7 +6,7 @@ import { revalidateTag } from 'next/cache';
 export async function revalidateAllCouplesAction() {
     try {
         revalidateTag('couples');
-        console.log('✅ Successfully revalidated tag: couples');
+        console.log('Successfully revalidated tag: couples');
     } catch (error) {
         console.error('Error revalidating all couples:', error);
     }
@@ -24,7 +24,7 @@ export async function revalidateCoupleByIdAction(formData: FormData) {
     const tag = `couple:${coupleId}`;
     try {
         revalidateTag(tag);
-        console.log(`✅ Successfully revalidated tag: ${tag}`);
+        console.log(`Successfully revalidated tag: ${tag}`);
     } catch (error) {
         console.error(`Error revalidating tag ${tag}:`, error);
     }
