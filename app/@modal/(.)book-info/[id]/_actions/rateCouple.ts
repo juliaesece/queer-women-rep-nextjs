@@ -63,6 +63,7 @@ export async function rateCouple(collectionName: string, coupleId: string, userI
             throw new Error("Database error, please try again in a few minutes")
         }
 
+        // console.log needs changing
         const updateAverage = await database.collection("couples").updateOne({ _id: newResult._id },
             {
                 $set: {
