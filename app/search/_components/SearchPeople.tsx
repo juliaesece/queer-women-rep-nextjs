@@ -48,8 +48,8 @@ export default function SearchPeople() {
         <section className={styles.section}>
             <div>
                 <label htmlFor="gender">Gender</label>
-                <select name="gender" onChange={handleChange} value={searchCouple.person.gender || "default"}>
-                    <option value="default">-----</option>
+                <select name="gender" onChange={handleChange} value={searchCouple.person.gender || ""}>
+                    <option value="">Any (excluding male)</option>
                     {genderOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
                     ))}
@@ -58,8 +58,8 @@ export default function SearchPeople() {
 
             <div>
                 <label htmlFor="sexualOrientation">Sexual orientation</label>
-                <select name="sexualOrientation" onChange={handleChange} value={searchCouple.person.sexualOrientation || "default"}>
-                    <option value="default">-----</option>
+                <select name="sexualOrientation" onChange={handleChange} value={searchCouple.person.sexualOrientation || ""}>
+                    <option value="">Any (excluding straight)</option>
                     {sexualOrientationOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
                     ))}
@@ -68,8 +68,8 @@ export default function SearchPeople() {
 
             <div>
                 <label htmlFor="genderIdentity">Gender modality</label>
-                <select name="genderIdentity" onChange={handleChange} value={searchCouple.person.genderIdentity || "default"}>
-                    <option value="default">-----</option>
+                <select name="genderIdentity" onChange={handleChange} value={searchCouple.person.genderIdentity || ""}>
+                    <option value="">Any</option>
                     {genderIdentityOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
                     ))}
@@ -78,8 +78,8 @@ export default function SearchPeople() {
 
             <div>
                 <label htmlFor="genderExpression">Gender expression</label>
-                <select name="genderExpression" onChange={handleChange} value={searchCouple.person.genderExpression || "default"}>
-                    <option value="default">-----</option>
+                <select name="genderExpression" onChange={handleChange} value={searchCouple.person.genderExpression || ""}>
+                    <option value="">Any</option>
                     {genderExpressionOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
                     ))}
@@ -88,8 +88,8 @@ export default function SearchPeople() {
 
             <div>
                 <label htmlFor="lifeStage">Life-stage</label>
-                <select name="lifeStage" onChange={handleChange} value={searchCouple.person.lifeStage || "default"}>
-                    <option value="default">-----</option>
+                <select name="lifeStage" onChange={handleChange} value={searchCouple.person.lifeStage || ""}>
+                    <option value="">Any</option>
                     {lifeStageOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
                     ))}

@@ -46,7 +46,7 @@ export default function SearchConcerns() {
                     onChange={handleChange}
                     value={searchCouple.concernsHomophobia}
                 >
-                    <option value="0">-----</option>
+                    <option value="">Any</option>
                     {homophobiaOptions.map(option => (
                         <option key={option.value} value={option.value}>
                             {option.label}

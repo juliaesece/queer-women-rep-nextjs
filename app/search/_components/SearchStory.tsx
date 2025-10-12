@@ -9,8 +9,8 @@ export default function SearchStory() {
         <section className={styles.section}>
             <div>
                 <label  htmlFor="mediaType">Media type</label>
-                <select name="mediaType" onChange={handleChange} value={searchCouple.mediaType || "default"}>
-                    <option value="default">-----</option>
+                <select name="mediaType" onChange={handleChange} value={searchCouple.mediaType || ""}>
+                    <option value="">Any</option>
                     {originTypeOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
                     ))}
@@ -18,8 +18,8 @@ export default function SearchStory() {
             </div>
             <div>
                 <label htmlFor="status">Completed status</label>
-                <select name="status" onChange={handleChange} value={searchCouple.status || "default"}>
-                    <option value="default">-----</option>
+                <select name="status" onChange={handleChange} value={searchCouple.status || ""}>
+                    <option value="">Any</option>
                     {statusOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
                     ))}

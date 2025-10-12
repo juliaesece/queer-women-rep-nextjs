@@ -106,11 +106,9 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
                         <div>
                             <p className={st.shorten}>Rating for {couple.origin}</p>
                             <div className={st.modal_ratings_inline}>
-                                <span>
-                                    {couple.globalRating}
-                                </span>
                                 <RatingsWrapper
                                     dbValue={couple.globalRating}
+                                    dbCount={couple.globalRatingCount}
                                     icon={undefined}
                                     emptyIcon={undefined}
                                     sx={{
@@ -127,11 +125,6 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
                                         }
                                     }}
                                     couple={couple} session={session} collectionName="globalRatings" />
-                                {couple.globalRatingCount &&
-                                    <span>
-                                        ({couple.globalRatingCount})
-                                    </span>
-                                }
                             </div>
                         </div>
 
@@ -143,7 +136,16 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
                         <br />
                         <p><em>State of the story</em>: {couple.status}</p>
                         {(couple.genres ?? []).length > 0 && <p><em>Genres</em>: {(couple.genres ?? []).map((genre, idx) => ((idx + 1) != (couple.genres ?? []).length ? genre.name.toLocaleLowerCase() + ", " : genre.name.toLocaleLowerCase()))}</p>}
-                        <p><a className={st.link} href={`https://www.justwatch.com/${acceptLanguage}/${getSearchTranslation(acceptLanguage)}?q=${couple.origin}`} target="_blank">Search where to watch<OpenInNewIcon fontSize="small" /></a></p>
+                        <p className={st.searchLinkContainer} >
+                            <a className={st.searchLink} href={`https://www.justwatch.com/${acceptLanguage}/${getSearchTranslation(acceptLanguage)}?q=${couple.origin}`} target="_blank">
+                            <span>Search where to watch</span>
+                            <OpenInNewIcon fontSize="small" />
+                            </a>
+                            <a className={st.searchLink} href={`https://www.youtube.com/results?search_query=${couple.people[0].name}+and+${couple.people[1].name}`} target="_blank">
+                            <span>Search for edits on youtube</span>
+                            <OpenInNewIcon fontSize="small" />
+                            </a>
+                        </p>
                     </div>
 
 
@@ -151,11 +153,9 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
                         <div>
                             <p>Romantic rating</p>
                             <div className={st.modal_ratings_inline}>
-                                <span>
-                                    {couple.romanticConnection}
-                                </span>
                                 <RatingsWrapper
                                     dbValue={couple.romanticConnection}
+                                    dbCount={couple.romanticConnectionCount}
                                     icon={<Favorite fontSize="inherit" />}
                                     emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
                                     sx={{
@@ -172,22 +172,16 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
                                         }
                                     }}
                                     couple={couple} session={session} collectionName="romanticRatings" />
-                                {couple.romanticConnectionCount &&
-                                    <span>
-                                        ({couple.romanticConnectionCount})
-                                    </span>
-                                }
+
                             </div>
                         </div>
                         {!(couple.people[0].lifeStage == "Children" || couple.people[0].lifeStage == "Children") &&
                             <div>
                                 <p>Chemistry rating</p>
                                 <div className={st.modal_ratings_inline}>
-                                    <span>
-                                        {couple.chemistry}
-                                    </span>
                                     <RatingsWrapper
                                         dbValue={couple.chemistry}
+                                        dbCount={couple.chemistryCount}
                                         icon={<WhatshotIcon fontSize="inherit" />}
                                         emptyIcon={<WhatshotOutlined fontSize="inherit" />}
                                         sx={{
@@ -204,11 +198,6 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
                                             }
                                         }}
                                         couple={couple} session={session} collectionName="chemistryRatings" />
-                                    {couple.chemistryCount &&
-                                        <span>
-                                            ({couple.chemistryCount})
-                                        </span>
-                                    }
                                 </div>
                             </div>
                         }

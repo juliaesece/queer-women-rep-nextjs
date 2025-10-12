@@ -12,12 +12,12 @@ function transformQuery(query, prefix = '') {
   for (let [key, value] of Object.entries(query)) {
     // Parse strings
 
-    if (value === "default" || value === 0 || value === "0" || value === "") continue; // Avoid empty filters
+    if (value === "" || value === 0 || value === "0" || value === "") continue; // Avoid empty filters
 
     if (key === 'people' && typeof value === 'object') {
       // Handle the 'people' object specially
       for (const [peopleKey, peopleValue] of Object.entries(value)) {
-        if (peopleValue === "default") continue;
+        if (peopleValue === "") continue;
 
         const newKey1 = `people.0.${peopleKey}`;
         const newKey2 = `people.1.${peopleKey}`;

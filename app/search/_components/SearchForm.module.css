@@ -9,6 +9,12 @@
     overflow: auto;
 }
 
+
+.searchForm select:not(:has(> option[value=""]:checked)) {
+    border-color: #d461a6;
+    border-width: 3px;
+}
+
 .searchForm>details>summary {
     font-size: 2rem;
     font-weight: 500;

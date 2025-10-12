@@ -67,14 +67,15 @@ export async function rateCouple(collectionName: string, coupleId: string, userI
             throw new Error("Database error, please try again in a few minutes")
         }
 
-        const updateAverage = await database.collection("couples").updateOne({ _id: newResult._id },
-            {
-                $set: {
-                    averageRating: {
-                        $avg: ["$romanticConnection", "$chemistry", "$globalRating"]
+        const updateAverage = await database.collection("couples").updateOne(
+            { _id: newResult._id },
+            [
+                {
+                    $set: {
+                        averageRating: { $avg: ["$romanticConnection", "$chemistry", "$globalRating"] }
                     }
                 }
-            }
+            ]
         )
 
         if (!updateAverage.acknowledged || updateAverage.matchedCount != 1) {
