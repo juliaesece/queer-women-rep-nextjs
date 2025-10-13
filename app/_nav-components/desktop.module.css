@@ -3,7 +3,7 @@
     display: none;
 }
 
-@media (min-width: 621px) {
+@media (min-width: 851px) {
     .header,
     .nav {
         display: flex;

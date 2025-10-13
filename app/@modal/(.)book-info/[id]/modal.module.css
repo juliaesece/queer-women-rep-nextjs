@@ -220,7 +220,7 @@
     }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 850px) {
     .modal_content {
         width: 100vw;
         margin-top: 0;

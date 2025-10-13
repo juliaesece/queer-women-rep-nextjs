@@ -50,7 +50,7 @@
     padding-top: 1rem;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 850px) {
     .main {
         grid-column: 1 / 3;
     }

@@ -91,7 +91,7 @@
     border-radius: 15px;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 850px) {
 
     .aside__summary {
         display: block;

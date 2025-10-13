@@ -52,7 +52,7 @@
     opacity: inherit;
 }
 
-@media (min-width: 620px) and (max-width: 1000px), (max-height: 700px) {
+@media (min-width: 850px) and (max-width: 1000px), (max-height: 700px) {
     .card {
         font-size: 1rem;
     }
@@ -68,7 +68,7 @@
     }
   }
 
-@media (max-width: 620px) {
+@media (max-width: 850px) {
     .card {
         background-position: center;
         background-size: cover;

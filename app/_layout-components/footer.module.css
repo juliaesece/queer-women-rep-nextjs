@@ -21,7 +21,7 @@
     font-weight: bold;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 850px) {
     .footer {
         grid-column: 1 / 2;
         grid-row: 3 / 4;

@@ -6,7 +6,7 @@
 
 }
 
-@media (max-width: 620px) {
+@media (max-width: 850px) {
     .pagination {
         margin-top: 10px;
         grid-column: 1 / 2;

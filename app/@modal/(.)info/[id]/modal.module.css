@@ -107,7 +107,7 @@
     grid-template-columns: 1fr max-content;
     grid-template-rows: min-content min-content min-content;
     gap: 0.4rem;
-    row-gap: 1rem;
+    row-gap: 2rem;
     grid-template-areas:
         "title        title"
         "description mediaRating"
@@ -220,11 +220,11 @@
     }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 850px) {
     .modal_content {
-        width: 100vw;
+        max-width: 100vw;
         margin-top: 0;
-
+        padding: 0;
     }
 
     .modal_closeButton {
@@ -240,25 +240,30 @@
     }
 
     .modal_textContent {
-        padding: 2rem 1rem;
+        box-sizing: border-box;
+        max-width: 100vw;
+        padding: 2rem 0;
         display: grid;
-        grid-template-columns: 1fr;
-        gap: 0.4rem;
+        grid-template-columns: 1rem 1fr 1rem;
+        grid-template-rows: repeat(auto, 7);
+        row-gap: 1.5rem;
+        column-gap: 0px;
         grid-template-areas:
-            "title"
-            "description"
-            "mediaRating"
-            "coupleDescription"
-            "coupleRating"
-            "spoilerland"
-            "reviews";
+            ". title ."
+            ". description ."
+            ". mediaRating ."
+            ". coupleDescription ."
+            ". coupleRating ."
+            ". spoilerland ."
+            ". reviews .";
         background: #d461a6;
         border-radius: 50px 100px 0 0;
 
     }
 
     .modal_textContent>* {
-        width: calc(100vw - 2rem);
+        max-width: calc(100vw - 2rem)
+        /* width: calc(100vw - 2rem); */
     }
 
     .modal_ratings {

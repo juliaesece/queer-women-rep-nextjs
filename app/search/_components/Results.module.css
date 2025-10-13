@@ -48,7 +48,7 @@
     font-size: 0.9rem;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 850px) {
     .results {
         width: 100%;
     }

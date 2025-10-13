@@ -1,6 +1,5 @@
 "use client"
 import { useState } from 'react';
-import { Box, TextField, List, ListItem, ListItemText, Typography } from '@mui/material';
 import st from "./reviews.module.css"
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material';
@@ -8,6 +7,7 @@ import { postReview } from './_actions/postReview';
 import { Session } from 'next-auth';
 import { Review } from '@/app/utils/types';
 import { use } from 'react'
+import Link from 'next/link';
 
 const theme = createTheme({
   palette: {
@@ -66,49 +66,58 @@ const ReviewsComponent = ({ reviewsPromise, session }: { reviewsPromise: Promise
 
   return (
     <ThemeProvider theme={theme}>
-      <Box className={st.container}>
+      <section className={st.container} aria-labelledby="reviews-heading">
         <h3>
           Reviews
         </h3>
-        <List className={st.listContainer}>
+        <div role="list" className={st.listContainer}>
           {clientReviews && clientReviews.map((review) => (
-            <ListItem key={String(review.date)} divider>
-              <em>{review.username}</em>:
-              <ListItemText primary={review.review} sx={{ ml: 2 }} />
-            </ListItem>
+            <div className={st.pixelatedBorder} key={String(review.date)}>
+              <article className={st.pixelatedContent} itemScope itemType="https://schema.org/Review"  >
+                <div className={st.reviewContent}>
+                  <div className={st.reviewData}>
+                    <span><em itemProp="name">{review.username}</em>:</span>
+                    <span className={st.reviewDate}>
+                      {review.date?.toISOString?.().split('T')[0] || ''}
+                    </span>
+                  </div>
+                  <div itemProp="reviewBody"> {review.review}  </div>
+                </div>
+              </article>
+            </div>
           ))}
-        </List>
+        </div>
 
         {(!clientReviews || clientReviews?.length === 0) && (
-          <Typography variant="body2" align="center">
+          <div className={st.noReviews}>
             No reviews yet. Be the first to review!
-          </Typography>
+          </div>
         )}
 
         <div>
           {session ?
             <form onSubmit={handleSubmit} className={st.form}>
-              <TextField
-                fullWidth
-                label="Add a review"
-                variant="outlined"
+              <label htmlFor='new-review' className={st.label}>Add a review</label>
+              <textarea
+                id='new-review'
+                name='new-review'
+                placeholder='Your thoughts... (No spoilers though!)'
+                rows={2}
+                className={st.textarea}
                 value={newReview}
                 onChange={(e) => handleReviewChange(e)}
-                color="primary"
-                sx={{ mb: 2 }}
-                multiline
               />
               <button type="submit">
                 Post Review
               </button>
             </form>
             :
-            <Typography variant="body2" align="center">
-              You need to be logged in to submit a review.
-            </Typography>
+            <div className={st.needToLogin}>
+              You need to be logged in to submit a review. You can create an account or log in <a href='/signin'>here</a>.
+            </div>
           }
         </div>
-      </Box>
+      </section>
     </ThemeProvider>
   );
 };

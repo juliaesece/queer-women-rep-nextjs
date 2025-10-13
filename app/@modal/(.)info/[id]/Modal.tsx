@@ -204,7 +204,7 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
                         {!session && <p className={st.small}>Log in to vote/rate</p>}
 
                     </div>
-                    <div>
+                    <div className={st.modal_coupleDescription}>
                         <h3><em>The couple</em></h3>
                         <p><em>Short description of the couple</em></p>
                         <p>{couple.shortDescription}</p>
