@@ -7,7 +7,7 @@ import { postReview } from './_actions/postReview';
 import { Session } from 'next-auth';
 import { Review } from '@/app/utils/types';
 import { use } from 'react'
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const theme = createTheme({
   palette: {
@@ -25,6 +25,7 @@ const ReviewsComponent = ({ reviewsPromise, session }: { reviewsPromise: Promise
   const MAX_CHARACTERS = 1000;
   const [clientReviews, setClientReviews] = useState(reviews.reviews);
   const [newReview, setNewReview] = useState('');
+  const router = useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -113,7 +114,7 @@ const ReviewsComponent = ({ reviewsPromise, session }: { reviewsPromise: Promise
             </form>
             :
             <div className={st.needToLogin}>
-              You need to be logged in to submit a review. You can create an account or log in <a href='/signin'>here</a>.
+              You need to be logged in to submit a review. You can create an account or log in <span onClick={()=> router.push('/signin') }>here</span>.
             </div>
           }
         </div>
