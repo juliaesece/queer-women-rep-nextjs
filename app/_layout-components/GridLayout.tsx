@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import { ShortCouple } from "../utils/types";
 
 function Loading() {
-  return <h2>🌀 Loading...</h2>;
+  return <h2>Loading...</h2>;
 }
 
 

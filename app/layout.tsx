@@ -4,6 +4,7 @@ import NavConductor from "./_nav-components/NavConductor";
 import { Analytics } from "@vercel/analytics/react"
 import Footer from "./_layout-components/Footer";
 import { Suspense } from "react";
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
 export const metadata: Metadata = {
   title: "Everything Sapphic - Collaborative catalog of lesbian, bisexual and queer women media",
@@ -20,14 +21,16 @@ export default function RootLayout({ children, modal }: DashboardProps) {
   return (
     <html lang="en">
       <body>
-        <Analytics />
-        <NavConductor />
-        {children}
-        <Suspense>
-          <Footer />
-        </Suspense>
+        <AppRouterCacheProvider>
+          <Analytics />
+          <NavConductor />
+          {children}
+          <Suspense>
+            <Footer />
+          </Suspense>
           {modal}
           <div id="modal-root" />
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
