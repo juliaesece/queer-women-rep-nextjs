@@ -87,8 +87,6 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
         headersPromise
     ]);
 
-
-    console.log("homophobia options", homophobiaOptions)
     const acceptLanguage = headersList.get('accept-language')?.slice(3, 5) ?? "us"
 
     let reviewsPromise = getReviews(couple._id as string)

@@ -13,6 +13,7 @@ import { unstable_cache } from "next/cache";
 import type { Metadata, ResolvingMetadata } from 'next'
 import { Suspense } from "react";
 import { ModalSkeleton } from "@/app/@modal/(.)info/[id]/ModalSkeleton";
+import Aside from "@/app/_layout-components/Aside";
 
 interface PageProps {
   params: Promise<{ supercategory: string, page: string }>;
@@ -102,6 +103,7 @@ export default async function Home({ searchParams, params }: PageProps) {
 
   return (
     <>
+      <Aside filters={extraFilter} />
       <main className={styles.main}>
         <Suspense fallback={<GridSkeleton />}>
           <GridLayout couples={couples} />
