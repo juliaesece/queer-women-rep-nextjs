@@ -20,7 +20,7 @@ export const SearchContext = createContext<null | SearchContextType>(null);
 
 
 const SearchContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const [searchCouple, setSearchCouple] = useState<SearchCouple>({ person: {ethnicity: []} });
+    const [searchCouple, setSearchCouple] = useState<SearchCouple>({ person: {ethnicity: [], nationality: ""} });
     const [result, setResult] = useState([])
     const [waitingMessage, setWaitingMessage] = useState("No search has been made yet.")
     const [sortBy, setSortBy] = useState("rating")

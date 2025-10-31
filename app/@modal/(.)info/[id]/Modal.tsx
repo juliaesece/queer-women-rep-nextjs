@@ -16,29 +16,30 @@ import { headers } from 'next/headers'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import GoBack from "./_components/GoBack";
 import { Suspense } from "react";
+import { homophobiaOptions } from "@/app/utils/couplesOptions";
 
 const getYear = (yearValue) => {
 
     if (!yearValue) {
-      return ""; // Null/undefined/empty string
+        return ""; // Null/undefined/empty string
     }
 
     let dateObject;
 
     if (yearValue instanceof Date) {
-      dateObject = yearValue;
+        dateObject = yearValue;
     } else if (typeof yearValue === 'string' || typeof yearValue === 'number') {
-      dateObject = new Date(yearValue);
+        dateObject = new Date(yearValue);
     } else {
-      return "";
+        return "";
     }
 
     if (isNaN(dateObject.getTime())) {
-      return "";
+        return "";
     }
 
     return ` (${dateObject.getFullYear()})`; // Return the year
-  }
+}
 
 export default async function Modal({ mongoId, session, origin }: { mongoId: string, session: Session | undefined, origin: string }) {
     function getSearchTranslation(locale: string) {
@@ -86,6 +87,8 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
         headersPromise
     ]);
 
+
+    console.log("homophobia options", homophobiaOptions)
     const acceptLanguage = headersList.get('accept-language')?.slice(3, 5) ?? "us"
 
     let reviewsPromise = getReviews(couple._id as string)
@@ -138,12 +141,12 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
                         {(couple.genres ?? []).length > 0 && <p><em>Genres</em>: {(couple.genres ?? []).map((genre, idx) => ((idx + 1) != (couple.genres ?? []).length ? genre.name.toLocaleLowerCase() + ", " : genre.name.toLocaleLowerCase()))}</p>}
                         <p className={st.searchLinkContainer} >
                             <a className={st.searchLink} href={`https://www.justwatch.com/${acceptLanguage}/${getSearchTranslation(acceptLanguage)}?q=${couple.origin}`} target="_blank">
-                            <span>Search where to watch</span>
-                            <OpenInNewIcon fontSize="small" />
+                                <span>Search where to watch</span>
+                                <OpenInNewIcon fontSize="small" />
                             </a>
                             <a className={st.searchLink} href={`https://www.youtube.com/results?search_query=${couple.people[0].name}+and+${couple.people[1].name}`} target="_blank">
-                            <span>Search for edits on youtube</span>
-                            <OpenInNewIcon fontSize="small" />
+                                <span>Search for edits on youtube</span>
+                                <OpenInNewIcon fontSize="small" />
                             </a>
                         </p>
                     </div>
@@ -258,10 +261,10 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
 
                             <details>
                                 <summary>
-                                    How much homophobia does this depict? from 1 to 5
+                                    How much homophobia does this depict?
                                 </summary>
                                 {typeof couple.concerns == "undefined" ?
-                                    "Information not given" : <> {couple.concerns.homophobia} (from 1 to 5)</>
+                                    "Information not given" : <> {homophobiaOptions.filter(option => Number(option.value) == Number(couple.concerns.homophobia))?.[0]?.label} ({couple.concerns.homophobia} on a scale of 1 to 5)</>
                                 }
                             </details>
 

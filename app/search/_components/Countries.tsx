@@ -258,6 +258,8 @@ export default function Countries({ name }: { name: string}) {
         { label: "Zimbabwe", id: 247 }
     ];
 
+    console.log("searchCouple.person[name]", searchCouple.person[name])
+
     return (
         <>
             <label className={styles.label} htmlFor={name}>Which country are they from?</label>
@@ -268,7 +270,7 @@ export default function Countries({ name }: { name: string}) {
                 onChange={(event: any, newValue: any) => {
                     setSearchCouple(prevCouple => ({
                         ...prevCouple,
-                        person: {...prevCouple.person, nationality: newValue.label}
+                        person: {...prevCouple.person, [name]: newValue ? newValue.label : ""}
                     }))
                 }
                 }

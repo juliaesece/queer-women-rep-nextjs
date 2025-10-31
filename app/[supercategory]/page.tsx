@@ -12,6 +12,7 @@ import { unstable_cache } from "next/cache";
 import type { Metadata, ResolvingMetadata } from 'next'
 import { Suspense } from "react";
 import { ModalSkeleton } from "@/app/@modal/(.)info/[id]/ModalSkeleton";
+import Aside from "../_layout-components/Aside";
 
 interface PageProps {
   params: Promise<{ supercategory: string }>;
@@ -87,7 +88,7 @@ export default async function Home({ searchParams, params }: PageProps) {
   const resParams = await params;
   const resSearchParams = await searchParams;
   const supercategory = resParams.supercategory
-  const extraFilter = resSearchParams.filter
+  const extraFilter = resSearchParams.filter || ""
   const tag = resSearchParams.tag
   const couples: ShortCouple[] = await getCachedData(supercategory, 1, extraFilter, tag)
   const infoId = resSearchParams.info
@@ -96,6 +97,7 @@ export default async function Home({ searchParams, params }: PageProps) {
 
   return (
     <>
+      <Aside filters={extraFilter} />
       <main className={styles.main}>
         <Suspense fallback={<GridSkeleton />}>
           <GridLayout couples={couples} />

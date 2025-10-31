@@ -37,7 +37,7 @@ export default function SignIn({ provider }: {provider: ClientSafeProvider}) {
                                 <path fill="none" d="M0 0h48v48H0z"></path>
                             </svg> : <EmailIcon fontSize="small" />}
                     </div>
-                    <span className={st.gsi_material_button_contents}>Sign in with {provider.name}</span>
+                    <span className={st.gsi_material_button_contents}>Create an account/log in with {provider.name}</span>
                 </div>
             </button>
         </div>

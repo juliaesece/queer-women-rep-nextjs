@@ -24,8 +24,8 @@ function transformQuery(query, prefix = '') {
 
         if (peopleKey === 'ethnicity') { // Handle ethnicity specially because it is an array
           if (peopleValue.length == 0) continue
-          transformedQuery["$or"][0][newKey1] = { "$all": peopleValue };
-          transformedQuery["$or"][1][newKey2] = { "$all": peopleValue };
+          transformedQuery["$or"][0][newKey1] = { "$in": peopleValue };
+          transformedQuery["$or"][1][newKey2] = { "$in": peopleValue };
           continue
         }
 

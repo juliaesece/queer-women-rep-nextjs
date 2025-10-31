@@ -92,7 +92,7 @@ export default async function Home({ searchParams, params }: PageProps) {
 
   const page = paramsRes.page
   const supercategory = paramsRes.supercategory
-  const extraFilter = searchParamsRes.filter
+  const extraFilter = searchParamsRes.filter || ""
   const tag = searchParamsRes.tag
   const infoId = searchParamsRes.info
 

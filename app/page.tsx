@@ -44,14 +44,14 @@ async function getPages(supercategory, extraFilter) {
 
 export default async function Home({ searchParams }) {
   const searchParamsRes = await searchParams
-  const extraFilter = searchParamsRes.filter
+  const extraFilter = searchParamsRes.filter || ""
   const tag = searchParamsRes.tag
   const couples: ShortCouple[] = await getCachedData(extraFilter, tag)
   const nbPages = await getPages("home", extraFilter)
 
   return (
     <>
-      <Aside />
+      <Aside filters={extraFilter}/>
       <main className={styles.main}>
         <Suspense fallback={<GridSkeleton />}> 
           <GridLayout couples={couples} />

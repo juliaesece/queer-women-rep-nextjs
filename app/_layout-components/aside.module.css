@@ -162,3 +162,7 @@
         overflow: hidden;
     }
 }
+
+.aside__active {
+    font-weight: 600;
+}

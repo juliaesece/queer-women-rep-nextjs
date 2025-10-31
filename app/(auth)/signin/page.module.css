@@ -69,3 +69,7 @@
         background-color: hsl(324, 80%, 72%);
     }
 }
+
+.link {
+  font-weight: 600;
+}
