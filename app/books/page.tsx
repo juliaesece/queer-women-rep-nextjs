@@ -45,7 +45,7 @@ export default async function Component() {
 
     return (
         <>
-            <Aside />
+            <Aside filters=""/>
             <main className={styles.main}>
                 <div className={styles.search}>
                     {["all books"].map((tag, idx) => <span className={styles.filterTag} key={idx}>{tag}</span>)}
