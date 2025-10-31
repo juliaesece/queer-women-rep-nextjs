@@ -20,7 +20,7 @@ export default async function Add() {
                 <main className={simpleStyles.main}>
                     <div className={simpleStyles.container}>
                         <p>
-                            Hello there! You must be logged in to contribute to the database. You can do so by clicking <Link className={simpleStyles.link} href="/signin">here</Link>, it's really quick.
+                            Hello there! You must be logged in to contribute to the database. You can do so by clicking <Link className={simpleStyles.link} href="/signin">here</Link>, it&apos;s really quick.
                         </p>
                     </div>
                 </main>
