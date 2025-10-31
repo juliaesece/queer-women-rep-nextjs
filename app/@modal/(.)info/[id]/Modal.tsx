@@ -17,6 +17,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import GoBack from "./_components/GoBack";
 import { Suspense } from "react";
 import { homophobiaOptions } from "@/app/utils/couplesOptions";
+import Backdrop from "./_components/Backdrop";
 
 const getYear = (yearValue) => {
 
@@ -93,6 +94,7 @@ export default async function Modal({ mongoId, session, origin }: { mongoId: str
 
     return (
         <div className={st.modal}>
+            <Backdrop origin={origin} />
             <div className={st.modal_content}>
                 <GoBack origin={origin} />
                 <Image className={st.modal_image} src={couple.image} alt={couple.altImg} width={2000} height={2000} />
