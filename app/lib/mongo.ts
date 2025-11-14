@@ -12,8 +12,7 @@ const options = {
         strict: true,
         deprecationErrors: true,
     },
-    maxPoolSize: 20,
-    minPoolSize: 5,
+    maxPoolSize: 100,
     maxIdleTimeMS: 50000,
     waitQueueTimeoutMS: 10000
 }
