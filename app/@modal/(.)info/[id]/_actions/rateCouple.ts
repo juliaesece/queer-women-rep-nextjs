@@ -2,6 +2,7 @@
 
 import { ObjectId } from 'mongodb';
 import client from "@/app/lib/mongo";
+import { revalidateTag } from 'next/cache';
 
 export async function rateCouple(collectionName: string, coupleId: string, userId: string, rating: number) {
 
@@ -19,7 +20,6 @@ export async function rateCouple(collectionName: string, coupleId: string, userI
             break;
         default:
             throw new Error("Invalid collectionName")
-            break;
     }
 
     try {
@@ -30,45 +30,45 @@ export async function rateCouple(collectionName: string, coupleId: string, userI
         const ratings = database.collection(collectionName)
 
         const ratingsKey = "ratings." + parsedUserId
-        let setObject = {
-            [ratingsKey]: rating
-        }
+        let setObject = { [ratingsKey]: rating }
 
-        const result = await ratings.updateOne(
+        const ratingsResult = await ratings.updateOne(
             { _id: parsedRatingsId },
             {
                 $set: setObject
-            }
+            },
+            { upsert: true }
         )
 
-        if (!result.acknowledged) {
+        if (!ratingsResult.acknowledged || !(ratingsResult.matchedCount == 1 || ratingsResult.upsertedCount == 1 )) {
+            console.log(ratingsResult)
+            console.log()
             throw new Error("Database error, please try again in a few minutes")
         }
 
-        if (result.matchedCount != 1) {
+        const updatedRatingDoc = await ratings.findOne({ _id: parsedRatingsId })
+
+        if (!updatedRatingDoc) {
             throw new Error("Database error, please try again in a few minutes")
         }
 
-        const newResult = await ratings.findOne({ _id: parsedRatingsId })
-        if (!newResult) {
-            throw new Error("Database error, please try again in a few minutes")
-        }
-        const newRatings = Object.values(newResult.ratings) as number[]
-        const sum = newRatings.reduce((a: number, b: number) => a + b, 0);
-        const avg = (Number(sum) / newRatings.length) || 0;
+        // Switch to incremental updates when necessary
+        const updatedRatingsArray = Object.values(updatedRatingDoc.ratings) as number[]
+        const sum = updatedRatingsArray.reduce((a: number, b: number) => a + b, 0);
+        const avg = (Number(sum) / updatedRatingsArray.length) || 0;
         const couplesSetObject: Record<string, number> = {}
         couplesSetObject[fieldToUpdate] = avg
 
         const fieldToUpdateCount = fieldToUpdate + "Count"
-        couplesSetObject[fieldToUpdateCount] = newRatings.length
+        couplesSetObject[fieldToUpdateCount] = updatedRatingsArray.length
 
-        const updatedCouples = await database.collection("couples").updateOne({ _id: newResult._id }, { $set: couplesSetObject })
+        const updatedCouples = await database.collection("couples").updateOne({ _id: updatedRatingDoc._id }, { $set: couplesSetObject })
         if (!updatedCouples.acknowledged || updatedCouples.matchedCount != 1) {
             throw new Error("Database error, please try again in a few minutes")
         }
 
         const updateAverage = await database.collection("couples").updateOne(
-            { _id: newResult._id },
+            { _id: updatedRatingDoc._id },
             [
                 {
                     $set: {
@@ -82,10 +82,18 @@ export async function rateCouple(collectionName: string, coupleId: string, userI
             throw new Error("Database error, please try again in a few minutes")
         }
 
-        return true;
+        const tag = `couple:${coupleId}`;
+        try {
+            revalidateTag(tag);
+            console.log(`Successfully revalidated tag: ${tag}`);
+        } catch (error) {
+            console.error(`Error revalidating tag ${tag}:`, error);
+        }
+
+        return {success: true, newRating: avg, newCount: updatedRatingsArray.length };
     } catch (error) {
         console.error("[rateCouple] Server error on couples route")
         console.error(error)
-        return false
+        return {success: false, newRating: 0, newCount: 0}
     }
 }
