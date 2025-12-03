@@ -15,7 +15,7 @@ when people are changing their votes. Proper fix would need to check if the user
     return (
         <>
             <span>
-                { value == dbValue ? dbValue : (((dbValue * dbCount) + value) / (dbCount + 1))}
+                { value == dbValue ? dbValue.toFixed(1) : (((dbValue * dbCount) + value) / (dbCount + 1)).toFixed(1)}
             </span>
             <Rating
                 value={value}
