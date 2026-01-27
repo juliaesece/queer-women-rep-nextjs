@@ -5,7 +5,7 @@ import { revalidateTag } from 'next/cache';
 // Revalidate the entire 'couples' collection
 export async function revalidateAllCouplesAction() {
     try {
-        revalidateTag('couples');
+        revalidateTag('coupleData');
         console.log('Successfully revalidated tag: couples');
     } catch (error) {
         console.error('Error revalidating all couples:', error);
