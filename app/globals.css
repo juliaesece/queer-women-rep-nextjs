@@ -101,7 +101,7 @@ body {
   font-family: "Helvetica Neue", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", sans-serif;
   background-color: var(--bg-color);
   background: radial-gradient(60% 60% at 0px 550px, hsla(11, 80%, 82%, 50%), transparent), radial-gradient(100% 100% at top right, hsla(324, 80%, 72%, 50%), transparent), transparent no-repeat fixed center;
-
+  background-attachment: fixed;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -166,6 +166,10 @@ a:visited {
   }
 }
 
+.link--subtle-underlined {
+  text-decoration: underline 2px #D461A6;
+}
+
 .link--underlined {
   display: inline;
   color: hsl(0, 0%, 15%);
@@ -179,7 +183,7 @@ a:visited {
 
 /* ----- MEDIUM SCREENS--------------- */
 
-@media (850px <= width <=1200px) {
+@media (850px <=width <=1200px) {
   body {
     height: 100vh;
     width: 100vw;

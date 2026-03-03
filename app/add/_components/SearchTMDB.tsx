@@ -69,10 +69,10 @@ const SearchTMDB = () => {
 
   return (
     <>
+      <label htmlFor="searchTMDB" className={defaultStyles.fullWidth}>
+        Complete this faster with information from The Movie Database (which also includes information about TV Shows)
+      </label>
       <div className={defaultStyles.fullWidth}>
-        <label htmlFor="searchTMDB">
-          Complete this faster with information from The Movie Database (which also includes information about TV Shows)
-        </label>
         <input
           type="text"
           id="searchTMDB"
@@ -86,7 +86,6 @@ const SearchTMDB = () => {
           Search
         </button>
       </div>
-
       {error && (
         <div className={styles.error}>{error}</div>
       )}

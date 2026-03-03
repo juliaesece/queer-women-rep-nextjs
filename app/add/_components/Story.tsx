@@ -2,15 +2,16 @@ import styles from "./Form.module.css";
 import { useAddContext } from "../AddContext";
 import { originTypeOptions, statusOptions } from "@/app/utils/couplesOptions";
 import SearchTMDB from "./SearchTMDB";
+import { useState } from "react";
 
 export default function Story() {
     const { couple, handleChange, handleCheckbox, currentSection, setCurrentSection } = useAddContext()
+    const [previewStatus, setPreviewStatus] = useState(null)
 
     return (
         <section className={styles.section}>
             <div className={styles.fullWidth}>
                 <SearchTMDB />
-
             </div>
             <div>
                 <label className={styles.required} htmlFor="mediaType">Media type</label>
@@ -68,6 +69,22 @@ export default function Story() {
                 <label htmlFor="status">Image description</label>
                 <input className={styles.textInput} placeholder="Image description" name="altImg" onChange={handleChange} value={couple.altImg} />
             </div>
+            <p className={styles.fullWidth}>
+                Here below you will be able to see a preview of your image.
+            </p>
+            {couple.image && (
+                <img
+                    src={couple.image}
+                    onLoad={() => setPreviewStatus('valid')}
+                    onError={() => setPreviewStatus('invalid')}
+                    alt="Image has failed to load"
+                    className={styles.previewImage}
+                />
+            )}
+
+            {previewStatus == "valid" && <p className={styles.fullWidth}> The image link seems to be working well.</p>}
+            {previewStatus == "invalid" && <p className={styles.fullWidth}>
+                Your image link is invalid. Try to <a target="_blank" className="link--subtle-underlined" href="https://cloudinary.com/blog/questions/how-to-copy-image-address#how_to_copy_image_address_by_device_and_browser_">access this short tutorial</a> and follow the instructions there on how to get an image link. If it doesn&apos;t work, just leave the original link, and the developer of the site will be able to fix it.</p>}
             <button onClick={() => setCurrentSection(currentSection + 1)}>Next</button>
         </section>
     );

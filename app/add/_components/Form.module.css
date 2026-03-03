@@ -141,6 +141,10 @@
     padding: 10px 15px;
 }
 
+.previewImage {
+    height: 100px;
+}
+
 @media (max-width: 850px) {
     .section {
         width: 100%;
