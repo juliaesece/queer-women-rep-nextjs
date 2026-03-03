@@ -155,6 +155,10 @@ a:visited {
   color: initial;
 }
 
+input:invalid {
+  border: 2px solid red;
+}
+
 /* Small screens */
 
 @media screen and (max-width: 850px) {

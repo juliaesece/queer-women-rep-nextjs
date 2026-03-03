@@ -33,6 +33,12 @@ export default function Conductor({ session }) {
         event.preventDefault()
         setAlert({ severity: "info", message: "We're processing your query" })
 
+        if (!(couple.people[0].name && couple.people[1].name && couple.mediaType && couple.origin && couple.image && couple.shortDescription)) {
+            setAlert({ severity: "error", message: "At least one of the required properties is missing. They are the ones with a red asterisk." })
+            setTimeout(() => { setAlert({ severity: "", message: "" }) }, 10000)
+            return
+        }
+
         const datedCouple = {
             ...couple,
             dateAdded: new Date(),
