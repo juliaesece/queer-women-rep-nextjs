@@ -107,6 +107,7 @@ const ReviewsComponent = ({ reviewsPromise, session }: { reviewsPromise: Promise
                 className={st.textarea}
                 value={newReview}
                 onChange={(e) => handleReviewChange(e)}
+                required
               />
               <button type="submit">
                 Post Review

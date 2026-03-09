@@ -2,6 +2,8 @@
 
 import { ObjectId } from 'mongodb';
 import client from "@/app/lib/mongo";
+import { revalidateTag } from 'next/cache';
+
 
 export async function rateCouple(collectionName: string, coupleId: string, userId: string, rating: number) {
 
@@ -77,6 +79,9 @@ export async function rateCouple(collectionName: string, coupleId: string, userI
         if (!updateAverage.acknowledged || updateAverage.matchedCount != 1) {
             throw new Error("Database error, please try again in a few minutes")
         }
+
+        const tag = `couple:${coupleId}`;
+        revalidateTag(tag);
 
         return true;
     } catch (error) {
