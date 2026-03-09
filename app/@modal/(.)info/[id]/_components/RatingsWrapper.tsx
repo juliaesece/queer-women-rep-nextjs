@@ -7,15 +7,15 @@ export default function RatingsWrapper({ dbValue, dbCount, icon, emptyIcon, sx, 
     { dbValue: number, dbCount: number, icon: React.ReactNode, emptyIcon: React.ReactNode, sx: SxProps<Theme>, couple: any, session: any, collectionName: string }) {
     const [value, setValue] = useState(dbValue);
 
- /* 
-WARNING: this component is using a sort of lazy/partly faulty "optimistic UI". It's better than before, but will work weirdly
-when people are changing their votes. Proper fix would need to check if the user has already voted, and recalculate from DB.
- */
+    /* 
+   WARNING: this component is using a sort of lazy/partly faulty "optimistic UI". It's better than before, but will work weirdly
+   when people are changing their votes. Proper fix would need to check if the user has already voted, and recalculate from DB.
+    */
 
     return (
         <>
             <span>
-                { value == dbValue ? dbValue.toFixed(1) : (((dbValue * dbCount) + value) / (dbCount + 1)).toFixed(1)}
+                {value == dbValue ? dbValue.toFixed(1) : (((dbValue * dbCount) + value) / (dbCount + 1)).toFixed(1)}
             </span>
             <Rating
                 value={value}
@@ -37,7 +37,7 @@ when people are changing their votes. Proper fix would need to check if the user
             />
             {dbCount &&
                 <span>
-                    ({dbCount})
+                    ({value == dbValue ? dbCount : (dbCount + 1)})
                 </span>
             }
         </>
