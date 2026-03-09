@@ -15,7 +15,7 @@ export default function RatingsWrapper({ dbValue, dbCount, icon, emptyIcon, sx, 
     return (
         <>
             <span>
-                {value == dbValue ? dbValue.toFixed(1) : (((dbValue * dbCount) + value) / (dbCount + 1)).toFixed(1)}
+                {value ? (((dbValue * dbCount) + value) / (dbCount + 1)).toFixed(1) : dbValue.toFixed(1)}
             </span>
             <Rating
                 value={value}
