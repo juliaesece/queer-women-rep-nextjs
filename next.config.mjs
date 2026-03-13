@@ -12,7 +12,8 @@ const nextConfig = {
                 hostname: "**",
             },
         ],
-        unoptimized: true
+        minimumCacheTTL: 2678400,
+            deviceSizes: [640, 1080, 1920],
     },
 };
 
