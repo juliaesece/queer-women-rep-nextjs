@@ -65,7 +65,11 @@ export const ethnicityOptions: Option[] = [
     { value: 'black', label: 'Black/African American' },
     { value: 'indigenous', label: 'Indigenous' },
     { value: 'white', label: 'White' },
-    { value: 'asian', label: 'Asian' },
+    { value: 'eastAsian', label: 'East Asian' },
+    { value: 'southAsian', label: 'South Asian' },
+    { value: 'southEastAsian', label: 'Southeast Asian' },
+    { value: 'mena', label: 'MENA (Middle East & North Africa)' },
+    { value: 'centralAsian', label: 'Central Asian' },
     { value: 'latinx', label: 'Latinx' },
     { value: 'other', label: 'Other' },
 ];
