@@ -29,7 +29,7 @@ const Results: FC<ResultsProps> = async ({ searchObj, session }) => {
         </div>
         :
         <>
-          <SortDropdown />
+          {/* <SortDropdown /> console.log fix with url parameters*/}
           {result.map((couple) => <SmallCard couple={couple} key={couple._id} />)}
         </>
       }
