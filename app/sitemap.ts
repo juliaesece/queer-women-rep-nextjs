@@ -1,9 +1,8 @@
 import { MetadataRoute } from 'next'
 import { getAllCouples, getUniqueNationalities } from '@/app/utils/sitemapActions'
 import { ethnicityOptions } from '@/app/utils/couplesOptions'
-import { SearchPerson } from '@/app/utils/types'
 
-const BASE_URL = 'https://everythingsapphic.com/'
+const BASE_URL = 'https://everythingsapphic.com'
 
 const orientations = ['Lesbian', 'Bisexual', 'Pansexual']
 const mediaTypes = ['Movie', 'TV Show', 'Videogame', 'Webseries']
@@ -23,23 +22,25 @@ const encodePerson = (personObj) => {
 
 const buildUrl = (base: any, { person, ...rest }: any = {}): string => {
     const urlParams = new URLSearchParams()
-    if (person) urlParams.set('person', encodePerson(person))
     Object.entries(rest)
-        .filter((entry): entry is [string, string] =>
-            typeof entry[1] === 'string'
-        )
+        .filter((entry): entry is [string, string] => typeof entry[1] === 'string')
         .forEach(([k, v]) => urlParams.set(k, v))
-    return `${base}/search?${urlParams.toString()}`
+
+    const restQuery = urlParams.toString()
+    const personQuery = person ? `person=${encodePerson(person)}` : ''
+
+    const query = [personQuery, restQuery].filter(Boolean).join('&amp;')
+    return `${base}/search?${query}`
 }
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Static pages
     const staticPages: MetadataRoute.Sitemap = [
         {
             url: BASE_URL,
             lastModified: new Date(),
-            changeFrequency: 'weekly',
+            changeFrequency: 'monthly',
             priority: 1.0,
         },
         {
@@ -63,7 +64,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         {
             url: `${BASE_URL}/books`,
             lastModified: new Date(),
-            changeFrequency: 'weekly',
+            changeFrequency: 'monthly',
             priority: 0.9,
         },
         {
@@ -183,14 +184,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         const couplePages: MetadataRoute.Sitemap = couples.map((couple) => ({
             url: `${BASE_URL}/info/${couple._id}`,
             lastModified: new Date(couple.dateAdded),
-            changeFrequency: 'weekly',
+            changeFrequency: 'yearly',
             priority: 0.6,
         }))
 
 
         // Combine all pages
-        console.log([...staticPages, ...couplePages, ...entries]
-        )
         return [...staticPages, ...couplePages, ...entries]
 
     } catch (error) {
