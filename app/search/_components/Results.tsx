@@ -1,12 +1,21 @@
-"use client"
 import { FC } from "react";
 import st from "./Results.module.css"
 import SmallCard from "./SmallCard";
-import { useSearchContext } from "../SearchContext";
 import SortDropdown from "./SortDropdown";
+import { SearchCouple } from "@/app/utils/types"
+import { searchCouples } from "../_actions/searchCouples";
 
-const Results: FC = () => {
-  const { result, waitingMessage } = useSearchContext()
+const Results: FC = async ({ searchObj }: { searchObj: SearchCouple }) => {
+  // const { result, waitingMessage } = useSearchContext()
+  let waitingMessage = Object.keys(searchObj).length == 0 ? "No search has been made yet." : "No couples have been found"
+
+  const result = await searchCouples(searchObj, null)
+
+
+  if (result.error) return <section className={st.results}>
+    <h2>Results:</h2>
+    <p>Sorry, there has been an error. Please contact the dev.</p>
+  </section>
 
   return (
     <section className={st.results}>

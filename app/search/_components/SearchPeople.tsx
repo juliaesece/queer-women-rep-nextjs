@@ -97,7 +97,7 @@ export default function SearchPeople() {
             </div>
             <fieldset>
                 <div>
-                    <legend>Check all which apply (the search will be with &ldquo;or&rdquo;)</legend>
+                    <legend>Check all which apply (the search will be with &ldquo;or&rdquo;; unchecked will search for everyone)</legend>
                     {ethnicityOptions.map(option => (
                         <span key={option.value}>
                             <input

@@ -9,6 +9,7 @@ import {
     genderIdentityOptions,
     genderExpressionOptions, lifeStageOptions, ethnicityOptions
 } from "@/app/utils/couplesOptions"
+import Link from "next/link";
 
 export default function Person({ number }) {
     const { couple, setCouple, currentSection, setCurrentSection } = useAddContext();
@@ -121,6 +122,7 @@ export default function Person({ number }) {
             <fieldset>
                 <div>
                     <legend>Check all which apply</legend>
+                    <p>If unsure about Asian sub-regions, please consult <Link href="https://commons.wikimedia.org/wiki/File:Subasia.jpg">this map</Link></p>
                     {ethnicityOptions.map(option => (
                         <span key={option.value}>
                             <input

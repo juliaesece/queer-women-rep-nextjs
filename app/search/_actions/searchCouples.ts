@@ -23,13 +23,13 @@ function transformQuery(query, prefix = '') {
         const newKey2 = `people.1.${peopleKey}`;
 
         if (peopleKey === 'ethnicity') { // Handle ethnicity specially because it is an array
-          if (peopleValue.length == 0) continue
-          transformedQuery["$or"][0][newKey1] = { "$in": peopleValue };
-          transformedQuery["$or"][1][newKey2] = { "$in": peopleValue };
+          if (peopleValue == "") continue
+          transformedQuery["$or"][0][newKey1] = { "$in": peopleValue.split(",") };
+          transformedQuery["$or"][1][newKey2] = { "$in": peopleValue.split(",") };
           continue
         }
 
-        if (peopleKey === 'nationality') { // Handle ethnicity specially because it is an array
+        if (peopleKey === 'nationality') { // Handle nationality specially
           transformedQuery["$or"][0]["$or"] = [{ "people.0.nationality": peopleValue }, { "people.0.secondNationality": peopleValue }];
           transformedQuery["$or"][1]["$or"] = [{ "people.1.nationality": peopleValue }, { "people.1.secondNationality": peopleValue }];
           continue
@@ -66,6 +66,7 @@ function transformQuery(query, prefix = '') {
 export async function searchCouples(unparsedSearchCouple, session) {
 
   let filter
+  console.log("unparsedSearchCouple", unparsedSearchCouple)
 
   if (Object.keys(unparsedSearchCouple).length == 0) {
     filter = {}

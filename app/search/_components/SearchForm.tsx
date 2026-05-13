@@ -8,11 +8,15 @@ import SearchRelationship from './SearchRelationship';
 import SearchStory from './SearchStory';
 import SearchConcerns from './SearchConcerns';
 import { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation'
 
 export default function SearchForm({ session }) {
     const { searchCouple, setSearchCouple, setResult, setWaitingMessage } = useSearchContext()
     const [open, setOpen] = useState(0);
-    
+    const [urlSearch, setUrlSearch] = useState("")
+    const router = useRouter()
+
     const isOpen = (id) => {
         return id === open ? true : false;
     }
@@ -21,21 +25,33 @@ export default function SearchForm({ session }) {
         e.preventDefault()
         setWaitingMessage("Searching...")
 
-        let modifiableSearchCouple =JSON.parse(JSON.stringify(searchCouple)) // Deep copy, otherwise ethnicity becomes undefined
-        
+        let modifiableSearchCouple = JSON.parse(JSON.stringify(searchCouple)) // Deep copy, otherwise ethnicity becomes undefined
+
         // If person is empty, delete
         if (Object.keys(modifiableSearchCouple.person).length == 1
-         && Object.keys(modifiableSearchCouple.person)[0] == "ethnicity"
-         && modifiableSearchCouple.person.ethnicity.length == 0
+            && Object.keys(modifiableSearchCouple.person)[0] == "ethnicity"
+            && modifiableSearchCouple.person.ethnicity.length == 0
         ) delete modifiableSearchCouple.person
         else if (
             modifiableSearchCouple.person.ethnicity.length == 0
         ) delete modifiableSearchCouple.person.ethnicity
 
-        const result = await searchCouples(modifiableSearchCouple, session)
-        setResult(result)
-        if (result.length == 0) setWaitingMessage("No couples were found")
+        if (modifiableSearchCouple.person.nationality == "") delete modifiableSearchCouple.person.nationality
+
+        console.log("")
+
+        let searchURL = new URLSearchParams(modifiableSearchCouple)
+        let personUrl = new URLSearchParams(modifiableSearchCouple.person)
+
+        searchURL.set("person", personUrl.toString())
+
+        router.push('/search?' + searchURL)
+        // const result = await searchCouples(modifiableSearchCouple, session)
+        // setResult(result)
+        // if (result.length == 0) setWaitingMessage("No couples were found")
     }
+
+
 
     return (
         <form className={styles.searchForm} onSubmit={findCouples}>
@@ -68,8 +84,12 @@ export default function SearchForm({ session }) {
                 <SearchConcerns />
             </details>
             <div className={styles.buttonsContainer}>
-                <button className={styles.removeFilters} type="button" onClick={() => setSearchCouple({ person: { ethnicity: [] } })}>Remove all filters</button>
-                <button className={styles.submitButton} type='submit'>Search</button>
+                <button className={styles.removeFilters} type="button" onClick={() => {
+                    setSearchCouple({ person: { ethnicity: [] } })
+                    router.push('/search')
+                }
+                }>Remove all filters</button>
+                <button href={`?${urlSearch}`} className={styles.submitButton} type='submit'>Search</button>
             </div>
         </form>
     );
