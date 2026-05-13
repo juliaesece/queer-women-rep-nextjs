@@ -13,12 +13,13 @@ type Props = {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-
 const convertUrlToObject = (searchParams) => {
-    let searchObj = searchParams
-    let personParams = new URLSearchParams(searchParams.person)
-    personParams = Object.fromEntries(personParams.entries())
-    searchObj.person = personParams
+    const personParams = new URLSearchParams(searchParams.person as string)
+    const parsedPerson = Object.fromEntries(personParams.entries()) // Record<string, string>
+    const searchObj = {
+        ...searchParams,
+        person: parsedPerson,
+    }
     return searchObj
 }
 
@@ -115,14 +116,14 @@ export async function generateMetadata({ searchParams }: Props) {
 
 export default async function AdvancedSearch({ searchParams }: Props) {
     const resSearchParams = await searchParams
-    const infoId = resSearchParams.info
+    const infoId = resSearchParams.info as string
     const session = await getServerSession(authOptions)
 
     return (
         <main className={styles.main}>
             <SearchContextProvider>
-                <SearchForm session={session} />
-                <Results searchObj={convertUrlToObject(resSearchParams)} />
+                <SearchForm />
+                <Results searchObj={convertUrlToObject(resSearchParams)} session={session} />
                 <Suspense fallback={<ModalSkeleton />}>
                     {infoId && <Modal mongoId={infoId} session={session} origin="search" />}
                 </Suspense>

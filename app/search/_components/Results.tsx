@@ -2,15 +2,18 @@ import { FC } from "react";
 import st from "./Results.module.css"
 import SmallCard from "./SmallCard";
 import SortDropdown from "./SortDropdown";
-import { SearchCouple } from "@/app/utils/types"
 import { searchCouples } from "../_actions/searchCouples";
+import { Session } from "next-auth";
 
-const Results: FC = async ({ searchObj }: { searchObj: SearchCouple }) => {
-  // const { result, waitingMessage } = useSearchContext()
+type ResultsProps = {
+  searchObj: Record<string, string | string[] | undefined>
+  session: Session
+}
+
+const Results: FC<ResultsProps> = async ({ searchObj, session }) => {
   let waitingMessage = Object.keys(searchObj).length == 0 ? "No search has been made yet." : "No couples have been found"
 
-  const result = await searchCouples(searchObj, null)
-
+  const result = await searchCouples(searchObj, session)
 
   if (result.error) return <section className={st.results}>
     <h2>Results:</h2>

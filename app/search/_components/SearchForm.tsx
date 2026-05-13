@@ -1,20 +1,17 @@
 "use client";
 
 import styles from './SearchForm.module.css';
-import { searchCouples } from '../_actions/searchCouples';
 import { useSearchContext } from '../SearchContext';
 import SearchPeople from './SearchPeople';
 import SearchRelationship from './SearchRelationship';
 import SearchStory from './SearchStory';
 import SearchConcerns from './SearchConcerns';
 import { useState } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation'
 
-export default function SearchForm({ session }) {
-    const { searchCouple, setSearchCouple, setResult, setWaitingMessage } = useSearchContext()
+export default function SearchForm() {
+    const { searchCouple, setSearchCouple, setWaitingMessage } = useSearchContext()
     const [open, setOpen] = useState(0);
-    const [urlSearch, setUrlSearch] = useState("")
     const router = useRouter()
 
     const isOpen = (id) => {
@@ -38,7 +35,7 @@ export default function SearchForm({ session }) {
 
         if (modifiableSearchCouple.person.nationality == "") delete modifiableSearchCouple.person.nationality
 
-        console.log("")
+       // console.log needs testing?
 
         let searchURL = new URLSearchParams(modifiableSearchCouple)
         let personUrl = new URLSearchParams(modifiableSearchCouple.person)
@@ -46,9 +43,6 @@ export default function SearchForm({ session }) {
         searchURL.set("person", personUrl.toString())
 
         router.push('/search?' + searchURL)
-        // const result = await searchCouples(modifiableSearchCouple, session)
-        // setResult(result)
-        // if (result.length == 0) setWaitingMessage("No couples were found")
     }
 
 
@@ -87,9 +81,10 @@ export default function SearchForm({ session }) {
                 <button className={styles.removeFilters} type="button" onClick={() => {
                     setSearchCouple({ person: { ethnicity: [] } })
                     router.push('/search')
+                    router.refresh()
                 }
                 }>Remove all filters</button>
-                <button href={`?${urlSearch}`} className={styles.submitButton} type='submit'>Search</button>
+                <button className={styles.submitButton} type='submit'>Search</button>
             </div>
         </form>
     );

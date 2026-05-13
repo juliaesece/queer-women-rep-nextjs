@@ -1,6 +1,8 @@
 import { MetadataRoute } from 'next'
 import { getAllCouples, getUniqueNationalities } from '@/app/utils/sitemapActions'
 import { ethnicityOptions } from '@/app/utils/couplesOptions'
+import { SearchPerson } from '@/app/utils/types'
+
 const BASE_URL = 'https://everythingsapphic.com/'
 
 const orientations = ['Lesbian', 'Bisexual', 'Pansexual']
@@ -12,20 +14,22 @@ const ethnicities = ethnicityOptions
     .map(e => e.value)
 
 const encodePerson = (personObj) => {
-  const parts = Object.entries(personObj)
-    .filter(([_, v]) => v !== undefined)
-    .map(([k, v]) => `${k}=${Array.isArray(v) ? v.join('%2C') : v}`)
-    .join('&')
-  return encodeURIComponent(parts)
+    const parts = Object.entries(personObj)
+        .filter(([_, v]) => v !== undefined)
+        .map(([k, v]) => `${k}=${Array.isArray(v) ? v.join('%2C') : v}`)
+        .join('&')
+    return encodeURIComponent(parts)
 }
 
-const buildUrl = (base, { person, ...rest } = {}) => {
-  const params = new URLSearchParams()
-  if (person) params.set('person', encodePerson(person))
-  Object.entries(rest)
-    .filter(([_, v]) => v !== undefined)
-    .forEach(([k, v]) => params.set(k, v))
-  return `${base}/search?${params.toString()}`
+const buildUrl = (base: any, { person, ...rest }: any = {}): string => {
+    const urlParams = new URLSearchParams()
+    if (person) urlParams.set('person', encodePerson(person))
+    Object.entries(rest)
+        .filter((entry): entry is [string, string] =>
+            typeof entry[1] === 'string'
+        )
+        .forEach(([k, v]) => urlParams.set(k, v))
+    return `${base}/search?${urlParams.toString()}`
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -186,7 +190,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
         // Combine all pages
         console.log([...staticPages, ...couplePages, ...entries]
-)
+        )
         return [...staticPages, ...couplePages, ...entries]
 
     } catch (error) {

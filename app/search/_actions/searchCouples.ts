@@ -66,7 +66,6 @@ function transformQuery(query, prefix = '') {
 export async function searchCouples(unparsedSearchCouple, session) {
 
   let filter
-  console.log("unparsedSearchCouple", unparsedSearchCouple)
 
   if (Object.keys(unparsedSearchCouple).length == 0) {
     filter = {}
