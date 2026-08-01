@@ -6,6 +6,7 @@ import SearchForm from './_components/SearchForm';
 import { getServerSession } from "next-auth";
 import { authOptions } from "../utils/authOptions";
 import Results from './_components/Results';
+import ScrollToTopButton from './_components/ScrollToTopButton';
 import SearchContextProvider from './SearchContext';
 import { ModalSkeleton } from "@/app/@modal/(.)info/[id]/ModalSkeleton";
 import { Suspense } from 'react';
@@ -129,6 +130,7 @@ export default async function AdvancedSearch({ searchParams }: Props) {
                 <Suspense fallback={<ModalSkeleton />}>
                     {infoId && <Modal mongoId={infoId} session={session} origin="search" />}
                 </Suspense>
+                <ScrollToTopButton />
             </SearchContextProvider>
         </main>
     );

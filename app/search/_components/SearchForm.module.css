@@ -166,6 +166,11 @@
     background-color: #e57fcf;
 }
 
+.section>h3 {
+    font-size: 1.2rem;
+    grid-column: 1/3;
+}
+
 .section>div>input[type="date"] {
     border: solid 1px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
