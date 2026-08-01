@@ -7,7 +7,7 @@ import { Collection } from 'mongodb';
 export async function postReview(reviewsId, newReview) {
 
     type Reviews = {
-        messages: { _id: String, reviews: String[] }[],
+        messages: { _id: string, reviews: string[] }[],
     }
 
     try {
