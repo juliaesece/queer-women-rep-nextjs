@@ -1,3 +1,5 @@
+"use server"
+
 import styles from './page.module.css';
 import Modal from "@/app/@modal/(.)info/[id]/Modal"
 import SearchForm from './_components/SearchForm';
@@ -123,7 +125,7 @@ export default async function AdvancedSearch({ searchParams }: Props) {
         <main className={styles.main}>
             <SearchContextProvider>
                 <SearchForm />
-                <Results searchObj={convertUrlToObject(resSearchParams)} session={session} />
+                <Results convertUrlToObject={convertUrlToObject} searchObj={resSearchParams} session={session} />
                 <Suspense fallback={<ModalSkeleton />}>
                     {infoId && <Modal mongoId={infoId} session={session} origin="search" />}
                 </Suspense>

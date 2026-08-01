@@ -1,5 +1,5 @@
 import { useSearchContext } from "../SearchContext";
-import styles from "./Form.module.css";
+import styles from './SearchForm.module.css';
 import { screenTimeOptions, storyImportanceOptions, numberAndHigherOptions, endingOptions } from "@/app/utils/couplesOptions";
 
 export default function SearchRelationship() {

@@ -15,6 +15,7 @@ const nextConfig = {
         minimumCacheTTL: 2678400,
         deviceSizes: [640, 1080, 1920],
     },
+    allowedDevOrigins: ['192.168.1.237']
 };
 
 

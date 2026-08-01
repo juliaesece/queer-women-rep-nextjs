@@ -204,11 +204,11 @@ input:invalid {
 
 @media only screen and (min-width: 1200px) {
   body {
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
     display: grid;
     grid-template-columns: minmax(0px, 0.2fr) [outer-layer-start] 0.6fr 1fr 1fr [outer-layer-end] minmax(0, 0.2fr);
-    grid-template-rows: 90px 1fr min-content;
+    grid-template-rows: 90px auto min-content;
     gap: 0px;
     column-gap: 5px;
   }

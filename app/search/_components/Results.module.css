@@ -1,7 +1,6 @@
 .results {
     display: flex;
     flex-direction: column;
-    height: 80vh;
     overflow: auto;
     gap: 5px;
     width: 45%;

@@ -1,4 +1,4 @@
-import styles from "./Form.module.css";
+import styles from './SearchForm.module.css';
 import { useSearchContext } from "../SearchContext";
 import { originTypeOptions, statusOptions } from "@/app/utils/couplesOptions";
 

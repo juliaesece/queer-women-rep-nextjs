@@ -66,8 +66,18 @@ function transformQuery(query, prefix = '') {
 export async function searchCouples(unparsedSearchCouple, session) {
 
   let filter
+  let personObject
+  let personEmpty = false
 
-  if (Object.keys(unparsedSearchCouple).length == 0) {
+  if (Object.keys(unparsedSearchCouple).length == 1 && Object.keys(unparsedSearchCouple)[0] === "person") {
+    personObject = unparsedSearchCouple.person
+    if (Object.keys(personObject).length == 0) {
+      personEmpty = true
+    }
+  }
+
+  // personEmpty is only true if person is the only key in unparsedSearchCouple
+  if (Object.keys(unparsedSearchCouple).length == 0 || personEmpty) {
     filter = {}
   } else {
     let searchCouple = { ...unparsedSearchCouple }
@@ -78,7 +88,6 @@ export async function searchCouples(unparsedSearchCouple, session) {
 
     filter = transformQuery(searchCouple)
   }
-
   try {
 
     const database = client.db('couples');
@@ -90,8 +99,11 @@ export async function searchCouples(unparsedSearchCouple, session) {
 
     const logDB = client.db('log');
     const searchLog = logDB.collection('search')
-    searchLog.insertOne({ timestamp: new Date(), query: filter, userId: session ? session.user.id : null, username: session ? session.user.username : "no-user" }) // Don't await?
-
+    if (!filter) {
+      searchLog.insertOne({
+        timestamp: new Date(), query: filter, userId: session ? session.user.id : null, username: session ? session.user.username : "no-user"
+      }).catch(err => console.error("[searchCouples] log insert failed", err))
+    }
     return JSON.parse(JSON.stringify(data));
   } catch (error) {
     console.error("[searchCouples] Server error on couples route")

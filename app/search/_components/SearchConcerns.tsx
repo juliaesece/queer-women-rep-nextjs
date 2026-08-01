@@ -1,4 +1,4 @@
-import styles from "./Form.module.css";
+import styles from './SearchForm.module.css';
 import { Couple } from "../../utils/types";
 import { useSearchContext } from "../SearchContext";
 import { searchConcerns, booleanOptions, homophobiaOptions } from "@/app/utils/couplesOptions";

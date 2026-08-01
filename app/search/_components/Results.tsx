@@ -4,16 +4,18 @@ import SmallCard from "./SmallCard";
 import SortDropdown from "./SortDropdown";
 import { searchCouples } from "../_actions/searchCouples";
 import { Session } from "next-auth";
+import { SearchCouple } from "@/app/utils/types";
 
 type ResultsProps = {
+  convertUrlToObject: (searchParams: Record<string, any>) => SearchCouple;
   searchObj: Record<string, string | string[] | undefined>
   session: Session
 }
 
-const Results: FC<ResultsProps> = async ({ searchObj, session }) => {
-  let waitingMessage = Object.keys(searchObj).length == 0 ? "No search has been made yet." : "No couples have been found"
-
-  const result = await searchCouples(searchObj, session)
+const Results: FC<ResultsProps> = async ({ convertUrlToObject, searchObj, session }) => {
+  const parsedSearchObj = convertUrlToObject(searchObj)
+  let waitingMessage = Object.keys(parsedSearchObj).length == 0 ? "No search has been made yet." : "No couples have been found"
+  const result = await searchCouples(parsedSearchObj, session)
 
   if (result.error) return <section className={st.results}>
     <h2>Results:</h2>
@@ -29,12 +31,13 @@ const Results: FC<ResultsProps> = async ({ searchObj, session }) => {
         </div>
         :
         <>
-          {/* <SortDropdown /> console.log fix with url parameters*/}
+
           {result.map((couple) => <SmallCard couple={couple} key={couple._id} />)}
         </>
       }
     </section>
   )
 }
+{/* <SortDropdown /> console.log fix with url parameters*/ }
 
 export default Results;
