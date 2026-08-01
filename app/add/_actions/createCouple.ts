@@ -64,7 +64,7 @@ export async function createCouple(newCouple: Couple, userId: string) {
         const finalResult = await collection.updateOne({ _id: result.insertedId }, updateDoc)
 
         if (!finalResult.acknowledged || finalResult.modifiedCount != 1) throw new Error("Database error when updating couple")
-        revalidateTag('coupleData')
+        revalidateTag('coupleData', "max");
         return true;
     } catch (error) {
         console.error("[createCouple] Server error on couples route")

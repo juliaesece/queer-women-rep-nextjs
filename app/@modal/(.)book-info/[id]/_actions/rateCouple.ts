@@ -81,7 +81,7 @@ export async function rateCouple(collectionName: string, coupleId: string, userI
         }
 
         const tag = `couple:${coupleId}`;
-        revalidateTag(tag);
+        revalidateTag(tag, "max");
 
         return true;
     } catch (error) {

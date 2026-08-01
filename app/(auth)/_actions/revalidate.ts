@@ -5,7 +5,7 @@ import { revalidateTag } from 'next/cache';
 // Revalidate the entire 'couples' collection
 export async function revalidateAllCouplesAction() {
     try {
-        revalidateTag('coupleData');
+        revalidateTag('coupleData', "max");
         console.log('Successfully revalidated tag: couples');
     } catch (error) {
         console.error('Error revalidating all couples:', error);
@@ -23,7 +23,7 @@ export async function revalidateCoupleByIdAction(formData: FormData) {
 
     const tag = `couple:${coupleId}`;
     try {
-        revalidateTag(tag);
+        revalidateTag(tag, "max");
         console.log(`Successfully revalidated tag: ${tag}`);
     } catch (error) {
         console.error(`Error revalidating tag ${tag}:`, error);
